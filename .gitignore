@@ -54,5 +54,6 @@ docs/_build/
 target/
 
 # Other stuff
-data/
+data/*.txt
+data/archived/
 .spyderproject
