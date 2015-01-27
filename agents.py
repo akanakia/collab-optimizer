@@ -71,14 +71,21 @@ class collab_agent (base_agent):
 # Agent with noisy sensors            
 class noisy_signal_agent (collab_agent):
     
+    # VARIABLES
+    _sensor_mean = 0
+    _sensor_sd = 0
+    
     # FUNCTIONS
     def __init__(self,start_state):
         super(noisy_signal_agent,self).__init__(start_state)
         
-    def set_params(self, params_dict):
-        if "NoisyX" in params_dict:
-            self._tau = params_dict["NoisyX"]
-        else:
+    def set_params(self, params_dict):     
+        if "SensorMean" in params_dict:
+            self._sensor_mean = params_dict["SensorMean"]
+        if "SensorSD" in params_dict:
+            self._sensor_sd = params_dict["SensorSD"]
+        if "Theta" in params_dict:
             self._theta = params_dict["Theta"]
-            self._tau = params_dict["Tau"]
-        
+        if "Tau" in params_dict:
+            noisy_sensor_val = random.normalvariate(self._sensor_mean, self._sensor_sd)
+            self._tau = params_dict["Tau"] + noisy_sensor_val

@@ -69,20 +69,20 @@ class collab_simulator (object):
 class noisy_signal_simulator (collab_simulator):
 
     # VARIABLES
-    _noise_params = {"signal_mean":0, "signal_var":.1, "sensor_mean":0, "sensor_var":.1} 
+    _noise_params = {"SignalMean":0, "SignalSD":.1} 
     
     # FUNCTIONS
-    def __init__(self, data_logger, signal_noise_params):
-        self._noise_params = signal_noise_params
+    def __init__(self, data_logger):
         super(noisy_signal_simulator,self).__init__(data_logger)
     
+    def reset_signal_noise_params(self,params_dict):
+        self._noise_params = params_dict
 
     def take_noisy_measurement(self):
         for id in range(len(self.agent_list)):
-            noisy_signal_val = max(random.normalvariate(self._noise_params["signal_mean"], self._noise_params["signal_var"]), 0)
-            noisy_sensor_val = random.normalvariate(self._noise_params["sensor_mean"], self._noise_params["sensor_var"])
-            params_dict = {"NoisyX":noisy_signal_val + noisy_sensor_val}
-            self.set_single_agent_params(params_dict,id)
+            noisy_signal_val = max(random.normalvariate(self._noise_params["SignalMean"], self._noise_params["SignalSD"]), 0)
+            params_dict = {"Tau":noisy_signal_val}
+            self.set_single_agent_params(params_dict, id)
   
 
     def reset_run(self):
@@ -90,6 +90,8 @@ class noisy_signal_simulator (collab_simulator):
         Resets the simulation to starting conditions
         """
         self.agent_list = [ noisy_signal_agent("Wait") for i in range(self.num_agents) ]
+        
+        self.take_noisy_measurement()
         
         for agent in self.agent_list:
             self.curr_sys_state[agent.get_curr_agent_state()] += 1
