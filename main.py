@@ -25,7 +25,7 @@ def collab_run():
 
 def noisy_signal_run():
     theta = 1.0
-    signal_noise_mean_list = range(5,16,1)
+    signal_noise_mean_list = range(15,16,1)
     signal_noise_sd_list = [.1,.5,1.]
     sensor_noise_sd_list = [.1,.5,1.]
         
@@ -53,8 +53,10 @@ def noisy_signal_run():
                     sim.reset_run()
                     sim.run(1000)   
 
-
-
+import random
+def random_variate_testing():
+    return [(max(random.normalvariate(_noise_params["SignalMean"], _noise_params["SignalSD"]), 0) + random.normalvariate(_noise_params["SensorMean"], _noise_params["SensorSD"])) for i in range(100)]
+    
 
 if __name__ == "__main__":
     noisy_signal_run()
