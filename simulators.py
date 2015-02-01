@@ -49,9 +49,10 @@ class collab_simulator (object):
             self.data_logger.write_data(t, self.curr_sys_state)
 
             # Gather all agents' votes
-            vote_state = {"Wait":0, "Collaborate":0}            
+            vote_state = {"Wait":0, "Collaborate":0}
+
             for agent in self.agent_list:
-                vote_state[agent.step(self.curr_sys_state)] += 1
+                vote_state[agent.step(self.curr_sys_state)] += 1   
                 
             # Change all agents' state to collaborate if majority vote passes
             self.curr_sys_state = {"Wait":0, "Collaborate":0}
@@ -65,11 +66,13 @@ class collab_simulator (object):
         self.data_logger.close_file()
         
   
-# ===================================================================      
+# ===================================================================   
+import numpy as np   
 class noisy_signal_simulator (collab_simulator):
 
     # VARIABLES
     _noise_params = {"SignalMean":0, "SignalSD":.1} 
+    _noise_signal_val = 0.
     
     # FUNCTIONS
     def __init__(self, data_logger):
@@ -77,21 +80,16 @@ class noisy_signal_simulator (collab_simulator):
     
     def reset_signal_noise_params(self,params_dict):
         self._noise_params = params_dict
-
-    def take_noisy_measurement(self):
-        for id in range(len(self.agent_list)):
-            noisy_signal_val = max(random.normalvariate(self._noise_params["SignalMean"], self._noise_params["SignalSD"]), 0)
-            params_dict = {"Tau":noisy_signal_val}
-            self.set_single_agent_params(params_dict, id)
-  
-
-    def reset_run(self):
+        self._noise_signal_val = max(np.random.normal(self._noise_params["SignalMean"], self._noise_params["SignalSD"]), 0)               
+        
+    def reset_run(self,agent_params_dict):
         """
         Resets the simulation to starting conditions
         """
         self.agent_list = [ noisy_signal_agent("Wait") for i in range(self.num_agents) ]
         
-        self.take_noisy_measurement()
+        agent_params_dict['Tau'] = self._noise_signal_val
+        self.set_all_agent_params(agent_params_dict)
         
         for agent in self.agent_list:
             self.curr_sys_state[agent.get_curr_agent_state()] += 1
@@ -105,7 +103,18 @@ class noisy_signal_simulator (collab_simulator):
             self.data_logger.write_data(t, self.curr_sys_state)
 
             # Gather all agents' votes
-            vote_state = {"Wait":0, "Collaborate":0}            
+            vote_state = {"Wait":0, "Collaborate":0}    
+            
+            # DEBUG CODE HERE
+#            print('=========== STEP ' + str(t+1) + ' ============= ')
+#            agent_id = 0 
+#            for agent in self.agent_list:
+#                sys.stdout.write('[Agent ' + str(agent_id) + ': ')
+#                vote_state[agent.step(self.curr_sys_state)] += 1
+#                print(']')
+#                agent_id += 1
+            # END DEBUG CODE      
+
             for agent in self.agent_list:
                 vote_state[agent.step(self.curr_sys_state)] += 1
                 
@@ -115,7 +124,7 @@ class noisy_signal_simulator (collab_simulator):
             if vote_state["Collaborate"] >= vote_state["Wait"]:
                 new_state = "Collaborate"
             else:
-                self.take_noisy_measurement()
+                self.set_all_agent_params({'Tau':self._noise_signal_val})
                 
             for agent in self.agent_list:
                 self.curr_sys_state[agent.set_curr_agent_state(new_state)] += 1

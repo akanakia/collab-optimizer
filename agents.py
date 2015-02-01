@@ -60,15 +60,19 @@ class collab_agent (base_agent):
         self._tau = params_dict["Tau"]
 
     def _run_sigmoid(self, est):
+        vote = 'Wait'
         sig = 1.0 / ( 1.0 + math.exp(self._theta * (self._tau - est)))
         if random.random() <= sig:
-            return "Collaborate"
-        else:
-            return "Wait"
+            vote = 'Collaborate'
+        
+        # DEBUG CODE HERE
+#        print('SigVal = ' + str(sig) + ' RVal = ' + str(rval) + ' Voted = ' + vote)
+        return vote
 
             
 # ===================================================================
 # Agent with noisy sensors            
+import numpy as np
 class noisy_signal_agent (collab_agent):
     
     # VARIABLES
@@ -78,6 +82,11 @@ class noisy_signal_agent (collab_agent):
     # FUNCTIONS
     def __init__(self,start_state):
         super(noisy_signal_agent,self).__init__(start_state)
+       
+    # DEBUG CODE HERE
+#    def step(self, curr_sys_state):
+#        print('Theta = ' + str(self._theta) +  ' Tau = ' + str(self._tau) + ' SensorMean = ' + str(self._sensor_mean) + ' SensorSD = ' + str(self._sensor_sd))
+#        return super(noisy_signal_agent,self).step(curr_sys_state)
         
     def set_params(self, params_dict):     
         if "SensorMean" in params_dict:
@@ -87,5 +96,5 @@ class noisy_signal_agent (collab_agent):
         if "Theta" in params_dict:
             self._theta = params_dict["Theta"]
         if "Tau" in params_dict:
-            noisy_sensor_val = random.normalvariate(self._sensor_mean, self._sensor_sd)
-            self._tau = params_dict["Tau"] + noisy_sensor_val
+            noisy_sensor_val = np.random.normal(self._sensor_mean, self._sensor_sd)
+            self._tau = max(params_dict["Tau"] + noisy_sensor_val, 0)
