@@ -58,7 +58,7 @@ class collab_simulator (object):
             self._curr_sys_state = {"Wait":0, "Collaborate":0}
             new_state = "Wait"
             if vote_state["Collaborate"] >= vote_state["Wait"]:
-                self._num_collabs += 1
+                self._num_collabs += 1 # This doesn't work because this line gets hit more than once per collaborations
                 new_state = "Collaborate"
             
             for agent in self._agent_list:
