@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    133679,       3115]
-NotebookOptionsPosition[    131211,       3025]
-NotebookOutlinePosition[    131738,       3047]
-CellTagsIndexPosition[    131651,       3042]
+NotebookDataLength[    111619,       2512]
+NotebookOptionsPosition[    110584,       2471]
+NotebookOutlinePosition[    110953,       2487]
+CellTagsIndexPosition[    110910,       2484]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -27,7 +27,7 @@ Cell[BoxData[
 
 Cell[BoxData["\<\"D:\\\\GitHub\\\\collab-optimizer\\\\data\"\>"], "Output",
  CellChangeTimes->{3.626634426104027*^9, 3.6313809535111117`*^9, 
-  3.631742699536992*^9, 3.632264396843122*^9}]
+  3.631742699536992*^9, 3.632264396843122*^9, 3.632355796916045*^9}]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -44,816 +44,89 @@ Cell[BoxData[{
  RowBox[{
   RowBox[{"numRuns", "=", "100"}], ";"}], "\[IndentingNewLine]", 
  RowBox[{
-  RowBox[{"runTime", "=", "1000"}], ";"}]}], "Input",
- CellChangeTimes->{{3.6322645433623805`*^9, 3.63226456367953*^9}, {
-  3.632264697549075*^9, 3.6322647186102576`*^9}}],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"meanCollabRate", "=", 
-  RowBox[{
-   RowBox[{"(", 
+  RowBox[{"runTime", "=", "1000"}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SensorNoiseSD", "=", 
+   RowBox[{"{", 
     RowBox[{
-     RowBox[{
-      RowBox[{"Mean", "@", 
-       RowBox[{"Flatten", "@", 
-        RowBox[{"Import", "[", 
-         RowBox[{
-          RowBox[{"\"\<microsim-theta_1.0-tau_\>\"", "<>", 
-           RowBox[{"ToString", "[", "#", "]"}], "<>", 
-           "\"\<-runtime_1000.txt\>\""}], ",", "\"\<Table\>\""}], "]"}]}]}], 
-      "&"}], "/@", "tauList"}], ")"}], "/", 
-   RowBox[{"(", 
-    RowBox[{"runTime", "/", "60"}], ")"}]}]}]], "Input",
- CellChangeTimes->{{3.632264374058837*^9, 3.6322644191653814`*^9}, {
-  3.63226451389872*^9, 3.632264525677384*^9}, {3.632264567711752*^9, 
-  3.632264594644271*^9}, {3.632264637038659*^9, 3.632264690110651*^9}, {
-  3.6322647411045256`*^9, 3.632264774635415*^9}}],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-   FractionBox["1251", "25"], ",", 
-   FractionBox["1251", "25"], ",", 
-   FractionBox["1251", "25"], ",", 
-   FractionBox["1251", "25"], ",", 
-   FractionBox["218973", "5000"], ",", 
-   FractionBox["297", "1000"], ",", 
-   FractionBox["3", "10"], ",", 
-   FractionBox["3", "10"], ",", 
-   FractionBox["3", "10"]}], "}"}]], "Output",
- CellChangeTimes->{{3.6322647561053724`*^9, 3.632264775406459*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"origCollabPlot", "=", 
-  RowBox[{"ListPlot", "[", 
-   RowBox[{"meanCollabRate", ",", 
-    RowBox[{"Joined", "\[Rule]", "True"}], ",", 
-    RowBox[{"PlotMarkers", "\[Rule]", 
-     RowBox[{"{", 
-      RowBox[{"Automatic", ",", "Large"}], "}"}]}], ",", 
-    RowBox[{"PlotStyle", "\[Rule]", 
-     RowBox[{"Directive", "[", 
-      RowBox[{"Thick", ",", "Dashed", ",", "Red"}], "]"}]}], ",", 
-    RowBox[{"Frame", "\[Rule]", 
-     RowBox[{"{", 
-      RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], ",", 
-    RowBox[{"FrameLabel", "\[Rule]", 
-     RowBox[{"{", 
-      RowBox[{"\"\<\[Tau]\>\"", ",", "\"\<Avg. Collaborations/min\>\""}], 
-      "}"}]}], ",", 
-    RowBox[{"PlotLegends", "\[Rule]", 
-     RowBox[{"{", "\"\<\[Theta] = 1.0\>\"", "}"}]}], ",", " ", 
-    RowBox[{"PlotRange", "\[Rule]", 
-     RowBox[{"{", 
-      RowBox[{"Automatic", ",", "Automatic"}], "}"}]}]}], "]"}]}]], "Input",
- CellChangeTimes->{3.63226467057855*^9}],
-
-Cell[BoxData[
- TemplateBox[{GraphicsBox[{{}, {{{}, {}, {
-        Hue[0.67, 0.6, 0.6], 
-        Directive[
-         PointSize[0.019444444444444445`], 
-         AbsoluteThickness[1.6], 
-         Thickness[Large], 
-         Dashing[{Small, Small}], 
-         RGBColor[1, 0, 0]], 
-        LineBox[{{1., 50.04}, {2., 50.04}, {3., 50.04}, {4., 50.04}, {5., 
-         43.7946}, {6., 0.297}, {7., 0.3}, {8., 0.3}, {9., 0.3}}]}}, {{
-        Hue[0.67, 0.6, 0.6], 
-        Directive[
-         PointSize[0.019444444444444445`], 
-         AbsoluteThickness[1.6], 
-         Thickness[Large], 
-         Dashing[{Small, Small}], 
-         RGBColor[1, 0, 0]], 
-        GeometricTransformationBox[
-         InsetBox[
-          BoxData[
-           FormBox[
-            StyleBox[
-            "\"\[FilledCircle]\"", FontSize -> Large, StripOnInput -> False], 
-            TraditionalForm]], {0., 0.}], {{{1., 50.04}}, {{2., 50.04}}, {{3.,
-          50.04}}, {{4., 50.04}}, {{5., 43.7946}}, {{6., 0.297}}, {{7., 
-         0.3}}, {{8., 0.3}}, {{9., 0.3}}}]}, {}}}, {}}, {
-    DisplayFunction -> Identity, PlotRangePadding -> {{
-        Scaled[0.02], 
-        Scaled[0.02]}, {
-        Scaled[0.02], 
-        Scaled[0.05]}}, AxesOrigin -> {0, 0}, 
-     PlotRange -> {{0., 9.}, {0, 50.04}}, DisplayFunction -> Identity, 
-     AspectRatio -> NCache[GoldenRatio^(-1), 0.6180339887498948], 
-     Axes -> {True, True}, AxesLabel -> {None, None}, AxesOrigin -> {0, 0}, 
-     DisplayFunction :> Identity, Frame -> {{True, False}, {True, False}}, 
-     FrameLabel -> {{
-        FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-        FormBox["\"\[Tau]\"", TraditionalForm], None}}, 
-     FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
-     GridLines -> {None, None}, GridLinesStyle -> Directive[
-       GrayLevel[0.5, 0.4]], Method -> {}, 
-     PlotRange -> {{0., 9.}, {0, 50.04}}, PlotRangeClipping -> True, 
-     PlotRangePadding -> {{
-        Scaled[0.02], 
-        Scaled[0.02]}, {
-        Scaled[0.02], 
-        Scaled[0.05]}}, Ticks -> {Automatic, Automatic}}],FormBox[
-    FormBox[
-     TemplateBox[{"\"\[Theta] = 1.0\""}, "PointLegend", 
-      DisplayFunction -> (FormBox[
-        StyleBox[
-         StyleBox[
-          PaneBox[
-           TagBox[
-            GridBox[{{
-               TagBox[
-                GridBox[{{
-                   GraphicsBox[{{
-                    Directive[
-                    EdgeForm[
-                    Directive[
-                    Opacity[0.3], 
-                    GrayLevel[0]]], 
-                    PointSize[0.175], 
-                    AbsoluteThickness[1.6], 
-                    Thickness[Large], 
-                    Dashing[{Small, Small}], 
-                    RGBColor[1, 0, 0]], {
-                    LineBox[{{0, 15}, {40, 15}}]}}, {
-                    Directive[
-                    EdgeForm[
-                    Directive[
-                    Opacity[0.3], 
-                    GrayLevel[0]]], 
-                    PointSize[0.175], 
-                    AbsoluteThickness[1.6], 
-                    Thickness[Large], 
-                    Dashing[{Small, Small}], 
-                    RGBColor[1, 0, 0]], {
-                    PointSize[Large], 
-                    Directive[
-                    EdgeForm[
-                    Directive[
-                    Opacity[0.3], 
-                    GrayLevel[0]]], 
-                    PointSize[0.175], 
-                    AbsoluteThickness[1.6], 
-                    Thickness[Large], 
-                    Dashing[{Small, Small}], 
-                    RGBColor[1, 0, 0]], 
-                    PointBox[
-                    NCache[{
-                    Scaled[{
-                    Rational[1, 2], 
-                    Rational[1, 2]}]}, {
-                    Scaled[{0.5, 0.5}]}]]}}}, AspectRatio -> Full, 
-                    ImageSize -> {40, 15}, PlotRangePadding -> None, 
-                    ImagePadding -> Automatic, 
-                    BaselinePosition -> (Scaled[0.23333333333333334`] -> 
-                    Baseline)], #}}, 
-                 GridBoxAlignment -> {
-                  "Columns" -> {Center, Left}, "Rows" -> {{Baseline}}}, 
-                 AutoDelete -> False, 
-                 GridBoxDividers -> {
-                  "Columns" -> {{False}}, "Rows" -> {{False}}}, 
-                 GridBoxItemSize -> {"Columns" -> {{All}}, "Rows" -> {{All}}},
-                  GridBoxSpacings -> {
-                  "Columns" -> {{0.5}}, "Rows" -> {{0.8}}}], "Grid"]}}, 
-             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
-             AutoDelete -> False, 
-             GridBoxItemSize -> {
-              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-             GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
-            "Grid"], Alignment -> Left, AppearanceElements -> None, 
-           ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
-           "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
-         FontFamily -> "Arial"}, Background -> Automatic, StripOnInput -> 
-         False], TraditionalForm]& ), 
-      InterpretationFunction :> (RowBox[{"PointLegend", "[", 
-         RowBox[{
-           RowBox[{"{", 
-             RowBox[{"Directive", "[", 
-               RowBox[{
-                 RowBox[{"PointSize", "[", "0.019444444444444445`", "]"}], 
-                 ",", 
-                 RowBox[{"AbsoluteThickness", "[", "1.6`", "]"}], ",", 
-                 RowBox[{"Thickness", "[", "Large", "]"}], ",", 
-                 RowBox[{"Dashing", "[", 
-                   RowBox[{"{", 
-                    RowBox[{"Small", ",", "Small"}], "}"}], "]"}], ",", 
-                 InterpretationBox[
-                  ButtonBox[
-                   TooltipBox[
-                    RowBox[{
-                    GraphicsBox[{{
-                    GrayLevel[0], 
-                    RectangleBox[{0, 0}]}, {
-                    GrayLevel[0], 
-                    RectangleBox[{1, -1}]}, {
-                    RGBColor[1, 0, 0], 
-                    RectangleBox[{0, -1}, {2, 1}]}}, AspectRatio -> 1, Frame -> 
-                    True, FrameStyle -> RGBColor[0.6666666666666666, 0., 0.], 
-                    FrameTicks -> None, PlotRangePadding -> None, ImageSize -> 
-                    Dynamic[{
-                    Automatic, 1.35 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
-                    "\[InvisibleSpace]"}], "RGBColor[1, 0, 0]"], Appearance -> 
-                   None, BaseStyle -> {}, BaselinePosition -> Baseline, 
-                   DefaultBaseStyle -> {}, ButtonFunction :> 
-                   With[{Typeset`box$ = EvaluationBox[]}, 
-                    If[
-                    Not[
-                    AbsoluteCurrentValue["Deployed"]], 
-                    SelectionMove[Typeset`box$, All, Expression]; 
-                    FrontEnd`Private`$ColorSelectorInitialAlpha = 1; 
-                    FrontEnd`Private`$ColorSelectorInitialColor = 
-                    RGBColor[1, 0, 0]; 
-                    FrontEnd`Private`$ColorSelectorUseMakeBoxes = True; 
-                    MathLink`CallFrontEnd[
-                    FrontEnd`AttachCell[Typeset`box$, 
-                    FrontEndResource["RGBColorValueSelector"], {
-                    0, {Left, Bottom}}, {Left, Top}, 
-                    "ClosingActions" -> {
-                    "SelectionDeparture", "ParentChanged", 
-                    "EvaluatorQuit"}]]]], BaseStyle -> Inherited, Evaluator -> 
-                   Automatic, Method -> "Preemptive"], 
-                  RGBColor[1, 0, 0], Editable -> False, Selectable -> 
-                  False]}], "]"}], "}"}], ",", 
-           RowBox[{"{", #, "}"}], ",", 
-           RowBox[{"Joined", "\[Rule]", 
-             RowBox[{"{", "True", "}"}]}], ",", 
-           RowBox[{"LabelStyle", "\[Rule]", 
-             RowBox[{"{", "}"}]}], ",", 
-           RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}], ",", 
-           RowBox[{"LegendMarkers", "\[Rule]", 
-             RowBox[{"{", 
-               RowBox[{"{", 
-                 RowBox[{"Automatic", ",", "Large"}], "}"}], "}"}]}]}], 
-         "]"}]& ), Editable -> True], TraditionalForm], TraditionalForm]},
-  "Legended",
-  DisplayFunction->(GridBox[{{
-      TagBox[
-       ItemBox[
-        PaneBox[
-         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
-         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
-       "SkipImageSizeLevel"], 
-      ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
-    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
-    AutoDelete -> False, GridBoxItemSize -> Automatic, 
-    BaselinePosition -> {1, 1}]& ),
-  Editable->True,
-  InterpretationFunction->(RowBox[{"Legended", "[", 
-     RowBox[{#, ",", 
-       RowBox[{"Placed", "[", 
-         RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& )]], "Output",
- CellChangeTimes->{
-  3.6322646714045963`*^9, {3.6322647491079764`*^9, 3.6322647780646086`*^9}}]
-}, Open  ]]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["Plot data from Python collab-sim", "Section",
- CellChangeTimes->{{3.631381482119601*^9, 3.6313815008596325`*^9}}],
+    "\"\<1.0\>\"", ",", "\"\<2.0\>\"", ",", "\"\<5.0\>\"", ",", 
+     "\"\<10.0\>\"", ",", "\"\<20.0\>\"", ",", "\"\<50.0\>\"", ",", 
+     "\"\<100.0\>\""}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SignalNoiseSD", "=", 
+   RowBox[{"{", 
+    RowBox[{
+    "\"\<1.0\>\"", ",", "\"\<5.0\>\"", ",", "\"\<15.0\>\"", ",", 
+     "\"\<50.0\>\""}], "}"}]}], ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"SignalMean", "=", 
+   RowBox[{"ToString", "/@", "tauList"}]}], ";"}]}], "Input",
+ CellChangeTimes->{{3.6322645433623805`*^9, 3.63226456367953*^9}, {
+  3.632264697549075*^9, 3.6322647186102576`*^9}, {3.63235671401871*^9, 
+  3.632356714170718*^9}}],
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"numRuns", "=", "10"}], ";"}], "\[IndentingNewLine]", 
- RowBox[{
-  RowBox[{"runMins", "=", 
-   RowBox[{"1000", "/", "60"}]}], ";"}]}], "Input"],
-
-Cell[CellGroupData[{
-
-Cell["Original collaboration experiments", "Subsection",
- CellChangeTimes->{{3.6313815631579623`*^9, 3.6313816033360586`*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"AvgSimRunDat", "[", 
-   RowBox[{"\[Theta]_", ",", "\[Tau]_", ",", "runMins_", ",", "numRuns_"}], 
-   "]"}], ":=", 
-  RowBox[{"Module", "[", 
-   RowBox[{
-    RowBox[{"{", "sdat", "}"}], ",", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"Mean", "[", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"sdat", "=", 
-           RowBox[{"<<", 
-            RowBox[{"(", 
-             RowBox[{
-             "\"\<microsim-theta_\>\"", "<>", "\[Theta]", "<>", 
-              "\"\<-tau_\>\"", "<>", "\[Tau]", "<>", "\"\<-run_\>\"", "<>", 
-              RowBox[{"ToString", "[", "#", "]"}], "<>", "\"\<.txt\>\""}], 
-             ")"}]}]}], ";", "\[IndentingNewLine]", 
-          RowBox[{"Length", "@", 
-           RowBox[{"Cases", "[", 
-            RowBox[{
-             RowBox[{"SplitBy", "[", 
-              RowBox[{"sdat", ",", "Last"}], "]"}], ",", 
-             RowBox[{"Except", "[", 
-              RowBox[{"{", 
-               RowBox[{"___", ",", 
-                RowBox[{"{", 
-                 RowBox[{"_", ",", "0"}], "}"}], ",", "___"}], "}"}], "]"}]}],
-             "]"}]}]}], ")"}], "&"}], "/@", 
-       RowBox[{"Range", "[", 
-        RowBox[{"1", ",", "numRuns"}], "]"}]}], "]"}], "/", "runMins"}]}], 
-   "\[IndentingNewLine]", "]"}]}]], "Input",
- CellChangeTimes->{{3.6266347537953196`*^9, 3.6266347989108343`*^9}, {
-   3.626634873735011*^9, 3.626634883293542*^9}, {3.6266349315263004`*^9, 
-   3.6266349582337265`*^9}, 3.626637693869341*^9, {3.6266387302542562`*^9, 
-   3.626638828941695*^9}, {3.626638861485512*^9, 3.626638907624088*^9}, {
-   3.626639056919488*^9, 3.6266390801237817`*^9}, {3.626639111179449*^9, 
-   3.626639112686536*^9}, {3.6266391696837163`*^9, 3.6266391785962124`*^9}, {
-   3.626639360680443*^9, 3.6266393663497596`*^9}, {3.626639606919124*^9, 
-   3.626639608450281*^9}, {3.6266408504355392`*^9, 3.6266408507636304`*^9}, {
-   3.6313810589347982`*^9, 3.631381073998666*^9}, {3.6313848928652625`*^9, 
-   3.6313849369526443`*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"processSimDat", "=", 
-   RowBox[{"Table", "[", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"ToExpression", "[", "\[Tau]", "]"}], ",", 
-       RowBox[{"AvgSimRunDat", "[", 
-        RowBox[{"\[Theta]", ",", "\[Tau]", ",", "runMins", ",", "numRuns"}], 
-        "]"}]}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{"\[Theta]", ",", 
-       RowBox[{"{", "\"\<1.0\>\"", "}"}]}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{"\[Tau]", ",", 
-       RowBox[{"{", 
-        RowBox[{
-        "\"\<5\>\"", ",", "\"\<8\>\"", ",", "\"\<9\>\"", ",", "\"\<10\>\"", 
-         ",", "\"\<11\>\"", ",", "\"\<12\>\"", ",", "\"\<15\>\""}], "}"}]}], 
-      "}"}]}], "]"}]}], ";"}]], "Input",
- CellChangeTimes->{{3.6266391558649445`*^9, 3.626639256335621*^9}, {
-   3.6266393095145903`*^9, 3.626639354067077*^9}, {3.626639438374716*^9, 
-   3.6266394421539288`*^9}, {3.6266395199402685`*^9, 
-   3.6266395429855547`*^9}, {3.6266408539168005`*^9, 3.626640854224751*^9}, {
-   3.6266409672180614`*^9, 3.6266409675220766`*^9}, {3.6313809678738756`*^9, 
-   3.631381013187423*^9}, {3.631381079389996*^9, 3.631381092808647*^9}, {
-   3.6313848977131505`*^9, 3.631384931339466*^9}, {3.631384973007327*^9, 
-   3.6313849740854588`*^9}, 3.631743448893546*^9}],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"origCollabPlot", "=", 
-  RowBox[{"ListPlot", "[", 
-   RowBox[{"processSimDat", ",", 
-    RowBox[{"Joined", "\[Rule]", "True"}], ",", 
-    RowBox[{"PlotMarkers", "\[Rule]", 
-     RowBox[{"{", 
-      RowBox[{"Automatic", ",", "Large"}], "}"}]}], ",", 
-    RowBox[{"PlotStyle", "\[Rule]", 
-     RowBox[{"Directive", "[", 
-      RowBox[{"Thick", ",", "Dashed", ",", "Red"}], "]"}]}], ",", 
-    RowBox[{"Frame", "\[Rule]", 
-     RowBox[{"{", 
-      RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], ",", 
-    RowBox[{"FrameLabel", "\[Rule]", 
-     RowBox[{"{", 
-      RowBox[{"\"\<\[Tau]\>\"", ",", "\"\<Avg. Collaborations/min\>\""}], 
-      "}"}]}], ",", 
-    RowBox[{"PlotLegends", "\[Rule]", 
-     RowBox[{"{", "\"\<\[Theta] = 1.0\>\"", "}"}]}], ",", " ", 
-    RowBox[{"PlotRange", "\[Rule]", 
-     RowBox[{"{", 
-      RowBox[{"Automatic", ",", "Automatic"}], "}"}]}]}], "]"}]}]], "Input",
- CellChangeTimes->{{3.6266395574043603`*^9, 3.626639574332374*^9}, {
-  3.626640018043073*^9, 3.6266400435754986`*^9}, {3.6266400787155266`*^9, 
-  3.6266400891080437`*^9}, {3.626640279357662*^9, 3.6266403573990846`*^9}, {
-  3.6266407881600633`*^9, 3.6266407999477215`*^9}, {3.6266409703902383`*^9, 
-  3.626640970673253*^9}, {3.6313811763984237`*^9, 3.63138126508755*^9}, {
-  3.631381298109493*^9, 3.631381322756317*^9}, {3.631383064833454*^9, 
-  3.6313830814891214`*^9}}],
-
-Cell[BoxData[
- TemplateBox[{GraphicsBox[{{}, {{{}, {}, {
-        Hue[0.67, 0.6, 0.6], 
-        Directive[
-         PointSize[0.019444444444444445`], 
-         AbsoluteThickness[1.6], 
-         Thickness[Large], 
-         Dashing[{Small, Small}], 
-         RGBColor[1, 0, 0]], 
-        LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-         4.092}, {12., 0.228}, {15., 0.06}}]}}, {{
-        Hue[0.67, 0.6, 0.6], 
-        Directive[
-         PointSize[0.019444444444444445`], 
-         AbsoluteThickness[1.6], 
-         Thickness[Large], 
-         Dashing[{Small, Small}], 
-         RGBColor[1, 0, 0]], 
-        GeometricTransformationBox[
-         InsetBox[
-          BoxData[
-           FormBox[
-            StyleBox[
-            "\"\[FilledCircle]\"", FontSize -> Large, StripOnInput -> False], 
-            TraditionalForm]], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{9.,
-          9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15., 
-         0.06}}}]}, {}}}, {}}, {
-    DisplayFunction -> Identity, PlotRangePadding -> {{
-        Scaled[0.02], 
-        Scaled[0.02]}, {
-        Scaled[0.02], 
-        Scaled[0.05]}}, AxesOrigin -> {4.843750000000001, 0}, 
-     PlotRange -> {{5., 15.}, {0, 10.02}}, DisplayFunction -> Identity, 
-     AspectRatio -> NCache[GoldenRatio^(-1), 0.6180339887498948], 
-     Axes -> {True, True}, AxesLabel -> {None, None}, 
-     AxesOrigin -> {4.843750000000001, 0}, DisplayFunction :> Identity, 
-     Frame -> {{True, False}, {True, False}}, FrameLabel -> {{
-        FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-        FormBox["\"\[Tau]\"", TraditionalForm], None}}, 
-     FrameTicks -> {{Automatic, Automatic}, {Automatic, Automatic}}, 
-     GridLines -> {None, None}, GridLinesStyle -> Directive[
-       GrayLevel[0.5, 0.4]], Method -> {}, 
-     PlotRange -> {{5., 15.}, {0, 10.02}}, PlotRangeClipping -> True, 
-     PlotRangePadding -> {{
-        Scaled[0.02], 
-        Scaled[0.02]}, {
-        Scaled[0.02], 
-        Scaled[0.05]}}, Ticks -> {Automatic, Automatic}}],FormBox[
-    FormBox[
-     TemplateBox[{"\"\[Theta] = 1.0\""}, "PointLegend", 
-      DisplayFunction -> (FormBox[
-        StyleBox[
-         StyleBox[
-          PaneBox[
-           TagBox[
-            GridBox[{{
-               TagBox[
-                GridBox[{{
-                   GraphicsBox[{{
-                    Directive[
-                    EdgeForm[
-                    Directive[
-                    Opacity[0.3], 
-                    GrayLevel[0]]], 
-                    PointSize[0.175], 
-                    AbsoluteThickness[1.6], 
-                    Thickness[Large], 
-                    Dashing[{Small, Small}], 
-                    RGBColor[1, 0, 0]], {
-                    LineBox[{{0, 15}, {40, 15}}]}}, {
-                    Directive[
-                    EdgeForm[
-                    Directive[
-                    Opacity[0.3], 
-                    GrayLevel[0]]], 
-                    PointSize[0.175], 
-                    AbsoluteThickness[1.6], 
-                    Thickness[Large], 
-                    Dashing[{Small, Small}], 
-                    RGBColor[1, 0, 0]], {
-                    PointSize[Large], 
-                    Directive[
-                    EdgeForm[
-                    Directive[
-                    Opacity[0.3], 
-                    GrayLevel[0]]], 
-                    PointSize[0.175], 
-                    AbsoluteThickness[1.6], 
-                    Thickness[Large], 
-                    Dashing[{Small, Small}], 
-                    RGBColor[1, 0, 0]], 
-                    PointBox[
-                    NCache[{
-                    Scaled[{
-                    Rational[1, 2], 
-                    Rational[1, 2]}]}, {
-                    Scaled[{0.5, 0.5}]}]]}}}, AspectRatio -> Full, 
-                    ImageSize -> {40, 15}, PlotRangePadding -> None, 
-                    ImagePadding -> Automatic, 
-                    BaselinePosition -> (Scaled[0.23333333333333334`] -> 
-                    Baseline)], #}}, 
-                 GridBoxAlignment -> {
-                  "Columns" -> {Center, Left}, "Rows" -> {{Baseline}}}, 
-                 AutoDelete -> False, 
-                 GridBoxDividers -> {
-                  "Columns" -> {{False}}, "Rows" -> {{False}}}, 
-                 GridBoxItemSize -> {"Columns" -> {{All}}, "Rows" -> {{All}}},
-                  GridBoxSpacings -> {
-                  "Columns" -> {{0.5}}, "Rows" -> {{0.8}}}], "Grid"]}}, 
-             GridBoxAlignment -> {"Columns" -> {{Left}}, "Rows" -> {{Top}}}, 
-             AutoDelete -> False, 
-             GridBoxItemSize -> {
-              "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-             GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
-            "Grid"], Alignment -> Left, AppearanceElements -> None, 
-           ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
-           "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
-         FontFamily -> "Arial"}, Background -> Automatic, StripOnInput -> 
-         False], TraditionalForm]& ), 
-      InterpretationFunction :> (RowBox[{"PointLegend", "[", 
-         RowBox[{
-           RowBox[{"{", 
-             RowBox[{"Directive", "[", 
-               RowBox[{
-                 RowBox[{"PointSize", "[", "0.019444444444444445`", "]"}], 
-                 ",", 
-                 RowBox[{"AbsoluteThickness", "[", "1.6`", "]"}], ",", 
-                 RowBox[{"Thickness", "[", "Large", "]"}], ",", 
-                 RowBox[{"Dashing", "[", 
-                   RowBox[{"{", 
-                    RowBox[{"Small", ",", "Small"}], "}"}], "]"}], ",", 
-                 InterpretationBox[
-                  ButtonBox[
-                   TooltipBox[
-                    RowBox[{
-                    GraphicsBox[{{
-                    GrayLevel[0], 
-                    RectangleBox[{0, 0}]}, {
-                    GrayLevel[0], 
-                    RectangleBox[{1, -1}]}, {
-                    RGBColor[1, 0, 0], 
-                    RectangleBox[{0, -1}, {2, 1}]}}, AspectRatio -> 1, Frame -> 
-                    True, FrameStyle -> RGBColor[0.6666666666666666, 0., 0.], 
-                    FrameTicks -> None, PlotRangePadding -> None, ImageSize -> 
-                    Dynamic[{
-                    Automatic, 1.35 CurrentValue["FontCapHeight"]/
-                    AbsoluteCurrentValue[Magnification]}]], 
-                    "\[InvisibleSpace]"}], "RGBColor[1, 0, 0]"], Appearance -> 
-                   None, BaseStyle -> {}, BaselinePosition -> Baseline, 
-                   DefaultBaseStyle -> {}, ButtonFunction :> 
-                   With[{Typeset`box$ = EvaluationBox[]}, 
-                    If[
-                    Not[
-                    AbsoluteCurrentValue["Deployed"]], 
-                    SelectionMove[Typeset`box$, All, Expression]; 
-                    FrontEnd`Private`$ColorSelectorInitialAlpha = 1; 
-                    FrontEnd`Private`$ColorSelectorInitialColor = 
-                    RGBColor[1, 0, 0]; 
-                    FrontEnd`Private`$ColorSelectorUseMakeBoxes = True; 
-                    MathLink`CallFrontEnd[
-                    FrontEnd`AttachCell[Typeset`box$, 
-                    FrontEndResource["RGBColorValueSelector"], {
-                    0, {Left, Bottom}}, {Left, Top}, 
-                    "ClosingActions" -> {
-                    "SelectionDeparture", "ParentChanged", 
-                    "EvaluatorQuit"}]]]], BaseStyle -> Inherited, Evaluator -> 
-                   Automatic, Method -> "Preemptive"], 
-                  RGBColor[1, 0, 0], Editable -> False, Selectable -> 
-                  False]}], "]"}], "}"}], ",", 
-           RowBox[{"{", #, "}"}], ",", 
-           RowBox[{"Joined", "\[Rule]", 
-             RowBox[{"{", 
-               RowBox[{"{", "True", "}"}], "}"}]}], ",", 
-           RowBox[{"LabelStyle", "\[Rule]", 
-             RowBox[{"{", "}"}]}], ",", 
-           RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}], ",", 
-           RowBox[{"LegendMarkers", "\[Rule]", 
-             RowBox[{"{", 
-               RowBox[{"{", 
-                 RowBox[{"Automatic", ",", "Large"}], "}"}], "}"}]}]}], 
-         "]"}]& ), Editable -> True], TraditionalForm], TraditionalForm]},
-  "Legended",
-  DisplayFunction->(GridBox[{{
-      TagBox[
-       ItemBox[
-        PaneBox[
-         TagBox[#, "SkipImageSizeLevel"], Alignment -> {Center, Baseline}, 
-         BaselinePosition -> Baseline], DefaultBaseStyle -> "Labeled"], 
-       "SkipImageSizeLevel"], 
-      ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
-    GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}}, 
-    AutoDelete -> False, GridBoxItemSize -> Automatic, 
-    BaselinePosition -> {1, 1}]& ),
-  Editable->True,
-  InterpretationFunction->(RowBox[{"Legended", "[", 
-     RowBox[{#, ",", 
-       RowBox[{"Placed", "[", 
-         RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& )]], "Output",
- CellChangeTimes->{
-  3.631381323252282*^9, {3.631383065935828*^9, 3.6313830819109936`*^9}, 
-   3.6313849445929546`*^9, 3.6317427168329844`*^9, 3.6317434562839713`*^9}]
-}, Open  ]]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell["Noisy Sensing collaboration experiments", "Subsection",
- CellChangeTimes->{{3.631381582823947*^9, 3.6313815982019625`*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"AvgNoisySimRunDat", "[", 
-   RowBox[{
-   "sigNoiseMean_", ",", "sigNoiseSD_", ",", "sensorNoiseSD_", ",", 
-    "runMins_", ",", "numRuns_"}], "]"}], ":=", 
-  RowBox[{"Module", "[", 
-   RowBox[{
-    RowBox[{"{", "sdat", "}"}], ",", "\[IndentingNewLine]", 
-    RowBox[{
-     RowBox[{"Mean", "[", 
-      RowBox[{
-       RowBox[{
-        RowBox[{"(", 
-         RowBox[{
-          RowBox[{"sdat", "=", 
-           RowBox[{"<<", 
-            RowBox[{"(", 
-             RowBox[{
-             "\"\<noisysim-sigmean_\>\"", "<>", "sigNoiseMean", "<>", 
-              "\"\<-signoisesd_\>\"", "<>", "sigNoiseSD", "<>", 
-              "\"\<-sensorsd_\>\"", "<>", "sensorNoiseSD", "<>", 
-              "\"\<-run_\>\"", "<>", 
-              RowBox[{"ToString", "[", "#", "]"}], "<>", "\"\<.txt\>\""}], 
-             ")"}]}]}], ";", "\[IndentingNewLine]", 
-          RowBox[{"Length", "@", 
-           RowBox[{"Cases", "[", 
-            RowBox[{
-             RowBox[{"SplitBy", "[", 
-              RowBox[{"sdat", ",", "Last"}], "]"}], ",", 
-             RowBox[{"Except", "[", 
-              RowBox[{"{", 
-               RowBox[{"___", ",", 
-                RowBox[{"{", 
-                 RowBox[{"_", ",", "0"}], "}"}], ",", "___"}], "}"}], "]"}]}],
-             "]"}]}]}], ")"}], "&"}], "/@", 
-       RowBox[{"Range", "[", 
-        RowBox[{"1", ",", "numRuns"}], "]"}]}], "]"}], "/", "runMins"}]}], 
-   "\[IndentingNewLine]", "]"}]}]], "Input",
- CellChangeTimes->{{3.6313816175704308`*^9, 3.6313817010731783`*^9}, {
-  3.631381732445671*^9, 3.6313818383878007`*^9}, {3.6313849543585625`*^9, 
-  3.631384960370101*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"processNoisySimDat", "=", 
-   RowBox[{"Table", "[", 
-    RowBox[{
-     RowBox[{"{", 
-      RowBox[{
-       RowBox[{"ToExpression", "[", "sigNoiseMean", "]"}], ",", 
-       RowBox[{"AvgNoisySimRunDat", "[", 
-        RowBox[{
-        "sigNoiseMean", ",", "sigNoiseSD", ",", "sensorNoiseSD", ",", 
-         "runMins", ",", "numRuns"}], "]"}]}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{"sensorNoiseSD", ",", 
-       RowBox[{"{", 
-        RowBox[{
-        "\"\<0.1\>\"", ",", "\"\<1.0\>\"", ",", "\"\<2.0\>\"", ",", 
-         "\"\<5.0\>\"", ",", "\"\<10.0\>\""}], "}"}]}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{"sigNoiseSD", ",", 
-       RowBox[{"{", 
-        RowBox[{
-        "\"\<0.1\>\"", ",", "\"\<1.0\>\"", ",", "\"\<2.0\>\"", ",", 
-         "\"\<5.0\>\"", ",", "\"\<10.0\>\""}], "}"}]}], "}"}], ",", 
-     RowBox[{"{", 
-      RowBox[{"sigNoiseMean", ",", 
-       RowBox[{"{", 
-        RowBox[{
-        "\"\<5\>\"", ",", "\"\<8\>\"", ",", "\"\<9\>\"", ",", "\"\<10\>\"", 
-         ",", "\"\<11\>\"", ",", "\"\<12\>\"", ",", "\"\<15\>\""}], "}"}]}], 
-      "}"}]}], "]"}]}], ";"}]], "Input",
- CellChangeTimes->{{3.6313818701535482`*^9, 3.6313819866494694`*^9}, {
-   3.6313820225030727`*^9, 3.631382072657431*^9}, {3.6313821652653885`*^9, 
-   3.631382186546673*^9}, 3.6313822311543684`*^9, {3.63138237989433*^9, 
-   3.6313823806911993`*^9}, {3.631384233689411*^9, 3.6313842744762263`*^9}, {
-   3.631384968191066*^9, 3.6313850045099216`*^9}, {3.631742725460117*^9, 
-   3.6317427361287336`*^9}}],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"processNoisySimDat", "//", "Dimensions"}]], "Input",
- CellChangeTimes->{{3.6317434824325385`*^9, 3.6317434834785967`*^9}, {
-  3.631743638521406*^9, 3.6317436472049026`*^9}}],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{"5", ",", "5", ",", "7", ",", "2"}], "}"}]], "Output",
- CellChangeTimes->{
-  3.6317434839665575`*^9, {3.631743641538579*^9, 3.63174364748492*^9}}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"processNoisySimDat", "\[LeftDoubleBracket]", 
-  RowBox[{"1", ",", "2"}], "\[RightDoubleBracket]"}]], "Input",
- CellChangeTimes->{{3.631743677861659*^9, 3.631743701045991*^9}}],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-   RowBox[{"{", 
-    RowBox[{"5", ",", 
-     FractionBox["501", "50"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"8", ",", 
-     FractionBox["501", "50"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"9", ",", 
-     FractionBox["4947", "500"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"10", ",", 
-     FractionBox["3711", "500"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"11", ",", 
-     FractionBox["651", "125"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"12", ",", 
-     FractionBox["531", "250"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"15", ",", 
-     FractionBox["3", "50"]}], "}"}]}], "}"}]], "Output",
- CellChangeTimes->{{3.6317436888032866`*^9, 3.631743701246997*^9}}]
-}, Open  ]],
-
-Cell[BoxData[
- RowBox[{
-  RowBox[{"drawNoisyExpPlot", "[", 
-   RowBox[{"IDsigNoiseSD_", ",", "IDsensorNoiseSD_"}], "]"}], ":=", 
-  RowBox[{"Module", "[", 
+  RowBox[{"meanCollabRate", "=", 
    RowBox[{
     RowBox[{"{", 
-     RowBox[{
-      RowBox[{"sensorNoiseSD", "=", 
-       RowBox[{"{", 
-        RowBox[{
-        "\"\<0.1\>\"", ",", "\"\<1.0\>\"", ",", "\"\<2.0\>\"", ",", 
-         "\"\<5.0\>\"", ",", "\"\<10.0\>\""}], "}"}]}], ",", 
-      RowBox[{"sigNoiseSD", "=", 
-       RowBox[{"{", 
-        RowBox[{
-        "\"\<0.1\>\"", ",", "\"\<1.0\>\"", ",", "\"\<2.0\>\"", ",", 
-         "\"\<5.0\>\"", ",", "\"\<10.0\>\""}], "}"}]}]}], "}"}], ",", 
-    "\[IndentingNewLine]", 
-    RowBox[{"ListPlot", "[", 
-     RowBox[{
-      RowBox[{"processNoisySimDat", "\[LeftDoubleBracket]", 
-       RowBox[{"IDsensorNoiseSD", ",", "IDsigNoiseSD"}], 
-       "\[RightDoubleBracket]"}], ",", 
-      RowBox[{"Joined", "\[Rule]", "True"}], ",", 
-      RowBox[{"PlotMarkers", "\[Rule]", 
-       RowBox[{"{", 
-        RowBox[{"Automatic", ",", "Large"}], "}"}]}], ",", 
-      RowBox[{"PlotStyle", "\[Rule]", 
-       RowBox[{"Directive", "[", "Thick", "]"}]}], ",", 
-      RowBox[{"Frame", "\[Rule]", 
-       RowBox[{"{", 
-        RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], 
-      ",", 
-      RowBox[{"FrameLabel", "\[Rule]", 
-       RowBox[{"{", 
-        RowBox[{
-        "\"\<(Red) \[Tau]\\n(Blue) Signal Noise Mean\>\"", ",", 
-         "\"\<Avg. Collaborations/min\>\""}], "}"}]}], ",", 
-      RowBox[{"PlotLabel", "\[Rule]", 
+     RowBox[{"tauList", ",", 
+      RowBox[{
        RowBox[{"(", 
-        RowBox[{"\"\<Signal Noise SD = \>\"", "<>", 
+        RowBox[{
          RowBox[{
-         "sigNoiseSD", "\[LeftDoubleBracket]", "IDsigNoiseSD", 
-          "\[RightDoubleBracket]"}], "<>", "\"\<\\nSensor Noise SD = \>\"", "<>", 
-         RowBox[{
-         "sensorNoiseSD", "\[LeftDoubleBracket]", "IDsensorNoiseSD", 
-          "\[RightDoubleBracket]"}]}], ")"}]}], ",", 
-      RowBox[{"BaseStyle", "\[Rule]", 
-       RowBox[{"FontSize", "\[Rule]", "16"}]}], ",", 
-      RowBox[{"PlotRange", "\[Rule]", 
-       RowBox[{"{", 
-        RowBox[{"Automatic", ",", 
-         RowBox[{"{", 
-          RowBox[{"0", ",", "11"}], "}"}]}], "}"}]}], ",", 
-      RowBox[{"ImageSize", "\[Rule]", 
-       RowBox[{"{", 
-        RowBox[{"500", ",", "500"}], "}"}]}]}], "]"}]}], "]"}]}]], "Input",
- CellChangeTimes->{{3.631382531882761*^9, 3.63138254856499*^9}, {
-  3.631382823820233*^9, 3.6313828790936127`*^9}, {3.631382929426874*^9, 
-  3.6313829376919737`*^9}, {3.631383187927262*^9, 3.6313833185012856`*^9}, {
-  3.6313834850593395`*^9, 3.6313835038825483`*^9}, {3.6313837067371206`*^9, 
-  3.631383757786026*^9}, {3.6313842942201214`*^9, 3.6313842974335012`*^9}, {
-  3.631384454370804*^9, 3.631384553010265*^9}, {3.6313850216618223`*^9, 
-  3.631385022968277*^9}, {3.631385178622363*^9, 3.6313851820703354`*^9}, {
-  3.6317437043901825`*^9, 3.631743704535185*^9}}],
+          RowBox[{"Mean", "@", 
+           RowBox[{"Flatten", "@", 
+            RowBox[{"Import", "[", 
+             RowBox[{
+              RowBox[{"\"\<microsim-theta_1.0-tau_\>\"", "<>", 
+               RowBox[{"ToString", "[", "#", "]"}], "<>", 
+               "\"\<-runtime_1000.txt\>\""}], ",", "\"\<Table\>\""}], 
+             "]"}]}]}], "&"}], "/@", "tauList"}], ")"}], "/", 
+       RowBox[{"(", 
+        RowBox[{"runTime", "/", "60"}], ")"}]}]}], "}"}], "\[Transpose]"}]}], 
+  ";"}], "\[IndentingNewLine]", 
+ RowBox[{
+  RowBox[{"meanNoiseCollabRate", "=", 
+   RowBox[{"Table", "[", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"ToExpression", "[", "sigmean", "]"}], ",", 
+       RowBox[{
+        RowBox[{"Mean", "@", 
+         RowBox[{"Flatten", "@", 
+          RowBox[{"Import", "[", 
+           RowBox[{
+            RowBox[{
+            "\"\<noisysim-sigmean_\>\"", "<>", "sigmean", "<>", 
+             "\"\<-signoisesd_\>\"", "<>", "signoisesd", "<>", 
+             "\"\<-sensorsd_\>\"", "<>", "sensorsd", "<>", 
+             "\"\<-runtime_1000.txt\>\""}], ",", "\"\<Table\>\""}], "]"}]}]}],
+         "/", 
+        RowBox[{"(", 
+         RowBox[{"runTime", "/", "60"}], ")"}]}]}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"sensorsd", ",", "SensorNoiseSD"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"signoisesd", ",", "SignalNoiseSD"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"sigmean", ",", "SignalMean"}], "}"}]}], "]"}]}], 
+  ";"}]}], "Input",
+ CellChangeTimes->{{3.63235518060233*^9, 3.632355236193461*^9}, 
+   3.6323552853742313`*^9, {3.6323553595614104`*^9, 3.6323553948233957`*^9}, {
+   3.6323554728897934`*^9, 3.6323555138691025`*^9}, {3.632355550119145*^9, 
+   3.6323557260480547`*^9}, 3.63235578124117*^9, {3.632355891878394*^9, 
+   3.632355969535768*^9}, {3.6323561788205566`*^9, 3.6323561807396646`*^9}, {
+   3.6323567095004554`*^9, 3.632356721084116*^9}}],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{
-  RowBox[{"origPlotSimple", "=", 
+  RowBox[{"origCollabPlot", "=", 
    RowBox[{"ListPlot", "[", 
-    RowBox[{"processSimDat", ",", 
+    RowBox[{"meanCollabRate", ",", 
      RowBox[{"Joined", "\[Rule]", "True"}], ",", 
      RowBox[{"PlotMarkers", "\[Rule]", 
       RowBox[{"{", 
@@ -867,18 +140,61 @@ Cell[BoxData[{
    RowBox[{
     RowBox[{"Show", "[", 
      RowBox[{
-      RowBox[{"drawNoisyExpPlot", "[", 
-       RowBox[{"IDsigNoiseSD", ",", "IDsensorNoiseSD"}], "]"}], ",", 
-      "origPlotSimple"}], "]"}], ",", 
+      RowBox[{"ListPlot", "[", 
+       RowBox[{
+        RowBox[{"meanNoiseCollabRate", "\[LeftDoubleBracket]", 
+         RowBox[{
+          RowBox[{"First", "@", 
+           RowBox[{"First", "@", 
+            RowBox[{"Position", "[", 
+             RowBox[{"SensorNoiseSD", ",", "sensorsd"}], "]"}]}]}], ",", 
+          RowBox[{"First", "@", 
+           RowBox[{"First", "@", 
+            RowBox[{"Position", "[", 
+             RowBox[{"SignalNoiseSD", ",", "signoisesd"}], "]"}]}]}]}], 
+         "\[RightDoubleBracket]"}], ",", 
+        RowBox[{"Joined", "\[Rule]", "True"}], ",", 
+        RowBox[{"PlotMarkers", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Automatic", ",", "Medium"}], "}"}]}], ",", 
+        RowBox[{"PlotStyle", "\[Rule]", 
+         RowBox[{"Directive", "[", "Thick", "]"}]}], ",", 
+        RowBox[{"Frame", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"True", ",", "True", ",", "False", ",", "False"}], "}"}]}], 
+        ",", 
+        RowBox[{"FrameLabel", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{
+          "\"\<(Red) \[Tau]\\n(Blue) Signal Noise Mean\>\"", ",", 
+           "\"\<Avg. Collaborations/min\>\""}], "}"}]}], ",", 
+        RowBox[{"PlotLabel", "\[Rule]", 
+         RowBox[{"(", 
+          RowBox[{
+          "\"\<Signal Noise SD = \>\"", "<>", "sensorsd", "<>", 
+           "\"\<\\nSensor Noise SD = \>\"", "<>", "signoisesd"}], ")"}]}], 
+        ",", 
+        RowBox[{"BaseStyle", "\[Rule]", 
+         RowBox[{"FontSize", "\[Rule]", "16"}]}], ",", 
+        RowBox[{"PlotRange", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"Automatic", ",", 
+           RowBox[{"{", 
+            RowBox[{"0", ",", "11"}], "}"}]}], "}"}]}], ",", 
+        RowBox[{"ImageSize", "\[Rule]", 
+         RowBox[{"{", 
+          RowBox[{"300", ",", "300"}], "}"}]}]}], "]"}], ",", 
+      "origCollabPlot"}], "]"}], ",", 
     RowBox[{"{", 
-     RowBox[{"IDsensorNoiseSD", ",", "1", ",", "5"}], "}"}], ",", 
+     RowBox[{"sensorsd", ",", "SensorNoiseSD"}], "}"}], ",", 
     RowBox[{"{", 
-     RowBox[{"IDsigNoiseSD", ",", "1", ",", "5"}], "}"}]}], "]"}], "//", 
+     RowBox[{"signoisesd", ",", "SignalNoiseSD"}], "}"}]}], "]"}], "//", 
   "Grid"}]}], "Input",
- CellChangeTimes->{{3.631382941669136*^9, 3.6313830388589506`*^9}, {
-  3.6313833829283934`*^9, 3.6313834446267014`*^9}, {3.631383525734762*^9, 
-  3.631383526775764*^9}, {3.631383570854602*^9, 3.631383579609375*^9}, {
-  3.6313843037895503`*^9, 3.631384306448741*^9}}],
+ CellChangeTimes->{{3.63235600897899*^9, 3.6323560138812666`*^9}, {
+  3.632356064690133*^9, 3.6323560761527743`*^9}, {3.632356160988552*^9, 
+  3.6323561673639116`*^9}, {3.6323562412740736`*^9, 3.6323562873326683`*^9}, {
+  3.6323564538850517`*^9, 3.632356482842683*^9}, {3.632356542922068*^9, 
+  3.63235657828106*^9}, {3.632356626832796*^9, 3.632356655662421*^9}}],
 
 Cell[BoxData[
  TagBox[GridBox[{
@@ -888,34 +204,34 @@ Cell[BoxData[
            0.019444444444444445`], Thickness[Large], 
            
            StyleBox[
-            LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.984}, {10., 9.264}, {
-             11., 4.368}, {12., 0.294}, {15., 0.06}}],
+            LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {
+             100., 6.1854}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}],
             FontSize->16]}}, {
           {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
            0.019444444444444445`], Thickness[Large], 
            StyleBox[GeometricTransformationBox[InsetBox[
               StyleBox["\<\"\[FilledCircle]\"\>",
                StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-             9., 9.984}}, {{10., 9.264}}, {{11., 4.368}}, {{12., 0.294}}, {{
-             15., 0.06}}}],
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+             90., 9.96}}, {{95., 9.96}}, {{100., 6.1854}}, {{105., 0.}}, {{
+             110., 0.}}, {{115., 0.}}, {{120., 0.}}}],
             FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
            GeometricTransformationBox[InsetBox[
              StyleBox["\<\"\[FilledDiamond]\"\>",
               StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
       Axes->{True, True},
       AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
+      AxesOrigin->{79.375, 0},
       BaseStyle->(FontSize -> 16),
       DisplayFunction->Identity,
       Frame->{{True, False}, {True, False}},
@@ -928,342 +244,11 @@ Cell[BoxData[
       GridLines->{None, None},
       GridLinesStyle->Directive[
         GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 0.1\\nSensor Noise SD = 0.1\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.894}, {10., 7.422}, {
-             11., 5.208}, {12., 2.124}, {15., 0.06}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-             9., 9.894}}, {{10., 7.422}}, {{11., 5.208}}, {{12., 2.124}}, {{
-             15., 0.06}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 1.0\\nSensor Noise SD = 0.1\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 9.996}, {8., 8.61}, {9., 8.184}, {10., 7.302}, {11.,
-              4.464}, {12., 2.424}, {15., 0.732}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.996}}, {{8., 8.61}}, {{
-             9., 8.184}}, {{10., 7.302}}, {{11., 4.464}}, {{12., 2.424}}, {{
-             15., 0.732}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 2.0\\nSensor Noise SD = 0.1\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 10.008}, {8., 4.614}, {9., 8.82}, {10., 6.066}, {
-             11., 5.934}, {12., 5.166}, {15., 2.118}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 10.008}}, {{8., 4.614}}, {{
-             9., 8.82}}, {{10., 6.066}}, {{11., 5.934}}, {{12., 5.166}}, {{
-             15., 2.118}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 5.0\\nSensor Noise SD = 0.1\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 8.64}, {8., 7.026}, {9., 6.054}, {10., 2.52}, {11., 
-             5.034}, {12., 6.024}, {15., 2.412}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 8.64}}, {{8., 7.026}}, {{
-             9., 6.054}}, {{10., 2.52}}, {{11., 5.034}}, {{12., 6.024}}, {{
-             15., 2.412}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 10.0\\nSensor Noise SD = 0.1\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}]},
-    {
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.93}, {10., 9.084}, {11.,
-              5.532}, {12., 0.81}, {15., 0.06}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-             9., 9.93}}, {{10., 9.084}}, {{11., 5.532}}, {{12., 0.81}}, {{15.,
-              0.06}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 0.1\\nSensor Noise SD = 1.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 10.02}, {8., 9.552}, {9., 9.9}, {10., 8.574}, {11., 
-             3.276}, {12., 1.602}, {15., 0.06}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 10.02}}, {{8., 9.552}}, {{
-             9., 9.9}}, {{10., 8.574}}, {{11., 3.276}}, {{12., 1.602}}, {{15.,
-              0.06}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
+      ImageSize->{300, 300},
       Method->{},
       PlotLabel->FormBox[
        "\"Signal Noise SD = 1.0\\nSensor Noise SD = 1.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
+      PlotRange->{{80., 120.}, {0, 11}},
       PlotRangeClipping->True,
       PlotRangePadding->{{
          Scaled[0.02], 
@@ -1274,34 +259,36 @@ Cell[BoxData[
            0.019444444444444445`], Thickness[Large], 
            
            StyleBox[
-            LineBox[{{5., 9.996}, {8., 9.846}, {9., 6.078}, {10., 8.34}, {11.,
-              4.572}, {12., 3.204}, {15., 0.12}}],
+            LineBox[{{80., 9.96}, {85., 9.957}, {90., 9.876}, {95., 8.5644}, {
+             100., 5.4528}, {105., 1.7688}, {110., 0.2826}, {115., 0.0996}, {
+             120., 0.}}],
             FontSize->16]}}, {
           {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
            0.019444444444444445`], Thickness[Large], 
            StyleBox[GeometricTransformationBox[InsetBox[
               StyleBox["\<\"\[FilledCircle]\"\>",
                StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.996}}, {{8., 9.846}}, {{
-             9., 6.078}}, {{10., 8.34}}, {{11., 4.572}}, {{12., 3.204}}, {{
-             15., 0.12}}}],
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 
+             9.957}}, {{90., 9.876}}, {{95., 8.5644}}, {{100., 5.4528}}, {{
+             105., 1.7688}}, {{110., 0.2826}}, {{115., 0.0996}}, {{120., 
+             0.}}}],
             FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
            GeometricTransformationBox[InsetBox[
              StyleBox["\<\"\[FilledDiamond]\"\>",
               StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
       Axes->{True, True},
       AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
+      AxesOrigin->{79.375, 0},
       BaseStyle->(FontSize -> 16),
       DisplayFunction->Identity,
       Frame->{{True, False}, {True, False}},
@@ -1314,508 +301,11 @@ Cell[BoxData[
       GridLines->{None, None},
       GridLinesStyle->Directive[
         GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 2.0\\nSensor Noise SD = 1.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 8.154}, {8., 7.038}, {9., 5.052}, {10., 7.824}, {
-             11., 4.164}, {12., 3.228}, {15., 3.87}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 8.154}}, {{8., 7.038}}, {{
-             9., 5.052}}, {{10., 7.824}}, {{11., 4.164}}, {{12., 3.228}}, {{
-             15., 3.87}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 5.0\\nSensor Noise SD = 1.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 9.966}, {8., 2.064}, {9., 6.024}, {10., 5.052}, {
-             11., 4.95}, {12., 6.228}, {15., 3.966}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.966}}, {{8., 2.064}}, {{
-             9., 6.024}}, {{10., 5.052}}, {{11., 4.95}}, {{12., 6.228}}, {{
-             15., 3.966}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 10.0\\nSensor Noise SD = 1.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}]},
-    {
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 10.02}, {8., 10.002}, {9., 9.834}, {10., 9.036}, {
-             11., 6.924}, {12., 2.622}, {15., 0.06}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 10.02}}, {{8., 10.002}}, {{
-             9., 9.834}}, {{10., 9.036}}, {{11., 6.924}}, {{12., 2.622}}, {{
-             15., 0.06}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 0.1\\nSensor Noise SD = 2.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 10.02}, {8., 9.936}, {9., 9.75}, {10., 8.79}, {11., 
-             5.154}, {12., 4.074}, {15., 0.078}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 10.02}}, {{8., 9.936}}, {{
-             9., 9.75}}, {{10., 8.79}}, {{11., 5.154}}, {{12., 4.074}}, {{15.,
-              0.078}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 1.0\\nSensor Noise SD = 2.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 10.02}, {8., 9.726}, {9., 7.938}, {10., 8.388}, {
-             11., 7.932}, {12., 2.928}, {15., 1.008}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 10.02}}, {{8., 9.726}}, {{
-             9., 7.938}}, {{10., 8.388}}, {{11., 7.932}}, {{12., 2.928}}, {{
-             15., 1.008}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 2.0\\nSensor Noise SD = 2.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 9.108}, {8., 6.426}, {9., 8.538}, {10., 4.452}, {
-             11., 5.616}, {12., 3.852}, {15., 2.208}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.108}}, {{8., 6.426}}, {{
-             9., 8.538}}, {{10., 4.452}}, {{11., 5.616}}, {{12., 3.852}}, {{
-             15., 2.208}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 5.0\\nSensor Noise SD = 2.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 7.26}, {8., 8.952}, {9., 7.992}, {10., 9.546}, {11.,
-              8.028}, {12., 6.036}, {15., 4.512}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 7.26}}, {{8., 8.952}}, {{
-             9., 7.992}}, {{10., 9.546}}, {{11., 8.028}}, {{12., 6.036}}, {{
-             15., 4.512}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 10.0\\nSensor Noise SD = 2.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}]},
-    {
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 10.026}, {8., 9.816}, {9., 9.606}, {10., 9.084}, {
-             11., 8.238}, {12., 6.726}, {15., 0.978}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 10.026}}, {{8., 9.816}}, {{
-             9., 9.606}}, {{10., 9.084}}, {{11., 8.238}}, {{12., 6.726}}, {{
-             15., 0.978}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 0.1\\nSensor Noise SD = 5.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           
-           StyleBox[
-            LineBox[{{5., 10.014}, {8., 9.636}, {9., 9.516}, {10., 8.682}, {
-             11., 7.74}, {12., 6.438}, {15., 1.578}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 10.014}}, {{8., 9.636}}, {{
-             9., 9.516}}, {{10., 8.682}}, {{11., 7.74}}, {{12., 6.438}}, {{
-             15., 1.578}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
+      ImageSize->{300, 300},
       Method->{},
       PlotLabel->FormBox[
        "\"Signal Noise SD = 1.0\\nSensor Noise SD = 5.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
+      PlotRange->{{80., 120.}, {0, 11}},
       PlotRangeClipping->True,
       PlotRangePadding->{{
          Scaled[0.02], 
@@ -1826,34 +316,36 @@ Cell[BoxData[
            0.019444444444444445`], Thickness[Large], 
            
            StyleBox[
-            LineBox[{{5., 9.954}, {8., 9.504}, {9., 9.528}, {10., 8.412}, {
-             11., 7.71}, {12., 6.114}, {15., 2.124}}],
+            LineBox[{{80., 8.7732}, {85., 8.4684}, {90., 7.7034}, {95., 
+             6.639}, {100., 5.0142}, {105., 3.9984}, {110., 2.298}, {115., 
+             1.9902}, {120., 0.8748}}],
             FontSize->16]}}, {
           {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
            0.019444444444444445`], Thickness[Large], 
            StyleBox[GeometricTransformationBox[InsetBox[
               StyleBox["\<\"\[FilledCircle]\"\>",
                StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.954}}, {{8., 9.504}}, {{
-             9., 9.528}}, {{10., 8.412}}, {{11., 7.71}}, {{12., 6.114}}, {{
-             15., 2.124}}}],
+               FontSize->Medium], {0., 0.}], {{{80., 8.7732}}, {{85., 
+             8.4684}}, {{90., 7.7034}}, {{95., 6.639}}, {{100., 5.0142}}, {{
+             105., 3.9984}}, {{110., 2.298}}, {{115., 1.9902}}, {{120., 
+             0.8748}}}],
             FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
            GeometricTransformationBox[InsetBox[
              StyleBox["\<\"\[FilledDiamond]\"\>",
               StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
       Axes->{True, True},
       AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
+      AxesOrigin->{79.375, 0},
       BaseStyle->(FontSize -> 16),
       DisplayFunction->Identity,
       Frame->{{True, False}, {True, False}},
@@ -1866,11 +358,11 @@ Cell[BoxData[
       GridLines->{None, None},
       GridLinesStyle->Directive[
         GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
+      ImageSize->{300, 300},
       Method->{},
       PlotLabel->FormBox[
-       "\"Signal Noise SD = 2.0\\nSensor Noise SD = 5.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
+       "\"Signal Noise SD = 1.0\\nSensor Noise SD = 15.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
       PlotRangeClipping->True,
       PlotRangePadding->{{
          Scaled[0.02], 
@@ -1881,34 +373,36 @@ Cell[BoxData[
            0.019444444444444445`], Thickness[Large], 
            
            StyleBox[
-            LineBox[{{5., 9.828}, {8., 7.926}, {9., 6.966}, {10., 6.33}, {11.,
-              5.22}, {12., 7.698}, {15., 0.81}}],
+            LineBox[{{80., 6.6732}, {85., 5.976}, {90., 5.976}, {95., 
+             5.2776}, {100., 4.8798}, {105., 4.6812}, {110., 4.3824}, {115., 
+             3.0876}, {120., 3.087}}],
             FontSize->16]}}, {
           {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
            0.019444444444444445`], Thickness[Large], 
            StyleBox[GeometricTransformationBox[InsetBox[
               StyleBox["\<\"\[FilledCircle]\"\>",
                StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.828}}, {{8., 7.926}}, {{
-             9., 6.966}}, {{10., 6.33}}, {{11., 5.22}}, {{12., 7.698}}, {{15.,
-              0.81}}}],
+               FontSize->Medium], {0., 0.}], {{{80., 6.6732}}, {{85., 
+             5.976}}, {{90., 5.976}}, {{95., 5.2776}}, {{100., 4.8798}}, {{
+             105., 4.6812}}, {{110., 4.3824}}, {{115., 3.0876}}, {{120., 
+             3.087}}}],
             FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
            GeometricTransformationBox[InsetBox[
              StyleBox["\<\"\[FilledDiamond]\"\>",
               StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
       Axes->{True, True},
       AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
+      AxesOrigin->{79.375, 0},
       BaseStyle->(FontSize -> 16),
       DisplayFunction->Identity,
       Frame->{{True, False}, {True, False}},
@@ -1921,65 +415,11 @@ Cell[BoxData[
       GridLines->{None, None},
       GridLinesStyle->Directive[
         GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
+      ImageSize->{300, 300},
       Method->{},
       PlotLabel->FormBox[
-       "\"Signal Noise SD = 5.0\\nSensor Noise SD = 5.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
-      PlotRangeClipping->True,
-      PlotRangePadding->{{
-         Scaled[0.02], 
-         Scaled[0.02]}, {0, 0}},
-      Ticks->{Automatic, Automatic}], 
-     GraphicsBox[{{{}, {{{}, {}, 
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[
-            LineBox[{{5., 9.528}, {8., 8.592}, {9., 5.496}, {10., 5.142}, {
-             11., 6.48}, {12., 6.69}, {15., 6.474}}],
-            FontSize->16]}}, {
-          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
-           0.019444444444444445`], Thickness[Large], 
-           StyleBox[GeometricTransformationBox[InsetBox[
-              StyleBox["\<\"\[FilledCircle]\"\>",
-               StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.528}}, {{8., 8.592}}, {{
-             9., 5.496}}, {{10., 5.142}}, {{11., 6.48}}, {{12., 6.69}}, {{15.,
-              6.474}}}],
-            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
-          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
-           Large], Dashing[{Small, Small}], 
-           GeometricTransformationBox[InsetBox[
-             StyleBox["\<\"\[FilledDiamond]\"\>",
-              StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
-      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
-      Axes->{True, True},
-      AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
-      BaseStyle->(FontSize -> 16),
-      DisplayFunction->Identity,
-      Frame->{{True, False}, {True, False}},
-      FrameLabel->{{
-         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
-         FormBox[
-         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
-         None}},
-      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
-      GridLines->{None, None},
-      GridLinesStyle->Directive[
-        GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
-      Method->{},
-      PlotLabel->FormBox[
-       "\"Signal Noise SD = 10.0\\nSensor Noise SD = 5.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
+       "\"Signal Noise SD = 1.0\\nSensor Noise SD = 50.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
       PlotRangeClipping->True,
       PlotRangePadding->{{
          Scaled[0.02], 
@@ -1991,34 +431,34 @@ Cell[BoxData[
            0.019444444444444445`], Thickness[Large], 
            
            StyleBox[
-            LineBox[{{5., 9.906}, {8., 9.654}, {9., 9.414}, {10., 9.096}, {
-             11., 8.664}, {12., 8.148}, {15., 5.46}}],
+            LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {
+             100., 6.9678}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}],
             FontSize->16]}}, {
           {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
            0.019444444444444445`], Thickness[Large], 
            StyleBox[GeometricTransformationBox[InsetBox[
               StyleBox["\<\"\[FilledCircle]\"\>",
                StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.906}}, {{8., 9.654}}, {{
-             9., 9.414}}, {{10., 9.096}}, {{11., 8.664}}, {{12., 8.148}}, {{
-             15., 5.46}}}],
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+             90., 9.96}}, {{95., 9.96}}, {{100., 6.9678}}, {{105., 0.}}, {{
+             110., 0.}}, {{115., 0.}}, {{120., 0.}}}],
             FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
            GeometricTransformationBox[InsetBox[
              StyleBox["\<\"\[FilledDiamond]\"\>",
               StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
       Axes->{True, True},
       AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
+      AxesOrigin->{79.375, 0},
       BaseStyle->(FontSize -> 16),
       DisplayFunction->Identity,
       Frame->{{True, False}, {True, False}},
@@ -2031,11 +471,11 @@ Cell[BoxData[
       GridLines->{None, None},
       GridLinesStyle->Directive[
         GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
+      ImageSize->{300, 300},
       Method->{},
       PlotLabel->FormBox[
-       "\"Signal Noise SD = 0.1\\nSensor Noise SD = 10.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
+       "\"Signal Noise SD = 2.0\\nSensor Noise SD = 1.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
       PlotRangeClipping->True,
       PlotRangePadding->{{
          Scaled[0.02], 
@@ -2046,34 +486,35 @@ Cell[BoxData[
            0.019444444444444445`], Thickness[Large], 
            
            StyleBox[
-            LineBox[{{5., 9.9}, {8., 9.582}, {9., 9.456}, {10., 9.252}, {11., 
-             8.4}, {12., 8.268}, {15., 5.736}}],
+            LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.4248}, {95., 8.2014}, {
+             100., 5.6586}, {105., 1.4076}, {110., 0.111}, {115., 0.}, {120., 
+             0.}}],
             FontSize->16]}}, {
           {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
            0.019444444444444445`], Thickness[Large], 
            StyleBox[GeometricTransformationBox[InsetBox[
               StyleBox["\<\"\[FilledCircle]\"\>",
                StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.9}}, {{8., 9.582}}, {{9.,
-              9.456}}, {{10., 9.252}}, {{11., 8.4}}, {{12., 8.268}}, {{15., 
-             5.736}}}],
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+             90., 9.4248}}, {{95., 8.2014}}, {{100., 5.6586}}, {{105., 
+             1.4076}}, {{110., 0.111}}, {{115., 0.}}, {{120., 0.}}}],
             FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
            GeometricTransformationBox[InsetBox[
              StyleBox["\<\"\[FilledDiamond]\"\>",
               StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
       Axes->{True, True},
       AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
+      AxesOrigin->{79.375, 0},
       BaseStyle->(FontSize -> 16),
       DisplayFunction->Identity,
       Frame->{{True, False}, {True, False}},
@@ -2086,11 +527,11 @@ Cell[BoxData[
       GridLines->{None, None},
       GridLinesStyle->Directive[
         GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
+      ImageSize->{300, 300},
       Method->{},
       PlotLabel->FormBox[
-       "\"Signal Noise SD = 1.0\\nSensor Noise SD = 10.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
+       "\"Signal Noise SD = 2.0\\nSensor Noise SD = 5.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
       PlotRangeClipping->True,
       PlotRangePadding->{{
          Scaled[0.02], 
@@ -2101,34 +542,36 @@ Cell[BoxData[
            0.019444444444444445`], Thickness[Large], 
            
            StyleBox[
-            LineBox[{{5., 9.9}, {8., 9.444}, {9., 9.492}, {10., 8.988}, {11., 
-             8.61}, {12., 7.536}, {15., 6.216}}],
+            LineBox[{{80., 9.4596}, {85., 8.88}, {90., 7.4556}, {95., 
+             6.4458}, {100., 4.545}, {105., 3.0132}, {110., 2.781}, {115., 
+             0.9024}, {120., 0.9126}}],
             FontSize->16]}}, {
           {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
            0.019444444444444445`], Thickness[Large], 
            StyleBox[GeometricTransformationBox[InsetBox[
               StyleBox["\<\"\[FilledCircle]\"\>",
                StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.9}}, {{8., 9.444}}, {{9.,
-              9.492}}, {{10., 8.988}}, {{11., 8.61}}, {{12., 7.536}}, {{15., 
-             6.216}}}],
+               FontSize->Medium], {0., 0.}], {{{80., 9.4596}}, {{85., 
+             8.88}}, {{90., 7.4556}}, {{95., 6.4458}}, {{100., 4.545}}, {{
+             105., 3.0132}}, {{110., 2.781}}, {{115., 0.9024}}, {{120., 
+             0.9126}}}],
             FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
            GeometricTransformationBox[InsetBox[
              StyleBox["\<\"\[FilledDiamond]\"\>",
               StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
       Axes->{True, True},
       AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
+      AxesOrigin->{79.375, 0},
       BaseStyle->(FontSize -> 16),
       DisplayFunction->Identity,
       Frame->{{True, False}, {True, False}},
@@ -2141,11 +584,11 @@ Cell[BoxData[
       GridLines->{None, None},
       GridLinesStyle->Directive[
         GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
+      ImageSize->{300, 300},
       Method->{},
       PlotLabel->FormBox[
-       "\"Signal Noise SD = 2.0\\nSensor Noise SD = 10.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
+       "\"Signal Noise SD = 2.0\\nSensor Noise SD = 15.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
       PlotRangeClipping->True,
       PlotRangePadding->{{
          Scaled[0.02], 
@@ -2156,34 +599,36 @@ Cell[BoxData[
            0.019444444444444445`], Thickness[Large], 
            
            StyleBox[
-            LineBox[{{5., 9.63}, {8., 8.73}, {9., 7.368}, {10., 7.188}, {11., 
-             7.308}, {12., 6.516}, {15., 4.578}}],
+            LineBox[{{80., 6.1746}, {85., 5.3796}, {90., 5.7768}, {95., 
+             5.5776}, {100., 5.1762}, {105., 4.0548}, {110., 4.3824}, {115., 
+             4.4466}, {120., 3.8844}}],
             FontSize->16]}}, {
           {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
            0.019444444444444445`], Thickness[Large], 
            StyleBox[GeometricTransformationBox[InsetBox[
               StyleBox["\<\"\[FilledCircle]\"\>",
                StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 9.63}}, {{8., 8.73}}, {{9.,
-              7.368}}, {{10., 7.188}}, {{11., 7.308}}, {{12., 6.516}}, {{15., 
-             4.578}}}],
+               FontSize->Medium], {0., 0.}], {{{80., 6.1746}}, {{85., 
+             5.3796}}, {{90., 5.7768}}, {{95., 5.5776}}, {{100., 5.1762}}, {{
+             105., 4.0548}}, {{110., 4.3824}}, {{115., 4.4466}}, {{120., 
+             3.8844}}}],
             FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
            GeometricTransformationBox[InsetBox[
              StyleBox["\<\"\[FilledDiamond]\"\>",
               StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
       Axes->{True, True},
       AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
+      AxesOrigin->{79.375, 0},
       BaseStyle->(FontSize -> 16),
       DisplayFunction->Identity,
       Frame->{{True, False}, {True, False}},
@@ -2196,11 +641,67 @@ Cell[BoxData[
       GridLines->{None, None},
       GridLinesStyle->Directive[
         GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
+      ImageSize->{300, 300},
       Method->{},
       PlotLabel->FormBox[
-       "\"Signal Noise SD = 5.0\\nSensor Noise SD = 10.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
+       "\"Signal Noise SD = 2.0\\nSensor Noise SD = 50.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}]},
+    {
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {
+             100., 7.5408}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+             90., 9.96}}, {{95., 9.96}}, {{100., 7.5408}}, {{105., 0.}}, {{
+             110., 0.}}, {{115., 0.}}, {{120., 0.}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 5.0\\nSensor Noise SD = 1.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
       PlotRangeClipping->True,
       PlotRangePadding->{{
          Scaled[0.02], 
@@ -2211,34 +712,35 @@ Cell[BoxData[
            0.019444444444444445`], Thickness[Large], 
            
            StyleBox[
-            LineBox[{{5., 8.028}, {8., 9.246}, {9., 7.368}, {10., 8.106}, {
-             11., 8.484}, {12., 8.088}, {15., 4.794}}],
+            LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.9072}, {95., 8.7912}, {
+             100., 6.0396}, {105., 2.079}, {110., 0.225}, {115., 0.}, {120., 
+             0.}}],
             FontSize->16]}}, {
           {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
            0.019444444444444445`], Thickness[Large], 
            StyleBox[GeometricTransformationBox[InsetBox[
               StyleBox["\<\"\[FilledCircle]\"\>",
                StripOnInput->False,
-               FontSize->Large], {0., 0.}], {{{5., 8.028}}, {{8., 9.246}}, {{
-             9., 7.368}}, {{10., 8.106}}, {{11., 8.484}}, {{12., 8.088}}, {{
-             15., 4.794}}}],
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+             90., 9.9072}}, {{95., 8.7912}}, {{100., 6.0396}}, {{105., 
+             2.079}}, {{110., 0.225}}, {{115., 0.}}, {{120., 0.}}}],
             FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
-           LineBox[{{5., 10.02}, {8., 10.02}, {9., 9.96}, {10., 9.174}, {11., 
-            4.092}, {12., 0.228}, {15., 0.06}}]}}, {
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
           {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
            Large], Dashing[{Small, Small}], 
            GeometricTransformationBox[InsetBox[
              StyleBox["\<\"\[FilledDiamond]\"\>",
               StripOnInput->False,
-              FontSize->Medium], {0., 0.}], {{{5., 10.02}}, {{8., 10.02}}, {{
-            9., 9.96}}, {{10., 9.174}}, {{11., 4.092}}, {{12., 0.228}}, {{15.,
-             0.06}}}]}, {}}}, {}}},
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
       AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
       Axes->{True, True},
       AxesLabel->{None, None},
-      AxesOrigin->{4.843750000000001, 0},
+      AxesOrigin->{79.375, 0},
       BaseStyle->(FontSize -> 16),
       DisplayFunction->Identity,
       Frame->{{True, False}, {True, False}},
@@ -2251,11 +753,1039 @@ Cell[BoxData[
       GridLines->{None, None},
       GridLinesStyle->Directive[
         GrayLevel[0.5, 0.4]],
-      ImageSize->{500, 500},
+      ImageSize->{300, 300},
       Method->{},
       PlotLabel->FormBox[
-       "\"Signal Noise SD = 10.0\\nSensor Noise SD = 10.0\"", TraditionalForm],
-      PlotRange->{{5., 15.}, {0, 11}},
+       "\"Signal Noise SD = 5.0\\nSensor Noise SD = 5.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.1818}, {85., 7.9116}, {90., 8.1096}, {95., 
+             6.5634}, {100., 5.4396}, {105., 4.6608}, {110., 2.1636}, {115., 
+             1.4256}, {120., 1.368}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.1818}}, {{85., 
+             7.9116}}, {{90., 8.1096}}, {{95., 6.5634}}, {{100., 5.4396}}, {{
+             105., 4.6608}}, {{110., 2.1636}}, {{115., 1.4256}}, {{120., 
+             1.368}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 5.0\\nSensor Noise SD = 15.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 6.9696}, {85., 5.7234}, {90., 6.4932}, {95., 
+             5.1822}, {100., 5.136}, {105., 4.1808}, {110., 3.7848}, {115., 
+             3.4344}, {120., 3.8814}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 6.9696}}, {{85., 
+             5.7234}}, {{90., 6.4932}}, {{95., 5.1822}}, {{100., 5.136}}, {{
+             105., 4.1808}}, {{110., 3.7848}}, {{115., 3.4344}}, {{120., 
+             3.8814}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 5.0\\nSensor Noise SD = 50.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}]},
+    {
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.9594}, {
+             100., 7.8534}, {105., 0.0612}, {110., 0.}, {115., 0.}, {120., 
+             0.}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+             90., 9.96}}, {{95., 9.9594}}, {{100., 7.8534}}, {{105., 
+             0.0612}}, {{110., 0.}}, {{115., 0.}}, {{120., 0.}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 10.0\\nSensor Noise SD = 1.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.96}, {85., 9.8952}, {90., 9.762}, {95., 
+             9.0774}, {100., 6.3144}, {105., 2.6268}, {110., 0.5442}, {115., 
+             0.}, {120., 0.}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 
+             9.8952}}, {{90., 9.762}}, {{95., 9.0774}}, {{100., 6.3144}}, {{
+             105., 2.6268}}, {{110., 0.5442}}, {{115., 0.}}, {{120., 0.}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 10.0\\nSensor Noise SD = 5.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.1932}, {85., 7.6614}, {90., 7.8876}, {95., 
+             6.4638}, {100., 5.331}, {105., 4.3638}, {110., 2.496}, {115., 
+             1.713}, {120., 0.9954}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.1932}}, {{85., 
+             7.6614}}, {{90., 7.8876}}, {{95., 6.4638}}, {{100., 5.331}}, {{
+             105., 4.3638}}, {{110., 2.496}}, {{115., 1.713}}, {{120., 
+             0.9954}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 10.0\\nSensor Noise SD = 15.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[
+            LineBox[{{80., 6.6702}, {85., 6.5454}, {90., 5.3652}, {95., 
+             4.9464}, {100., 5.3436}, {105., 4.3452}, {110., 4.4166}, {115., 
+             4.0146}, {120., 4.0836}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 6.6702}}, {{85., 
+             6.5454}}, {{90., 5.3652}}, {{95., 4.9464}}, {{100., 5.3436}}, {{
+             105., 4.3452}}, {{110., 4.4166}}, {{115., 4.0146}}, {{120., 
+             4.0836}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 10.0\\nSensor Noise SD = 50.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}]},
+    {
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.9162}, {
+             100., 8.5818}, {105., 1.794}, {110., 0.0132}, {115., 0.}, {120., 
+             0.}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+             90., 9.96}}, {{95., 9.9162}}, {{100., 8.5818}}, {{105., 
+             1.794}}, {{110., 0.0132}}, {{115., 0.}}, {{120., 0.}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 20.0\\nSensor Noise SD = 1.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.96}, {85., 9.9558}, {90., 9.8694}, {95., 
+             8.883}, {100., 6.7752}, {105., 3.5664}, {110., 1.08}, {115., 
+             0.072}, {120., 0.0006}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 
+             9.9558}}, {{90., 9.8694}}, {{95., 8.883}}, {{100., 6.7752}}, {{
+             105., 3.5664}}, {{110., 1.08}}, {{115., 0.072}}, {{120., 
+             0.0006}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 20.0\\nSensor Noise SD = 5.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.2628}, {85., 8.8944}, {90., 8.3214}, {95., 
+             7.0188}, {100., 5.7192}, {105., 4.4652}, {110., 3.2664}, {115., 
+             2.568}, {120., 1.4802}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.2628}}, {{85., 
+             8.8944}}, {{90., 8.3214}}, {{95., 7.0188}}, {{100., 5.7192}}, {{
+             105., 4.4652}}, {{110., 3.2664}}, {{115., 2.568}}, {{120., 
+             1.4802}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 20.0\\nSensor Noise SD = 15.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 6.6936}, {85., 6.5046}, {90., 6.162}, {95., 
+             5.3298}, {100., 6.159}, {105., 4.5816}, {110., 4.0368}, {115., 
+             4.1538}, {120., 2.1474}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 6.6936}}, {{85., 
+             6.5046}}, {{90., 6.162}}, {{95., 5.3298}}, {{100., 6.159}}, {{
+             105., 4.5816}}, {{110., 4.0368}}, {{115., 4.1538}}, {{120., 
+             2.1474}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 20.0\\nSensor Noise SD = 50.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}]},
+    {
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.96}, {85., 9.9588}, {90., 9.8838}, {95., 
+             9.6084}, {100., 8.7228}, {105., 6.54}, {110., 3.1254}, {115., 
+             0.648}, {120., 0.0636}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 
+             9.9588}}, {{90., 9.8838}}, {{95., 9.6084}}, {{100., 8.7228}}, {{
+             105., 6.54}}, {{110., 3.1254}}, {{115., 0.648}}, {{120., 
+             0.0636}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 50.0\\nSensor Noise SD = 1.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.9576}, {85., 9.9246}, {90., 9.7224}, {95., 
+             9.2652}, {100., 8.1714}, {105., 6.3114}, {110., 3.5454}, {115., 
+             1.2876}, {120., 0.3222}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.9576}}, {{85., 
+             9.9246}}, {{90., 9.7224}}, {{95., 9.2652}}, {{100., 8.1714}}, {{
+             105., 6.3114}}, {{110., 3.5454}}, {{115., 1.2876}}, {{120., 
+             0.3222}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 50.0\\nSensor Noise SD = 5.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.579}, {85., 9.3684}, {90., 8.532}, {95., 
+             7.326}, {100., 7.1136}, {105., 4.503}, {110., 4.3536}, {115., 
+             3.435}, {120., 1.8264}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.579}}, {{85., 
+             9.3684}}, {{90., 8.532}}, {{95., 7.326}}, {{100., 7.1136}}, {{
+             105., 4.503}}, {{110., 4.3536}}, {{115., 3.435}}, {{120., 
+             1.8264}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 50.0\\nSensor Noise SD = 15.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 6.9924}, {85., 6.5514}, {90., 7.3038}, {95., 
+             4.9218}, {100., 6.477}, {105., 5.6724}, {110., 4.3152}, {115., 
+             4.2432}, {120., 3.7116}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 6.9924}}, {{85., 
+             6.5514}}, {{90., 7.3038}}, {{95., 4.9218}}, {{100., 6.477}}, {{
+             105., 5.6724}}, {{110., 4.3152}}, {{115., 4.2432}}, {{120., 
+             3.7116}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 50.0\\nSensor Noise SD = 50.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}]},
+    {
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.8904}, {85., 9.8004}, {90., 9.6066}, {95., 
+             9.2862}, {100., 8.724}, {105., 7.8288}, {110., 6.5754}, {115., 
+             4.7946}, {120., 3.0216}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.8904}}, {{85., 
+             9.8004}}, {{90., 9.6066}}, {{95., 9.2862}}, {{100., 8.724}}, {{
+             105., 7.8288}}, {{110., 6.5754}}, {{115., 4.7946}}, {{120., 
+             3.0216}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 100.0\\nSensor Noise SD = 1.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.8568}, {85., 9.75}, {90., 9.5784}, {95., 
+             9.2154}, {100., 8.427}, {105., 7.6638}, {110., 6.4044}, {115., 
+             4.782}, {120., 3.1602}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.8568}}, {{85., 
+             9.75}}, {{90., 9.5784}}, {{95., 9.2154}}, {{100., 8.427}}, {{
+             105., 7.6638}}, {{110., 6.4044}}, {{115., 4.782}}, {{120., 
+             3.1602}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 100.0\\nSensor Noise SD = 5.0\"", TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 9.4344}, {85., 9.342}, {90., 8.5542}, {95., 
+             8.2566}, {100., 7.506}, {105., 6.9102}, {110., 5.7828}, {115., 
+             5.277}, {120., 4.2552}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 9.4344}}, {{85., 
+             9.342}}, {{90., 8.5542}}, {{95., 8.2566}}, {{100., 7.506}}, {{
+             105., 6.9102}}, {{110., 5.7828}}, {{115., 5.277}}, {{120., 
+             4.2552}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 100.0\\nSensor Noise SD = 15.0\"", 
+        TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
+      PlotRangeClipping->True,
+      PlotRangePadding->{{
+         Scaled[0.02], 
+         Scaled[0.02]}, {0, 0}},
+      Ticks->{Automatic, Automatic}], 
+     GraphicsBox[{{{}, {{{}, {}, 
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           
+           StyleBox[
+            LineBox[{{80., 8.0844}, {85., 7.1088}, {90., 6.5406}, {95., 
+             6.4614}, {100., 6.906}, {105., 6.1092}, {110., 5.724}, {115., 
+             4.6272}, {120., 4.236}}],
+            FontSize->16]}}, {
+          {RGBColor[0.368417, 0.506779, 0.709798], PointSize[
+           0.019444444444444445`], Thickness[Large], 
+           StyleBox[GeometricTransformationBox[InsetBox[
+              StyleBox["\<\"\[FilledCircle]\"\>",
+               StripOnInput->False,
+               FontSize->Medium], {0., 0.}], {{{80., 8.0844}}, {{85., 
+             7.1088}}, {{90., 6.5406}}, {{95., 6.4614}}, {{100., 6.906}}, {{
+             105., 6.1092}}, {{110., 5.724}}, {{115., 4.6272}}, {{120., 
+             4.236}}}],
+            FontSize->16]}, {}}}, {}}, {{}, {{{}, {}, 
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           LineBox[{{80., 9.96}, {85., 9.96}, {90., 9.96}, {95., 9.96}, {100.,
+             8.727}, {105., 0.}, {110., 0.}, {115., 0.}, {120., 0.}}]}}, {
+          {RGBColor[1, 0, 0], PointSize[0.019444444444444445`], Thickness[
+           Large], Dashing[{Small, Small}], 
+           GeometricTransformationBox[InsetBox[
+             StyleBox["\<\"\[FilledDiamond]\"\>",
+              StripOnInput->False,
+              FontSize->Medium], {0., 0.}], {{{80., 9.96}}, {{85., 9.96}}, {{
+            90., 9.96}}, {{95., 9.96}}, {{100., 8.727}}, {{105., 0.}}, {{110.,
+             0.}}, {{115., 0.}}, {{120., 0.}}}]}, {}}}, {}}},
+      AspectRatio->NCache[GoldenRatio^(-1), 0.6180339887498948],
+      Axes->{True, True},
+      AxesLabel->{None, None},
+      AxesOrigin->{79.375, 0},
+      BaseStyle->(FontSize -> 16),
+      DisplayFunction->Identity,
+      Frame->{{True, False}, {True, False}},
+      FrameLabel->{{
+         FormBox["\"Avg. Collaborations/min\"", TraditionalForm], None}, {
+         FormBox[
+         "\"(Red) \[Tau]\\n(Blue) Signal Noise Mean\"", TraditionalForm], 
+         None}},
+      FrameTicks->{{Automatic, Automatic}, {Automatic, Automatic}},
+      GridLines->{None, None},
+      GridLinesStyle->Directive[
+        GrayLevel[0.5, 0.4]],
+      ImageSize->{300, 300},
+      Method->{},
+      PlotLabel->FormBox[
+       "\"Signal Noise SD = 100.0\\nSensor Noise SD = 50.0\"", 
+        TraditionalForm],
+      PlotRange->{{80., 120.}, {0, 11}},
       PlotRangeClipping->True,
       PlotRangePadding->{{
          Scaled[0.02], 
@@ -2265,92 +1795,8 @@ Cell[BoxData[
    AutoDelete->False,
    GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
   "Grid"]], "Output",
- CellChangeTimes->{3.6317427542427673`*^9, 3.631743066758664*^9, 
-  3.631743476245123*^9, 3.6317437087864304`*^9}]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"?", "MapThread"}]], "Input",
- CellChangeTimes->{{3.6313826362809553`*^9, 3.6313826386056337`*^9}}],
-
-Cell[BoxData[
- RowBox[{
-  StyleBox["\<\"\\!\\(\\*RowBox[{\\\"MapThread\\\", \\\"[\\\", \
-RowBox[{StyleBox[\\\"f\\\", \\\"TI\\\"], \\\",\\\", RowBox[{\\\"{\\\", \
-RowBox[{RowBox[{\\\"{\\\", RowBox[{SubscriptBox[StyleBox[\\\"a\\\", \
-\\\"TI\\\"], StyleBox[\\\"1\\\", \\\"TR\\\"]], \\\",\\\", \
-SubscriptBox[StyleBox[\\\"a\\\", \\\"TI\\\"], StyleBox[\\\"2\\\", \
-\\\"TR\\\"]], \\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\"TR\\\"]}], \\\"}\\\
-\"}], \\\",\\\", RowBox[{\\\"{\\\", RowBox[{SubscriptBox[StyleBox[\\\"b\\\", \
-\\\"TI\\\"], StyleBox[\\\"1\\\", \\\"TR\\\"]], \\\",\\\", \
-SubscriptBox[StyleBox[\\\"b\\\", \\\"TI\\\"], StyleBox[\\\"2\\\", \
-\\\"TR\\\"]], \\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\"TR\\\"]}], \\\"}\\\
-\"}], \\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\"TR\\\"]}], \\\"}\\\"}]}], \
-\\\"]\\\"}]\\) gives \\!\\(\\*RowBox[{\\\"{\\\", \
-RowBox[{RowBox[{StyleBox[\\\"f\\\", \\\"TI\\\"], \\\"[\\\", \
-RowBox[{SubscriptBox[StyleBox[\\\"a\\\", \\\"TI\\\"], StyleBox[\\\"1\\\", \
-\\\"TR\\\"]], \\\",\\\", SubscriptBox[StyleBox[\\\"b\\\", \\\"TI\\\"], \
-StyleBox[\\\"1\\\", \\\"TR\\\"]], \\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\
-\"TR\\\"]}], \\\"]\\\"}], \\\",\\\", RowBox[{StyleBox[\\\"f\\\", \\\"TI\\\"], \
-\\\"[\\\", RowBox[{SubscriptBox[StyleBox[\\\"a\\\", \\\"TI\\\"], \
-StyleBox[\\\"2\\\", \\\"TR\\\"]], \\\",\\\", SubscriptBox[StyleBox[\\\"b\\\", \
-\\\"TI\\\"], StyleBox[\\\"2\\\", \\\"TR\\\"]], \\\",\\\", StyleBox[\\\"\
-\[Ellipsis]\\\", \\\"TR\\\"]}], \\\"]\\\"}], \\\",\\\", StyleBox[\\\"\
-\[Ellipsis]\\\", \\\"TR\\\"]}], \\\"}\\\"}]\\). \
-\\n\\!\\(\\*RowBox[{\\\"MapThread\\\", \\\"[\\\", RowBox[{StyleBox[\\\"f\\\", \
-\\\"TI\\\"], \\\",\\\", RowBox[{\\\"{\\\", \
-RowBox[{SubscriptBox[StyleBox[\\\"expr\\\", \\\"TI\\\"], StyleBox[\\\"1\\\", \
-\\\"TR\\\"]], \\\",\\\", SubscriptBox[StyleBox[\\\"expr\\\", \\\"TI\\\"], \
-StyleBox[\\\"2\\\", \\\"TR\\\"]], \\\",\\\", StyleBox[\\\"\[Ellipsis]\\\", \\\
-\"TR\\\"]}], \\\"}\\\"}], \\\",\\\", StyleBox[\\\"n\\\", \\\"TI\\\"]}], \\\"]\
-\\\"}]\\) applies \\!\\(\\*StyleBox[\\\"f\\\", \\\"TI\\\"]\\) to the parts of \
-the \\!\\(\\*SubscriptBox[StyleBox[\\\"expr\\\", \\\"TI\\\"], \
-StyleBox[\\\"i\\\", \\\"TI\\\"]]\\) at level \\!\\(\\*StyleBox[\\\"n\\\", \
-\\\"TI\\\"]\\). \"\>", "MSG"], "\[NonBreakingSpace]", 
-  ButtonBox[
-   StyleBox["\[RightSkeleton]", "SR"],
-   Active->True,
-   BaseStyle->"Link",
-   ButtonData->"paclet:ref/MapThread"]}]], "Print", "PrintUsage",
- CellChangeTimes->{3.631382640386806*^9},
- CellTags->"Info3631357440-9803846"]
-}, Open  ]],
-
-Cell[CellGroupData[{
-
-Cell[BoxData[
- RowBox[{"processNoisySimDat", "\[LeftDoubleBracket]", 
-  RowBox[{"1", ",", "2", ",", "1"}], "\[RightDoubleBracket]"}]], "Input",
- CellChangeTimes->{{3.631382404302127*^9, 3.631382469939863*^9}}],
-
-Cell[BoxData[
- RowBox[{"{", 
-  RowBox[{
-   RowBox[{"{", 
-    RowBox[{"5", ",", 
-     FractionBox["167", "30"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"8", ",", 
-     FractionBox["167", "30"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"9", ",", 
-     FractionBox["1661", "300"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"10", ",", 
-     FractionBox["761", "150"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"11", ",", 
-     FractionBox["184", "75"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"12", ",", 
-     FractionBox["37", "150"]}], "}"}], ",", 
-   RowBox[{"{", 
-    RowBox[{"15", ",", 
-     FractionBox["1", "30"]}], "}"}]}], "}"}]], "Output",
- CellChangeTimes->{{3.631382411458391*^9, 3.631382470252359*^9}}]
-}, Open  ]]
+ CellChangeTimes->{
+  3.6323560144013033`*^9, {3.6323566119229565`*^9, 3.6323566578545446`*^9}}]
 }, Open  ]]
 }, Open  ]],
 
@@ -3033,88 +2479,39 @@ StyleDefinitions->"Default.nb"
 
 (* Internal cache information *)
 (*CellTagsOutline
-CellTagsIndex->{
- "Info3631357440-9803846"->{
-  Cell[99638, 2277, 2514, 40, 61, "Print",
-   CellTags->"Info3631357440-9803846"]}
- }
+CellTagsIndex->{}
 *)
 (*CellTagsIndex
-CellTagsIndex->{
- {"Info3631357440-9803846", 131544, 3036}
- }
+CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
 Cell[580, 22, 172, 3, 31, "Input"],
-Cell[755, 27, 188, 2, 31, "Output"]
+Cell[755, 27, 210, 2, 31, "Output"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[980, 34, 124, 1, 70, "Section"],
-Cell[1107, 37, 420, 11, 72, "Input"],
+Cell[1002, 34, 124, 1, 70, "Section"],
+Cell[1129, 37, 1056, 28, 132, "Input"],
+Cell[2188, 67, 2104, 53, 92, "Input"],
 Cell[CellGroupData[{
-Cell[1552, 52, 785, 19, 31, "Input"],
-Cell[2340, 73, 441, 12, 46, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[2818, 90, 972, 23, 52, "Input"],
-Cell[3793, 115, 9001, 198, 254, "Output"]
+Cell[4317, 124, 2999, 72, 112, "Input"],
+Cell[7319, 198, 75193, 1600, 2147, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[12843, 319, 119, 1, 70, "Section"],
-Cell[12965, 322, 178, 5, 52, "Input"],
+Cell[82561, 1804, 172, 2, 70, "Section"],
+Cell[82736, 1808, 1394, 38, 72, "Input"],
 Cell[CellGroupData[{
-Cell[13168, 331, 126, 1, 49, "Subsection"],
-Cell[13297, 334, 2031, 45, 92, "Input"],
-Cell[15331, 381, 1276, 28, 31, "Input"],
-Cell[CellGroupData[{
-Cell[16632, 413, 1401, 29, 52, "Input"],
-Cell[18036, 444, 9099, 200, 254, "Output"]
+Cell[84155, 1850, 736, 20, 31, "Input"],
+Cell[84894, 1872, 1606, 54, 46, "Output"]
 }, Open  ]]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[27184, 650, 129, 1, 49, "Subsection"],
-Cell[27316, 653, 1638, 41, 92, "Input"],
-Cell[28957, 696, 1540, 36, 52, "Input"],
+Cell[86549, 1932, 104, 1, 70, "Section"],
 Cell[CellGroupData[{
-Cell[30522, 736, 197, 3, 31, "Input"],
-Cell[30722, 741, 185, 4, 31, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[30944, 750, 199, 3, 31, "Input"],
-Cell[31146, 755, 731, 24, 46, "Output"]
-}, Open  ]],
-Cell[31892, 782, 2860, 65, 112, "Input"],
-Cell[CellGroupData[{
-Cell[34777, 851, 1188, 29, 52, "Input"],
-Cell[35968, 882, 63508, 1386, 2537, "Output"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[99513, 2273, 122, 2, 39, "Input"],
-Cell[99638, 2277, 2514, 40, 61, "Print",
- CellTags->"Info3631357440-9803846"]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[102189, 2322, 209, 3, 39, "Input"],
-Cell[102401, 2327, 726, 24, 57, "Output"]
-}, Open  ]]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[103188, 2358, 172, 2, 73, "Section"],
-Cell[103363, 2362, 1394, 38, 73, "Input"],
-Cell[CellGroupData[{
-Cell[104782, 2404, 736, 20, 39, "Input"],
-Cell[105521, 2426, 1606, 54, 57, "Output"]
-}, Open  ]]
-}, Open  ]],
-Cell[CellGroupData[{
-Cell[107176, 2486, 104, 1, 73, "Section"],
-Cell[CellGroupData[{
-Cell[107305, 2491, 1341, 32, 39, "Input"],
-Cell[108649, 2525, 22534, 496, 521, "Output"]
+Cell[86678, 1937, 1341, 32, 52, "Input"],
+Cell[88022, 1971, 22534, 496, 519, "Output"]
 }, Open  ]]
 }, Open  ]]
 }

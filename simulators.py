@@ -13,7 +13,8 @@ class collab_simulator (object):
     _data_logger = None
     _agent_list = None
     _num_collabs = 0
-   
+    _start_collab_flag = False
+    
     # FUNCTIONS
     def __init__(self, data_logger):
         self._data_logger = data_logger
@@ -40,6 +41,7 @@ class collab_simulator (object):
             self._curr_sys_state[agent.get_curr_agent_state()] += 1
     
         self._num_collabs = 0
+        self._start_collab_flag = False
     
     def run(self, total_time):       
         """
@@ -54,13 +56,16 @@ class collab_simulator (object):
             for agent in self._agent_list:
                 vote_state[agent.step(self._curr_sys_state)] += 1   
                 
-            # Change all agents' state to collaborate if majority vote passes
-            self._curr_sys_state = {"Wait":0, "Collaborate":0}
             new_state = "Wait"
             if vote_state["Collaborate"] >= vote_state["Wait"]:
-                self._num_collabs += 1 # This doesn't work because this line gets hit more than once per collaborations
-                new_state = "Collaborate"
-            
+                new_state = "Collaborate"                
+                if self._start_collab_flag:
+                    self._num_collabs += 1
+                    self._start_collab_flag = False
+            else:
+                self._start_collab_flag = True
+
+            self._curr_sys_state = {"Wait":0, "Collaborate":0}            
             for agent in self._agent_list:
                 self._curr_sys_state[agent.set_curr_agent_state(new_state)] += 1
             
@@ -99,7 +104,7 @@ class noisy_signal_simulator (collab_simulator):
             self._curr_sys_state[agent.get_curr_agent_state()] += 1
         
         self._num_collabs = 0
-        
+        self._start_collab_flag = False
         
     def run(self, total_time):       
         """
@@ -129,9 +134,12 @@ class noisy_signal_simulator (collab_simulator):
             new_state = "Wait"
             if vote_state["Collaborate"] >= vote_state["Wait"]:
                 new_state = "Collaborate"
-                self._num_collabs += 1
+                if self._start_collab_flag:
+                    self._num_collabs += 1
+                    self._start_collab_flag = False
             else:
                 self.set_all_agent_params({'Tau':self._noise_signal_val})
+                self._start_collab_flag = True
                 
             for agent in self._agent_list:
                 self._curr_sys_state[agent.set_curr_agent_state(new_state)] += 1

@@ -74,9 +74,9 @@ if __name__ == "__main__":
     run_time = 1000
     num_runs = 100
 
-    print('Running Original Collaboration Experiments...')
-    collab_run(num_agents, num_runs, run_time)
-    print('Done!')
+#    print('Running Original Collaboration Experiments...')
+#    collab_run(num_agents, num_runs, run_time)
+#    print('Done!')
     
     print('Running Noisy Collaboration Experiments...')    
     noisy_signal_run(num_agents, num_runs, run_time)
