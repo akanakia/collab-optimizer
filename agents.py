@@ -56,8 +56,10 @@ class collab_agent (base_agent):
                 return "Collaborate"
             
     def set_params(self, params_dict):
-        self._theta = params_dict["Theta"]
-        self._tau = params_dict["Tau"]
+        if "Theta" in params_dict:
+            self._theta = params_dict["Theta"]
+        if "Tau" in params_dict:
+            self._tau = params_dict["Tau"]
 
     def _run_sigmoid(self, est):
         vote = 'Wait'
@@ -73,7 +75,7 @@ class collab_agent (base_agent):
 # ===================================================================
 # Agent with noisy sensors            
 import numpy as np
-class noisy_signal_agent (collab_agent):
+class noisy_sensor_agent (collab_agent):
     
     # VARIABLES
     _sensor_mean = 0
@@ -81,20 +83,15 @@ class noisy_signal_agent (collab_agent):
     
     # FUNCTIONS
     def __init__(self,start_state):
-        super(noisy_signal_agent,self).__init__(start_state)
-       
-    # DEBUG CODE HERE
-#    def step(self, curr_sys_state):
-#        print('Theta = ' + str(self._theta) +  ' Tau = ' + str(self._tau) + ' SensorMean = ' + str(self._sensor_mean) + ' SensorSD = ' + str(self._sensor_sd))
-#        return super(noisy_signal_agent,self).step(curr_sys_state)
+        super(noisy_sensor_agent,self).__init__(start_state)
+
+    def _run_sigmoid(self, est):
+        est_noisy = max(est + np.random.normal(self._sensor_mean, self._sensor_sd), 0)
+        return super(noisy_sensor_agent, self)._run_sigmoid(est_noisy)
         
     def set_params(self, params_dict):     
         if "SensorMean" in params_dict:
             self._sensor_mean = params_dict["SensorMean"]
         if "SensorSD" in params_dict:
             self._sensor_sd = params_dict["SensorSD"]
-        if "Theta" in params_dict:
-            self._theta = params_dict["Theta"]
-        if "Tau" in params_dict:
-            noisy_sensor_val = np.random.normal(self._sensor_mean, self._sensor_sd)
-            self._tau = max(params_dict["Tau"] + noisy_sensor_val, 0)
+        super(noisy_sensor_agent, self).set_params(params_dict)
