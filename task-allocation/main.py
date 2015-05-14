@@ -19,7 +19,7 @@ def collab_run(num_agents, num_runs, run_time):
     for theta in agent_dist_var_list:
         for tau in agent_dist_mean_list:     
 
-            data_logger.set_file_name('data/vanilla-theta_' + str(theta) + '-tau_' + str(tau) + '-runtime_' + str(run_time) + '.txt')
+            data_logger.set_file_name('../data/vanilla-theta_' + str(theta) + '-tau_' + str(tau) + '-runtime_' + str(run_time) + '.txt')
             
             for run in range(num_runs):
                 sim.reset_run()
@@ -42,7 +42,7 @@ def noisy_sensor_run(num_agents, num_runs, run_time):
     for theta in agent_dist_var_list:
         for tau in agent_dist_mean_list:     
             for sensor_sd in sensor_noise_sd_list:                
-                data_logger.set_file_name('data/noisy-theta_' + str(theta) + '-tau_' + str(tau) + '-sensorsd_' + str(sensor_sd) + '-runtime_' + str(run_time) + '.txt')
+                data_logger.set_file_name('../data/noisy-theta_' + str(theta) + '-tau_' + str(tau) + '-sensorsd_' + str(sensor_sd) + '-runtime_' + str(run_time) + '.txt')
                 for run in range(num_runs):
                     sim.reset_run()
                     params_dict = {"Theta":theta, "Tau":tau, "SensorSD":sensor_sd}
