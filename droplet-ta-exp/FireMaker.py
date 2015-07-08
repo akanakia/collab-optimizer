@@ -103,9 +103,12 @@ class FireMaker:
         Propogates the fire from existing fire cells to neighboring cells using
         the desired probability distribution.
         """
-        new_cell_added = False
         front_cells = [cell for cell in self._active_cells if cell.status == FireMaker.Cell.FRONT]
         for front_cell in front_cells:
+            # Check if a front cell has turned into a core cell.
+            # This can happen as new cells are added to this loop.
+            if front_cell.status != FireMaker.Cell.FRONT:
+                continue
             # Roll a dice to see the fire propogates
             if random.random() <= (float(front_cell.i) / 255):
                 occupied_cells = [(cell.row, cell.col) for cell in self._active_cells]
@@ -115,18 +118,13 @@ class FireMaker:
                     neighbor_coords.remove(new_firecell_coords)
                     new_firecell_coords = neighbor_coords[random.randint(0, len(neighbor_coords) - 1)]
 
+                # Add the new cell and update its neighbors' neighbor count
                 self.add_cell(new_firecell_coords[0], new_firecell_coords[1])
-                new_cell_added = True
-        
-        # If a new cell was added then check if any FRONT cells need to become 
-        # CORE cells
-        if new_cell_added:
-            new_cell = self.get_last_added_cell()
-            new_cell_neighbors = [cell for cell in front_cells if (cell.row, cell.col) in new_cell.allowed_neighbors]
-            new_cell.add_num_neighbors(len(new_cell_neighbors))
-            for cell in new_cell_neighbors:
-                cell.add_num_neighbors(1)
-            
+                new_cell = self.get_last_added_cell()
+                new_cell_neighbors = [cell for cell in self._active_cells if (cell.row, cell.col) in new_cell.allowed_neighbors]
+                new_cell.add_num_neighbors(len(new_cell_neighbors))
+                for cell in new_cell_neighbors:
+                    cell.add_num_neighbors(1)            
             
     
     def increment_intensity(self, inc=1):

@@ -6,8 +6,8 @@ from FireMaker import *
 FPS = 60
 SCREEN_X = 800
 SCREEN_Y = 600    
-CELL_W = 10
-CELL_H = 10
+CELL_W = 2
+CELL_H = 2
 
 def main():
 
@@ -20,7 +20,7 @@ def main():
     screen = pygame.display.set_mode((SCREEN_X, SCREEN_Y), HWSURFACE | DOUBLEBUF)
     pygame.display.set_caption('Fire Propogation')
     clock = pygame.time.Clock()
-    minute_counter = 0
+    minute_counter = 1
     
     while (1):        
         # Get user input and data from roborealm
@@ -32,14 +32,13 @@ def main():
 
         # Clear the screen            
         screen.fill((0, 0, 0))  
+
+        # Minute interval
+        if minute_counter > (FPS * 60):
+            minute_counter = 1
                 
         # 20 second interval
-        if (minute_counter == FPS * 20):
-            pass            
-            
-        # Minute interval
-        if (minute_counter >= FPS * 60):
-            minute_counter = 0      
+        if (minute_counter % (FPS * 5)) == 0:
             fm.increment_intensity(5)
             
         # Propogate the fire
