@@ -29,6 +29,16 @@ class FireMaker:
             self._num_neighbors += n
             if self._num_neighbors >= len(self.allowed_neighbors):
                 self.status = FireMaker.Cell.CORE
+        
+        def increment_intensity(self, inc):
+            """
+            Increment the intensity of the fire cell by inc up to a max of 255.
+            If the cell reaches max intensity it burns out and it's status is 
+            set to BURNT
+            """
+            self.i = min(255, self.i + inc)
+            if self.i == 255:
+                self.status = FireMaker.Cell.BURNT
             
         def _compute_allowed_neighbors(self, num_cell_rows, num_cell_cols):
             """
@@ -133,8 +143,9 @@ class FireMaker:
         by inc (=1 by default) up to a max of 255.
         inc souhld be a postive integer.
         """
-        for cell in self._active_cells:
-            cell.i = min(255, cell.i + inc)
+        burning_cells = [cell for cell in self._active_cells if cell.status != FireMaker.Cell.BURNT]
+        for cell in burning_cells:
+            cell.increment_intensity(inc)
 
     def get_fire_grid(self):
         """
