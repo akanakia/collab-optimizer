@@ -40,10 +40,11 @@ def main():
         # Minute interval
         if (minute_counter >= FPS * 60):
             minute_counter = 0      
-            fm.increment_intensity()
+            fm.increment_intensity(5)
             
         # Propogate the fire
-
+        fm.propogate_fire()
+        
         # Draw the fire
         for (y_pos, x_pos, intensity) in fm.get_fire_grid():
             screen.fill((255, 255 - intensity, 0), pygame.Rect((x_pos * fm.cell_width, y_pos * fm.cell_height), (fm.cell_width, fm.cell_height)))
