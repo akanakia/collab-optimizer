@@ -6,14 +6,17 @@ from FireMaker import *
 FPS = 60
 SCREEN_X = 800
 SCREEN_Y = 600    
-CELL_W = 2
-CELL_H = 2
+CELL_W = 4
+CELL_H = 4
 
 def main():
 
     # Set up the FireMaker class and add a randomly located fire seed
-    fm = FireMaker(CELL_H, CELL_W, SCREEN_Y / CELL_H, SCREEN_X / CELL_W)
-    fm.add_cell_random()
+    fm = FireMaker(SCREEN_Y / CELL_H, SCREEN_X / CELL_W)
+    (retval, state) = fm.ignite_cell_random()
+    if not retval:
+        print('Problem initializing fire grid.')
+        return
     
     # Set up PyGame
     pygame.init()
@@ -29,7 +32,10 @@ def main():
             if event.type == QUIT:
                 pygame.quit()
                 return
-
+            if event.type == MOUSEBUTTONUP:
+                (mouse_x, mouse_y) = pygame.mouse.get_pos()
+                fm.ignite_cell(mouse_y/CELL_H, mouse_x/CELL_W)
+                
         # Clear the screen            
         screen.fill((0, 0, 0))  
 
@@ -41,12 +47,19 @@ def main():
         if (minute_counter % (FPS * 5)) == 0:
             fm.increment_intensity(5)
             
+        # random interval
+        if random.randint(0, FPS * 2) == 0:
+            fm.increment_intensity(5)
+            
         # Propogate the fire
         fm.propogate_fire()
         
         # Draw the fire
-        for (y_pos, x_pos, intensity) in fm.get_fire_grid():
-            screen.fill((255, 255 - intensity, 0), pygame.Rect((x_pos * fm.cell_width, y_pos * fm.cell_height), (fm.cell_width, fm.cell_height)))
+        for (y_pos, x_pos, intensity, status) in fm.get_fire_grid():
+            if status==FireMaker.Cell.FRONT:
+                screen.fill((0, 0, 255), pygame.Rect((x_pos * CELL_W, y_pos * CELL_H), (CELL_W, CELL_H)))
+            else:
+                screen.fill((255, 255 - intensity, 0), pygame.Rect((x_pos * CELL_W, y_pos * CELL_H), (CELL_W, CELL_H)))
         
         # Render to screen
         pygame.display.flip()

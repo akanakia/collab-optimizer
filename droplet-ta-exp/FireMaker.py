@@ -17,9 +17,9 @@ class FireMaker:
             """
             self.col = col
             self.row = row
-            self.intensity = 1
             self.status = FireMaker.Cell.UNBURNT
             self.neighbors = 0
+            self.intensity = 1
             
             self.allowed_neighbors = []            
             self._compute_allowed_neighbors(num_cell_rows, num_cell_cols)
@@ -33,6 +33,8 @@ class FireMaker:
             self.neighbors += n
             if self.neighbors >= len(self.allowed_neighbors):
                 self.status = FireMaker.Cell.CORE
+            elif self.neighbors > 0:
+                self.status = FireMaker.Cell.FRONT
         
         def increment_intensity(self, inc):
             """
@@ -71,51 +73,71 @@ class FireMaker:
     def ignite_cell(self, row, col):
         """
         Add a new fire cell placed at location (row, col) on the grid. It
-        returns True if a new cell was created, False if a fire cell already 
-        existed at that location.
+        returns (True, new cell status) if a new cell was created and
+        (False, existince cell status) if a fire cell already existed at that 
+        location.
         """
         if self._grid[row][col].status != FireMaker.Cell.UNBURNT:
-            return False
+            return (False, self._grid[row][col].status)
         else:
-            self._grid[row][col].status = FireMaker.Cell.FRONT
-            return True
+            for (nrow, ncol) in self._grid[row][col].allowed_neighbors:
+                if self._grid[nrow][ncol].status != FireMaker.Cell.UNBURNT:
+                    self._grid[row][col].add_num_neighbors(1)
+                    self._grid[nrow][ncol].add_num_neighbors(1)
+
+            # If you are the first ever fire cell this might happen        
+            if self._grid[row][col].status == FireMaker.Cell.UNBURNT:
+                self._grid[row][col].status = FireMaker.Cell.FRONT
+            
+            return (True, self._grid[row][col].status)
 
     def ignite_cell_random(self):
         """
-        Adds a new fire cell randomlly placed on the grid. It will only add a
-        new cell if less than 75% of the total area is currently covered by 
-        fire. Returns True on success
+        Adds a new fire cell randomlly placed on the grid. 
+        If the new cell has at least 1 UNBURNT neighbor then this function sets 
+        the new cell's status to FRONT and returns (True, FRONT). 
+        If the new cell has no UNBURNT neighbors left then this functions sets 
+        the new cell's status to CORE and returns (True, CORE). 
+        Either way a new fire cell is created in a random position on the grid.
+        If there are no UNBURNT cell positions left this function returns 
+        (False, None)
         """
-        unburnt_cells = [cell for cell in self._grid if cell.status == FireMaker.Cell.UNBURNT]
-        unburnt_cells[random.randint(0, len(unburnt_cells) - 1)].status = FireMaker.Cell.FRONT
+        unburnt_cells = [cell for gridrows in self._grid for cell in gridrows if cell.status==FireMaker.Cell.UNBURNT]
+        if len(unburnt_cells) == 0:
+            return (False, None)
+            
+        rand_id = random.randint(0, len(unburnt_cells) - 1)
+        for (row, col) in unburnt_cells[rand_id].allowed_neighbors:
+            if self._grid[row][col].status != FireMaker.Cell.UNBURNT:
+                unburnt_cells[rand_id].add_num_neighbors(1)
+                self._grid[row][col].add_num_neighbors(1)
+
+        # If you are the first ever fire cell this might happen        
+        if unburnt_cells[rand_id].status == FireMaker.Cell.UNBURNT:
+            unburnt_cells[rand_id].status = FireMaker.Cell.FRONT
+            
+        return (True, unburnt_cells[rand_id].status)
+
     
     def propogate_fire(self):
         """
         Propogates the fire from existing fire cells to neighboring cells using
         the desired probability distribution.
         """
-        front_cells = [cell for cell in self._grid if cell.status == FireMaker.Cell.FRONT]
+        front_cells = [cell for gridrows in self._grid for cell in gridrows if cell.status==FireMaker.Cell.FRONT]
         for front_cell in front_cells:
             # Check if a front cell has turned into a core cell.
             # This can happen as new cells are added to this loop.
             if front_cell.status != FireMaker.Cell.FRONT:
                 continue
             # Roll a dice to see the fire propogates
-            if random.random() <= (float(front_cell.i) / 255):
-                occupied_cells = [(cell.row, cell.col) for cell in self._grid]
+            if random.random() <= (front_cell.intensity / 255.):
                 neighbor_coords = list(front_cell.allowed_neighbors)
-                new_firecell_coords = neighbor_coords[random.randint(0, len(neighbor_coords) - 1)]
-                while(new_firecell_coords in occupied_cells):
-                    neighbor_coords.remove(new_firecell_coords)
-                    new_firecell_coords = neighbor_coords[random.randint(0, len(neighbor_coords) - 1)]
-
-                # Add the new cell and update its neighbors' neighbor count
-                self.ignite_cell(new_firecell_coords[0], new_firecell_coords[1])
-                new_cell = self.get_last_added_cell()
-                new_cell_neighbors = [cell for cell in self._grid if (cell.row, cell.col) in new_cell.allowed_neighbors]
-                new_cell.add_num_neighbors(len(new_cell_neighbors))
-                for cell in new_cell_neighbors:
-                    cell.add_num_neighbors(1)            
+                for (row, col) in front_cell.allowed_neighbors:
+                    if self._grid[row][col].status != FireMaker.Cell.UNBURNT:
+                        neighbor_coords.remove((row, col))
+                (new_cell_row, new_cell_col) = neighbor_coords[random.randint(0, len(neighbor_coords)-1)]
+                self.ignite_cell(new_cell_row, new_cell_col)
             
     
     def increment_intensity(self, inc=1):
@@ -124,7 +146,7 @@ class FireMaker:
         by inc (=1 by default) up to a max of 255.
         inc souhld be a postive integer.
         """
-        burning_cells = [cell for cell in self._grid if (cell.status == FireMaker.Cell.FRONT or cell.status == FireMaker.Cell.CORE)]
+        burning_cells = [cell for gridrows in self._grid for cell in gridrows if (cell.status==FireMaker.Cell.FRONT or cell.status==FireMaker.Cell.CORE)]
         for cell in burning_cells:
             cell.increment_intensity(inc)
 
@@ -133,4 +155,4 @@ class FireMaker:
         Returns a list of the 3-tuples (row, col, intensity) comprising the 
         grid where cells with fire are present
         """
-        return [(cell.row, cell.col, cell.intensity) for cell in self._grid if cell.status != FireMaker.Cell.UNBURNT]
+        return [(cell.row, cell.col, cell.intensity, cell.status) for gridrows in self._grid for cell in gridrows if cell.status != FireMaker.Cell.UNBURNT]
