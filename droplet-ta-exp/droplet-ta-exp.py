@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import pygame
+import cProfile as profiler
 from pygame.locals import *
 from FireMaker import *
 
@@ -69,4 +70,4 @@ def main():
         clock.tick(FPS)
         
 if __name__ == "__main__":
-    main()
+    profiler.run('main()')
