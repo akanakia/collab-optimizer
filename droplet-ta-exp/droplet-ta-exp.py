@@ -4,11 +4,11 @@ import cProfile as profiler
 from pygame.locals import *
 from FireMaker import *
 
-FPS = 60
+FPS = 30
 SCREEN_X = 800
-SCREEN_Y = 600    
-CELL_W = 4
-CELL_H = 4
+SCREEN_Y = 600 
+CELL_W = 10
+CELL_H = 10
 
 def main():
 
@@ -25,8 +25,11 @@ def main():
     pygame.display.set_caption('Fire Propogation')
     clock = pygame.time.Clock()
     minute_counter = 1
+
+    # Clear the screen            
+    screen.fill((0, 0, 0))  
     
-    while (1):        
+    while 1:
         # Get user input and data from roborealm
         for event in pygame.event.get():
             # keydown events go here
@@ -36,19 +39,16 @@ def main():
             if event.type == MOUSEBUTTONUP:
                 (mouse_x, mouse_y) = pygame.mouse.get_pos()
                 fm.ignite_cell(mouse_y/CELL_H, mouse_x/CELL_W)
-                
-        # Clear the screen            
-        screen.fill((0, 0, 0))  
 
         # Minute interval
         if minute_counter > (FPS * 60):
             minute_counter = 1
                 
         # 20 second interval
-        if (minute_counter % (FPS * 5)) == 0:
+        if (minute_counter % (FPS * 20)) == 0:
             fm.increment_intensity(5)
             
-        # random interval
+        # random interval (about 2 seconds)
         if random.randint(0, FPS * 2) == 0:
             fm.increment_intensity(5)
             
@@ -56,7 +56,8 @@ def main():
         fm.propogate_fire()
         
         # Draw the fire
-        for (y_pos, x_pos, intensity, status) in fm.get_fire_grid():
+        diff_fire_grid_dict = fm.get_fire_grid()
+        for (y_pos, x_pos), (intensity, status) in diff_fire_grid_dict.iteritems():
             if status==FireMaker.Cell.FRONT:
                 screen.fill((0, 0, 255), pygame.Rect((x_pos * CELL_W, y_pos * CELL_H), (CELL_W, CELL_H)))
             else:
@@ -65,7 +66,6 @@ def main():
         # Render to screen
         pygame.display.flip()
 
-        # 60 fps
         minute_counter += 1
         clock.tick(FPS)
         

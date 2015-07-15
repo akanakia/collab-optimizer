@@ -69,7 +69,10 @@ class FireMaker:
         self.num_cell_rows = num_cell_rows
         self.num_cell_cols = num_cell_cols
         self._grid = [[FireMaker.Cell(row, col, num_cell_rows, num_cell_cols) for col in range(num_cell_cols)] for row in range(num_cell_rows)]
-
+        self._diff_buffers = [{},{}]
+        self._diff_buffer_index = 0
+        self._diff_buff = self._diff_buffers[self._diff_buffer_index]        
+        
     def ignite_cell(self, row, col):
         """
         Add a new fire cell placed at location (row, col) on the grid. It
@@ -84,10 +87,13 @@ class FireMaker:
                 if self._grid[nrow][ncol].status != FireMaker.Cell.UNBURNT:
                     self._grid[row][col].add_num_neighbors(1)
                     self._grid[nrow][ncol].add_num_neighbors(1)
+                    self._diff_buff[(nrow, ncol)] = (self._grid[nrow][ncol].intensity, self._grid[nrow][ncol].status)
 
             # If you are the first ever fire cell this might happen        
             if self._grid[row][col].status == FireMaker.Cell.UNBURNT:
                 self._grid[row][col].status = FireMaker.Cell.FRONT
+            
+            self._diff_buff[(row, col)] = (self._grid[row][col].intensity, self._grid[row][col].status)
             
             return (True, self._grid[row][col].status)
 
@@ -111,11 +117,14 @@ class FireMaker:
             if self._grid[row][col].status != FireMaker.Cell.UNBURNT:
                 unburnt_cells[rand_id].add_num_neighbors(1)
                 self._grid[row][col].add_num_neighbors(1)
-
+                self._diff_buff[(row, col)] = (self._grid[row][col].intensity, self._grid[row][col].status)
+                
         # If you are the first ever fire cell this might happen        
         if unburnt_cells[rand_id].status == FireMaker.Cell.UNBURNT:
             unburnt_cells[rand_id].status = FireMaker.Cell.FRONT
             
+        self._diff_buff[(unburnt_cells[rand_id].row, unburnt_cells[rand_id].col)] = (unburnt_cells[rand_id].intensity, unburnt_cells[rand_id].status)
+        
         return (True, unburnt_cells[rand_id].status)
 
     
@@ -149,10 +158,19 @@ class FireMaker:
         burning_cells = [cell for gridrows in self._grid for cell in gridrows if (cell.status==FireMaker.Cell.FRONT or cell.status==FireMaker.Cell.CORE)]
         for cell in burning_cells:
             cell.increment_intensity(inc)
+            self._diff_buff[(cell.row, cell.col)] = (cell.intensity, cell.status)
 
     def get_fire_grid(self):
         """
         Returns a list of the 3-tuples (row, col, intensity) comprising the 
         grid where cells with fire are present
         """
-        return [(cell.row, cell.col, cell.intensity, cell.status) for gridrows in self._grid for cell in gridrows if cell.status != FireMaker.Cell.UNBURNT]
+        curr_buff_id = self._diff_buffer_index
+        self._diff_buffer_index = (self._diff_buffer_index + 1)%2
+        self._diff_buffers[self._diff_buffer_index] = {}
+        self._diff_buff = self._diff_buffers[self._diff_buffer_index]
+        
+#        print self._diff_buffers[curr_buff_id]
+        
+        return self._diff_buffers[curr_buff_id]
+        
