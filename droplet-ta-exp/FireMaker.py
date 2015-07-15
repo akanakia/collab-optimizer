@@ -16,14 +16,24 @@ class FireMaker:
             treated as READ-ONLY
             """
             self.col = col
-            self.row = row
+            self.row = row            
+            self.allowed_neighbors = []            
+            self._compute_allowed_neighbors(num_cell_rows, num_cell_cols)
+            
+            self.reset_cell_state()
+                
+        def __hash__(self):
+            return hash((self.row, self.col))
+            
+        def __eq__(self, other):
+            return (self.row, self.col) == (other.row, other.col) 
+
+        def reset_cell_state(self):
             self.status = FireMaker.Cell.UNBURNT
             self.neighbors = 0
             self.intensity = 1
+            self.source = None          
             
-            self.allowed_neighbors = []            
-            self._compute_allowed_neighbors(num_cell_rows, num_cell_cols)
-    
         def add_num_neighbors(self, n):
             """
             Increments an internal neighbor counter by n. If the internal
@@ -69,11 +79,15 @@ class FireMaker:
         self.num_cell_rows = num_cell_rows
         self.num_cell_cols = num_cell_cols
         self._grid = [[FireMaker.Cell(row, col, num_cell_rows, num_cell_cols) for col in range(num_cell_cols)] for row in range(num_cell_rows)]
+        self._source_cells = {}
+        
         self._diff_buffers = [{},{}]
         self._diff_buffer_index = 0
         self._diff_buff = self._diff_buffers[self._diff_buffer_index]        
         
-    def ignite_cell(self, row, col):
+        
+        
+    def ignite_cell(self, row, col, source=None):
         """
         Add a new fire cell placed at location (row, col) on the grid. It
         returns (True, new cell status) if a new cell was created and
@@ -92,6 +106,13 @@ class FireMaker:
             # If you are the first ever fire cell this might happen        
             if self._grid[row][col].status == FireMaker.Cell.UNBURNT:
                 self._grid[row][col].status = FireMaker.Cell.FRONT
+            
+            if source is None:
+                self._grid[row][col].source = self._grid[row][col]
+                self._source_cells[self._grid[row][col]] = [self._grid[row][col]]
+            else:
+                self._grid[row][col].source = source
+                self._source_cells[source].append(self._grid[row][col])
             
             self._diff_buff[(row, col)] = (self._grid[row][col].intensity, self._grid[row][col].status)
             
@@ -122,12 +143,28 @@ class FireMaker:
         # If you are the first ever fire cell this might happen        
         if unburnt_cells[rand_id].status == FireMaker.Cell.UNBURNT:
             unburnt_cells[rand_id].status = FireMaker.Cell.FRONT
-            
+
+        unburnt_cells[rand_id].source = unburnt_cells[rand_id]
+        self._source_cells[unburnt_cells[rand_id]] = [unburnt_cells[rand_id]]
+        
         self._diff_buff[(unburnt_cells[rand_id].row, unburnt_cells[rand_id].col)] = (unburnt_cells[rand_id].intensity, unburnt_cells[rand_id].status)
         
         return (True, unburnt_cells[rand_id].status)
 
-    
+    def extinguish_fire(self, row, col):
+        """
+        Extinguishes the entire fire "blob" in the area that cell at pos 
+        (row, col) was a part of
+        """
+        if self._grid[row][col].status != FireMaker.Cell.UNBURNT:
+            source_cell = self._grid[row][col].source
+            this_fire_cells = self._source_cells[source_cell]
+            for cell in this_fire_cells:
+                cell.reset_cell_state()
+                self._diff_buff[(cell.row, cell.col)] = (cell.intensity, cell.status)
+                
+            del self._source_cells[source_cell]
+            
     def propogate_fire(self):
         """
         Propogates the fire from existing fire cells to neighboring cells using
@@ -146,7 +183,7 @@ class FireMaker:
                     if self._grid[row][col].status != FireMaker.Cell.UNBURNT:
                         neighbor_coords.remove((row, col))
                 (new_cell_row, new_cell_col) = neighbor_coords[random.randint(0, len(neighbor_coords)-1)]
-                self.ignite_cell(new_cell_row, new_cell_col)
+                self.ignite_cell(new_cell_row, new_cell_col, front_cell.source)
             
     
     def increment_intensity(self, inc=1):

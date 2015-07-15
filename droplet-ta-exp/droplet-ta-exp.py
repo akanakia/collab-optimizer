@@ -39,7 +39,12 @@ def main():
                 return
             if event.type == MOUSEBUTTONUP:
                 (mouse_x, mouse_y) = pygame.mouse.get_pos()
-                fm.ignite_cell(mouse_y/CELL_H, mouse_x/CELL_W)
+                # Left click add fire source
+                if event.button == 1:
+                    fm.ignite_cell(mouse_y/CELL_H, mouse_x/CELL_W)
+                # Right click extinguishes an entire fire "blob" area
+                elif event.button == 3:
+                    fm.extinguish_fire(mouse_y/CELL_H, mouse_x/CELL_W)
 
         # Minute interval
         if minute_counter > (FPS * 60):
@@ -54,9 +59,9 @@ def main():
         
         # Draw the fire
         diff_fire_grid_dict = fm.get_fire_grid()
-        cell_color = (0,0,0) # (r,g,b)
         
         for (y_pos, x_pos), (intensity, status) in diff_fire_grid_dict.iteritems():
+            cell_color = (0,0,0) # (r,g,b)
             if status==FireMaker.Cell.FRONT:
                 cell_color = (0,0,255)
             elif status==FireMaker.Cell.CORE:
