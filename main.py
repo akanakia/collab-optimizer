@@ -9,7 +9,7 @@ def main():
     sim = collab_simulator(data_logger)
 
     theta_list = [0.1, 1.0, 10.0]
-    tau_list = range(2, 7)
+    tau_list = range(3, 8)
     
     for run in range(100):
         for theta in theta_list:
@@ -19,7 +19,7 @@ def main():
                 sim.reset_run()
                 params_dict = {"Theta":theta, "Tau":tau}
                 sim.set_all_agent_params(params_dict)
-                sim.run(30 * 60)    
+                sim.run(15 * 60)    
     
 
 if __name__ == "__main__":
