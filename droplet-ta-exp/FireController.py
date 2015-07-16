@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import random
 
-class FireMaker:
+class FireController:
 
     class Cell:   
         # Cell status Enum
@@ -29,7 +29,7 @@ class FireMaker:
             return (self.row, self.col) == (other.row, other.col) 
 
         def reset_cell_state(self):
-            self.status = FireMaker.Cell.UNBURNT
+            self.status = FireController.Cell.UNBURNT
             self.neighbors = 0
             self.intensity = 1
             self.source = None          
@@ -42,9 +42,9 @@ class FireMaker:
             """
             self.neighbors += n
             if self.neighbors >= len(self.allowed_neighbors):
-                self.status = FireMaker.Cell.CORE
+                self.status = FireController.Cell.CORE
             elif self.neighbors > 0:
-                self.status = FireMaker.Cell.FRONT
+                self.status = FireController.Cell.FRONT
         
         def increment_intensity(self, inc):
             """
@@ -54,7 +54,7 @@ class FireMaker:
             """
             self.intensity = min(255, self.intensity + inc)
             if self.intensity == 255:
-                self.status = FireMaker.Cell.BURNT
+                self.status = FireController.Cell.BURNT
             
         def _compute_allowed_neighbors(self, num_cell_rows, num_cell_cols):
             """
@@ -74,11 +74,11 @@ class FireMaker:
     
     def __init__(self, num_cell_rows, num_cell_cols):
         """
-        FireMaker Constructor
+        FireController Constructor
         """
         self.num_cell_rows = num_cell_rows
         self.num_cell_cols = num_cell_cols
-        self._grid = [[FireMaker.Cell(row, col, num_cell_rows, num_cell_cols) for col in range(num_cell_cols)] for row in range(num_cell_rows)]
+        self._grid = [[FireController.Cell(row, col, num_cell_rows, num_cell_cols) for col in range(num_cell_cols)] for row in range(num_cell_rows)]
         self._source_cells = {}
         
         self._diff_buffers = [{},{}]
@@ -94,18 +94,18 @@ class FireMaker:
         (False, existince cell status) if a fire cell already existed at that 
         location.
         """
-        if self._grid[row][col].status != FireMaker.Cell.UNBURNT:
+        if self._grid[row][col].status != FireController.Cell.UNBURNT:
             return (False, self._grid[row][col].status)
         else:
             for (nrow, ncol) in self._grid[row][col].allowed_neighbors:
-                if self._grid[nrow][ncol].status != FireMaker.Cell.UNBURNT:
+                if self._grid[nrow][ncol].status != FireController.Cell.UNBURNT:
                     self._grid[row][col].add_num_neighbors(1)
                     self._grid[nrow][ncol].add_num_neighbors(1)
                     self._diff_buff[(nrow, ncol)] = (self._grid[nrow][ncol].intensity, self._grid[nrow][ncol].status)
 
             # If you are the first ever fire cell this might happen        
-            if self._grid[row][col].status == FireMaker.Cell.UNBURNT:
-                self._grid[row][col].status = FireMaker.Cell.FRONT
+            if self._grid[row][col].status == FireController.Cell.UNBURNT:
+                self._grid[row][col].status = FireController.Cell.FRONT
             
             if source is None:
                 self._grid[row][col].source = self._grid[row][col]
@@ -129,20 +129,20 @@ class FireMaker:
         If there are no UNBURNT cell positions left this function returns 
         (False, None)
         """
-        unburnt_cells = [cell for gridrows in self._grid for cell in gridrows if cell.status==FireMaker.Cell.UNBURNT]
+        unburnt_cells = [cell for gridrows in self._grid for cell in gridrows if cell.status==FireController.Cell.UNBURNT]
         if len(unburnt_cells) == 0:
             return (False, None)
             
         rand_id = random.randint(0, len(unburnt_cells) - 1)
         for (row, col) in unburnt_cells[rand_id].allowed_neighbors:
-            if self._grid[row][col].status != FireMaker.Cell.UNBURNT:
+            if self._grid[row][col].status != FireController.Cell.UNBURNT:
                 unburnt_cells[rand_id].add_num_neighbors(1)
                 self._grid[row][col].add_num_neighbors(1)
                 self._diff_buff[(row, col)] = (self._grid[row][col].intensity, self._grid[row][col].status)
                 
         # If you are the first ever fire cell this might happen        
-        if unburnt_cells[rand_id].status == FireMaker.Cell.UNBURNT:
-            unburnt_cells[rand_id].status = FireMaker.Cell.FRONT
+        if unburnt_cells[rand_id].status == FireController.Cell.UNBURNT:
+            unburnt_cells[rand_id].status = FireController.Cell.FRONT
 
         unburnt_cells[rand_id].source = unburnt_cells[rand_id]
         self._source_cells[unburnt_cells[rand_id]] = [unburnt_cells[rand_id]]
@@ -156,7 +156,7 @@ class FireMaker:
         Extinguishes the entire fire "blob" in the area that cell at pos 
         (row, col) was a part of
         """
-        if self._grid[row][col].status != FireMaker.Cell.UNBURNT:
+        if self._grid[row][col].status != FireController.Cell.UNBURNT:
             source_cell = self._grid[row][col].source
             this_fire_cells = self._source_cells[source_cell]
             for cell in this_fire_cells:
@@ -170,17 +170,17 @@ class FireMaker:
         Propogates the fire from existing fire cells to neighboring cells using
         the desired probability distribution.
         """
-        front_cells = [cell for gridrows in self._grid for cell in gridrows if cell.status==FireMaker.Cell.FRONT]
+        front_cells = [cell for gridrows in self._grid for cell in gridrows if cell.status==FireController.Cell.FRONT]
         for front_cell in front_cells:
             # Check if a front cell has turned into a core cell.
             # This can happen as new cells are added to this loop.
-            if front_cell.status != FireMaker.Cell.FRONT:
+            if front_cell.status != FireController.Cell.FRONT:
                 continue
             # Roll a dice to see the fire propogates
             if random.random() <= (front_cell.intensity / 255.):
                 neighbor_coords = list(front_cell.allowed_neighbors)
                 for (row, col) in front_cell.allowed_neighbors:
-                    if self._grid[row][col].status != FireMaker.Cell.UNBURNT:
+                    if self._grid[row][col].status != FireController.Cell.UNBURNT:
                         neighbor_coords.remove((row, col))
                 (new_cell_row, new_cell_col) = neighbor_coords[random.randint(0, len(neighbor_coords)-1)]
                 self.ignite_cell(new_cell_row, new_cell_col, front_cell.source)
@@ -192,7 +192,7 @@ class FireMaker:
         by inc (=1 by default) up to a max of 255.
         inc souhld be a postive integer.
         """
-        burning_cells = [cell for gridrows in self._grid for cell in gridrows if (cell.status==FireMaker.Cell.FRONT or cell.status==FireMaker.Cell.CORE)]
+        burning_cells = [cell for gridrows in self._grid for cell in gridrows if (cell.status==FireController.Cell.FRONT or cell.status==FireController.Cell.CORE)]
         for cell in burning_cells:
             cell.increment_intensity(inc)
             self._diff_buff[(cell.row, cell.col)] = (cell.intensity, cell.status)
