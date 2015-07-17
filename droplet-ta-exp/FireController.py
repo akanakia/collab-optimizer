@@ -207,7 +207,15 @@ class FireController:
         self._diff_buffers[self._diff_buffer_index] = {}
         self._diff_buff = self._diff_buffers[self._diff_buffer_index]
         
-#        print self._diff_buffers[curr_buff_id]
-        
         return self._diff_buffers[curr_buff_id]
         
+    def get_fire_locations_and_sizes(self):
+        """
+        Returns the source locations and sizes of currently active fires as a 
+        list of 2-tuples: ((row, col), size) or ((y, x), size)
+        """
+        retval = []
+        for source_cell in self._source_cells.keys:
+            retval.append((source_cell.row, source_cell.col), len(self._source_cells[source_cell]))
+            
+        return retval

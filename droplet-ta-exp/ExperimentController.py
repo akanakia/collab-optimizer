@@ -5,9 +5,10 @@ Created on Wed Jul 15 19:48:54 2015
 @author: Anshul
 """
 import pygame
-import sys
 from pygame.locals import *
 from FireController import *
+from TASolver import *
+import copy
 
 class ExperimentController:
 
@@ -19,6 +20,7 @@ class ExperimentController:
         self.cell_w = cell_w
         self.cell_h = cell_h
         self.timer_counter = 0
+        self._active_threads = []
         
     def setup_experiment(self):        
         """
@@ -63,6 +65,11 @@ class ExperimentController:
                 elif event.button == 3:
                     self.fm.extinguish_fire(mouse_y/self.cell_h, mouse_x/self.cell_w)
                     ret_str_list.append('right-mouse-click')
+
+            elif event.type == pygame.KEYDOWN:
+                # Pressing the 'o' kay starts an optimization thread
+                if event.key == pygame.K_o:
+                    self.launch_opt_thread()
             
         return ret_str_list
                     
@@ -79,6 +86,14 @@ class ExperimentController:
             self.fm.increment_intensity(5)
         
         # Every time-step of the experiment
+        # Check if any running threads have finished
+        if (len(self._active_threads) > 0):
+            tmp_thread_list = copy.copy(self._active_threads)
+            for thread in tmp_thread_list:
+                if not thread.is_active():
+                    # Get thread related computation results out here
+                    self._active_threads.remove(thread)
+                    
         # Propogate the fire
         self.fm.propogate_fire()               
 
@@ -105,4 +120,25 @@ class ExperimentController:
         
         # Render to self.screen
         pygame.display.flip()
-        self.clock.tick(self.fps)        
+        self.clock.tick(self.fps)
+        
+    def launch_opt_thread(self):
+        """
+        Uses the TASolver class to run an optimial target assignment routine.
+        
+        """
+        self._tasolver = TASolver()
+
+        # Assign opt variables here
+        fire_loc_and_size = self.fm.get_fire_locations_and_sizes()
+        num_robots = 20
+        num_targets = len(fire_loc_and_size)
+        target_team_size_req = [5 for _ in len(num_targets)]
+        target_payoffs = [1 for _ in len(num_targets)]
+        robot_constraints = []
+        
+        new_thread = Thread(target=self._tasolver.solve, kwargs=dict(n=num_robots, t=num_targets, k=target_team_size_req, w=target_payoffs, cst=robot_constraints))
+        self._active_threads.append(new_thread)
+        new_thread.start()
+        
+    
