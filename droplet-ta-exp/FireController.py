@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
+import itertools
 
 class FireController:
 
@@ -170,8 +171,9 @@ class FireController:
         Propogates the fire from existing fire cells to neighboring cells using
         the desired probability distribution.
         """
-        front_cells = [cell for gridrows in self._grid for cell in gridrows if cell.status==FireController.Cell.FRONT]
-        for front_cell in front_cells:
+#        front_cells = [cell for gridrows in self._grid for cell in gridrows if cell.status==FireController.Cell.FRONT]
+                
+        for front_cell in itertools.chain.from_iterable(self._source_cells.values()):
             # Check if a front cell has turned into a core cell.
             # This can happen as new cells are added to this loop.
             if front_cell.status != FireController.Cell.FRONT:

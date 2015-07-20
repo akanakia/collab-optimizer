@@ -88,8 +88,7 @@ class ExperimentController:
         # Every time-step of the experiment
         # Check if any running threads have finished
         if (len(self._active_threads) > 0):
-            tmp_thread_list = copy.copy(self._active_threads)
-            for thread in tmp_thread_list:
+            for thread in self._active_threads:
                 if not thread.is_active():
                     # Get thread related computation results out here
                     self._active_threads.remove(thread)
