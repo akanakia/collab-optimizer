@@ -1,13 +1,13 @@
 # -*- coding: utf-8 -*-
 from ExperimentController import *
 
-#import cProfile as profiler
+import cProfile as profiler
 
 FPS = 60
-SCREEN_X = 800
-SCREEN_Y = 600 
-CELL_W = 4
-CELL_H = 4
+SCREEN_X = 1024
+SCREEN_Y = 768
+CELL_W = 1
+CELL_H = 1
 EXP_TITLE = 'Droplet Collaboration Experiment'
 
 def main():
@@ -25,5 +25,5 @@ def main():
         ec.draw_and_wait()
 
 if __name__ == "__main__":
-#    profiler.run('main()')
-    main()
+    profiler.run('main()')
+#    main()

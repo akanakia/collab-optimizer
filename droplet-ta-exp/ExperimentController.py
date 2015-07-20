@@ -7,7 +7,7 @@ Created on Wed Jul 15 19:48:54 2015
 import pygame
 from pygame.locals import *
 from FireController import *
-from TASolver import *
+#from TASolver import *
 import copy
 
 class ExperimentController:
