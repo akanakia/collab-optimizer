@@ -6,8 +6,8 @@ import cProfile as profiler
 FPS = 60
 SCREEN_X = 1024
 SCREEN_Y = 768
-CELL_W = 1
-CELL_H = 1
+CELL_W = 2
+CELL_H = 2
 EXP_TITLE = 'Droplet Collaboration Experiment'
 
 def main():
@@ -25,5 +25,5 @@ def main():
         ec.draw_and_wait()
 
 if __name__ == "__main__":
-    profiler.run('main()')
-#    main()
+#    profiler.run('main()')
+    main()

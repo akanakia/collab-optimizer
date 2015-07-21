@@ -7,7 +7,8 @@ Created on Wed Jul 15 19:48:54 2015
 import pygame
 from pygame.locals import *
 from FireController import *
-#from TASolver import *
+from TASolver import *
+from RoboRealmInterface import *
 import copy
 
 class ExperimentController:
@@ -39,8 +40,12 @@ class ExperimentController:
         if not retval:
             print('Problem initializing fire grid.')
             return False
-        else:
-            return True
+            
+        # Set up the RoboRealm interface
+        self.rri = RoboRealmInterface()
+        self.rri.connect()
+            
+        return True
             
     def handle_user_events(self):
         """
@@ -84,6 +89,15 @@ class ExperimentController:
         # 20 second interval
         if (self.timer_counter % (self.fps * 20)) == 0:
             self.fm.increment_intensity(5)
+
+        # 10 second interval
+        if (self.timer_counter % (self.fps * 10)) == 0:
+            pass
+        
+        # 5 second interval
+        if (self.timer_counter % (self.fps * 5)) == 0:
+            print self.rri.get_robot_positions()
+        
         
         # Every time-step of the experiment
         # Check if any running threads have finished
