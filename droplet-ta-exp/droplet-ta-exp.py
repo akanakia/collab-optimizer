@@ -4,10 +4,10 @@ from ExperimentController import *
 import cProfile as profiler
 
 FPS = 60
-SCREEN_X = 1024
-SCREEN_Y = 768
-CELL_W = 2
-CELL_H = 2
+SCREEN_X = 710
+SCREEN_Y = 760
+CELL_W = 1
+CELL_H = 1
 EXP_TITLE = 'Droplet Collaboration Experiment'
 
 def main():

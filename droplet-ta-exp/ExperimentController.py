@@ -6,10 +6,17 @@ Created on Wed Jul 15 19:48:54 2015
 """
 import pygame
 from pygame.locals import *
-from FireController import *
-from TASolver import *
-from RoboRealmInterface import *
-import copy
+from FireController import FireController
+from TASolver import TASolver
+
+USING_SERIAL = False
+if USING_SERIAL:
+    from SerialInterface import SerialInterface
+
+# Set to True when RoboRealm is in use
+USING_RR = False
+if USING_RR:
+    from RoboRealmInterface import RoboRealmInterface
 
 class ExperimentController:
 
@@ -21,7 +28,8 @@ class ExperimentController:
         self.cell_w = cell_w
         self.cell_h = cell_h
         self.timer_counter = 0
-        self._active_threads = []
+        self.active_threads = []
+        self.assignments_active = False
         
     def setup_experiment(self):        
         """
@@ -38,12 +46,18 @@ class ExperimentController:
         self.fm = FireController(self.screen_y / self.cell_h, self.screen_x / self.cell_w)
         (retval, state) = self.fm.ignite_cell_random()              
         if not retval:
-            print('Problem initializing fire grid.')
             return False
             
         # Set up the RoboRealm interface
-        self.rri = RoboRealmInterface()
-        self.rri.connect()
+        if USING_RR:
+            self.rri = RoboRealmInterface()
+            self.rri.connect()
+        
+        # Set up Serial Interface
+        if USING_SERIAL:
+            self.serial_port = SerialInterface()        
+            if not self.serial_port.open():
+                return False
             
         return True
             
@@ -57,6 +71,8 @@ class ExperimentController:
             # keydown events go here
             if event.type == QUIT:
                 pygame.quit()
+                if USING_SERIAL:
+                    self.serial_port.close()
                 ret_str_list.append('exit')
                 break
                 
@@ -74,7 +90,7 @@ class ExperimentController:
             elif event.type == pygame.KEYDOWN:
                 # Pressing the 'o' kay starts an optimization thread
                 if event.key == pygame.K_o:
-                    self.launch_opt_thread()
+                    self._launch_opt_thread()
             
         return ret_str_list
                     
@@ -83,12 +99,14 @@ class ExperimentController:
         Handle events that happen at regularly timed intervals
         """
         # Minute interval
-        if self.timer_counter > (self.fps * 60):
-            self.timer_counter = 1
+        if (self.timer_counter % (self.fps * 60)) == 0:
+            self.timer_counter = 0
                 
         # 20 second interval
         if (self.timer_counter % (self.fps * 20)) == 0:
             self.fm.increment_intensity(5)
+            self._fire_positions = self.fm.get_fire_locations_and_sizes()
+            print self._fire_positions
 
         # 10 second interval
         if (self.timer_counter % (self.fps * 10)) == 0:
@@ -96,19 +114,29 @@ class ExperimentController:
         
         # 5 second interval
         if (self.timer_counter % (self.fps * 5)) == 0:
-            print self.rri.get_robot_positions()
+            if self.assignments_active and USING_SERIAL:
+                self._write_to_serial()
         
+        # 1 second interval
+        if (self.timer_counter % (self.fps * 1)) == 0:
+            if USING_RR:
+                self._robot_postions = self.rri.get_robot_positions()
+            
         
         # Every time-step of the experiment
         # Check if any running threads have finished
-        if (len(self._active_threads) > 0):
-            for thread in self._active_threads:
+        if (len(self.active_threads) > 0):
+            new_active_threads = []
+            for thread in self.active_threads:
                 if not thread.is_active():
                     # Get thread related computation results out here
-                    self._active_threads.remove(thread)
-                    
+                    pass
+                else:
+                    new_active_threads.append(thread)
+            self.active_threads = new_active_threads
+
         # Propogate the fire
-        self.fm.propogate_fire()               
+        self.fm.propogate_fire()
 
         # update the timer
         self.timer_counter += 1
@@ -135,10 +163,9 @@ class ExperimentController:
         pygame.display.flip()
         self.clock.tick(self.fps)
         
-    def launch_opt_thread(self):
+    def _launch_opt_thread(self):
         """
         Uses the TASolver class to run an optimial target assignment routine.
-        
         """
         self._tasolver = TASolver()
 
@@ -151,7 +178,11 @@ class ExperimentController:
         robot_constraints = []
         
         new_thread = Thread(target=self._tasolver.solve, kwargs=dict(n=num_robots, t=num_targets, k=target_team_size_req, w=target_payoffs, cst=robot_constraints))
-        self._active_threads.append(new_thread)
+        self.active_threads.append(new_thread)
         new_thread.start()
         
-    
+    def _write_to_serial(self):
+        """
+        Writes the         
+        """
+        pass
