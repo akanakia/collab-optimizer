@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from RR_API import *
+from RR_API import RR_API
 
 class RoboRealmInterface:
     def __init__(self):

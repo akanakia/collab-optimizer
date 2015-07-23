@@ -139,4 +139,18 @@ class TASolver:
         """
         self._resM = [[self._s.model()[self._x[i][j]].as_long() for j in range(self.t)] for i in range(self.n)]
         self._resW = [self._s.model()[self._W[j]].as_long() for j in range(self.t)]
-        
+
+
+class Estimator:
+    """
+    This class estimates the team size requirements for targets based on their
+    relative sizes.
+    It also estimates constraint sets for agents based on their relative
+    distances to targets.
+    """
+    
+    
+    
+    
+    
+    
