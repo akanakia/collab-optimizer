@@ -41,7 +41,7 @@ class TASolver:
         TW_high = sum(self.w)
         self._s.add(sum(self._W)==TW_high, self._TW==sum(self._W))
         if self._s.check() == sat:
-#            print('A maximal assignment was found. TW = %d'%self._s.model()[self._TW].as_long())
+            # A maximal assignment was found
             self._generate_result_matrices()
             return
         
@@ -51,7 +51,7 @@ class TASolver:
         # Binary search through possible solutions        
         (sat_res, TW_res) = self._binary_search(TW_low, TW_high)
         if sat_res == sat:
-#            print('An optimal assignment was found. TW = %d'%self._s.model()[self._TW].as_long()) 
+            # Optimal assignment was found
             self._generate_result_matrices()
     
     
@@ -139,16 +139,6 @@ class TASolver:
         """
         self._resM = [[self._s.model()[self._x[i][j]].as_long() for j in range(self.t)] for i in range(self.n)]
         self._resW = [self._s.model()[self._W[j]].as_long() for j in range(self.t)]
-
-
-class Estimator:
-    """
-    This class estimates the team size requirements for targets based on their
-    relative sizes.
-    It also estimates constraint sets for agents based on their relative
-    distances to targets.
-    """
-    
     
     
     

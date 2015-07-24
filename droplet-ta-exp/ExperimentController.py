@@ -8,6 +8,7 @@ import pygame
 from pygame.locals import *
 from FireController import FireController
 from TASolver import TASolver
+from Estimator import Estimator
 
 USING_SERIAL = False
 if USING_SERIAL:
@@ -52,6 +53,9 @@ class ExperimentController:
         if USING_RR:
             self.rri = RoboRealmInterface()
             self.rri.connect()
+
+            # Set up the Estimator class
+            self.est = Estimator(self.screen_x, self.screen_y, self.rri.rr_x, self.rri.rr_y)
         
         # Set up Serial Interface
         if USING_SERIAL:
@@ -106,7 +110,7 @@ class ExperimentController:
         if (self.timer_counter % (self.fps * 20)) == 0:
             self.fm.increment_intensity(5)
             self._fire_positions = self.fm.get_fire_locations_and_sizes()
-            print self._fire_positions
+#            print self._fire_positions
 
         # 10 second interval
         if (self.timer_counter % (self.fps * 10)) == 0:
@@ -115,7 +119,8 @@ class ExperimentController:
         # 5 second interval
         if (self.timer_counter % (self.fps * 5)) == 0:
             if self.assignments_active and USING_SERIAL:
-                self._write_to_serial()
+                self.est.set_current_assignments([[1,0,0]])
+                self._write_to_serial(self.est.compute_robot_action_list())
         
         # 1 second interval
         if (self.timer_counter % (self.fps * 1)) == 0:

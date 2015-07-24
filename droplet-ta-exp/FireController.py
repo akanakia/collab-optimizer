@@ -216,10 +216,11 @@ class FireController:
     def get_fire_locations_and_sizes(self):
         """
         Returns the source locations and sizes of currently active fires as a 
-        list of 2-tuples: ((col, row), size) or ((x, y), size)
+        list of 2-tuples: ((col, row), size) or ((x, y), size) where size is the
+        relative amount of screen space taken up (from 0 to 1).
         """
         retval = []
         for source_cell in self._source_cells:
-            retval.append(((source_cell.col, source_cell.row), len(self._source_cells[source_cell])))
+            retval.append(((source_cell.col, source_cell.row), len(self._source_cells[source_cell])/float(self.num_cell_rows * self.num_cell_cols)))
             
         return retval
