@@ -6,8 +6,8 @@ import cProfile as profiler
 FPS = 60
 SCREEN_X = 720
 SCREEN_Y = 760
-CELL_W = 2
-CELL_H = 2
+CELL_W = 1
+CELL_H = 1
 EXP_TITLE = 'Droplet Collaboration Experiment'
 
 def main():

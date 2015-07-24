@@ -96,6 +96,7 @@ class FireController:
         location.
         """
         if self._grid[row][col].status != FireController.Cell.UNBURNT:
+            print ("Proble igniting cell at location (row, col) = (%d,%d)"%(row, col))
             return (False, self._grid[row][col].status)
         else:
             for (nrow, ncol) in self._grid[row][col].allowed_neighbors:
@@ -132,6 +133,7 @@ class FireController:
         """
         unburnt_cells = [cell for gridrows in self._grid for cell in gridrows if cell.status==FireController.Cell.UNBURNT]
         if len(unburnt_cells) == 0:
+            print('Problem igniting random cell in fire grid.')
             return (False, None)
             
         rand_id = random.randint(0, len(unburnt_cells) - 1)
@@ -214,10 +216,10 @@ class FireController:
     def get_fire_locations_and_sizes(self):
         """
         Returns the source locations and sizes of currently active fires as a 
-        list of 2-tuples: ((row, col), size) or ((y, x), size)
+        list of 2-tuples: ((col, row), size) or ((x, y), size)
         """
         retval = []
-        for source_cell in self._source_cells.keys:
-            retval.append((source_cell.row, source_cell.col), len(self._source_cells[source_cell]))
+        for source_cell in self._source_cells:
+            retval.append(((source_cell.col, source_cell.row), len(self._source_cells[source_cell])))
             
         return retval
