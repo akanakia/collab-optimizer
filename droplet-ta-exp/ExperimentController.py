@@ -102,32 +102,31 @@ class ExperimentController:
         """
         Handle events that happen at regularly timed intervals
         """
-        # Minute interval
-        if (self.timer_counter % (self.fps * 60)) == 0:
-            self.timer_counter = 0
-                
-        # 20 second interval
-        if (self.timer_counter % (self.fps * 20)) == 0:
-            self.fm.increment_intensity(5)
-#            print self._fire_positions
-
-        # 10 second interval
-        if (self.timer_counter % (self.fps * 10)) == 0:
-            pass
-        
-        # 5 second interval
-        if (self.timer_counter % (self.fps * 5)) == 0:
-            if self.assignments_active and USING_SERIAL:
-                self.est.set_current_assignments([[1,0,0]])
-                self._write_to_serial(self.est.compute_robot_action_list())
-        
         # 1 second interval
         if (self.timer_counter % (self.fps * 1)) == 0:
             self._fire_positions = self.fm.get_fire_locations_and_sizes()
             if USING_RR:
                 self._robot_postions = self.rri.get_robot_positions()
-            
-        
+
+        # 5 second interval
+        if (self.timer_counter % (self.fps * 5)) == 0:
+            if self.assignments_active and USING_SERIAL:
+                self.est.set_current_assignments([[1,0,0]])
+                self._write_to_serial(self.est.compute_robot_action_list())                
+
+        # 10 second interval
+        if (self.timer_counter % (self.fps * 10)) == 0:
+            pass
+
+        # 20 second interval
+        if (self.timer_counter % (self.fps * 20)) == 0:
+            self.fm.increment_intensity(5)
+#            print self._fire_positions
+
+        # Minute interval
+        if (self.timer_counter % (self.fps * 60)) == 0:
+            self.timer_counter = 0
+                
         # Every time-step of the experiment
         # Check if any running threads have finished
         if (len(self.active_threads) > 0):
