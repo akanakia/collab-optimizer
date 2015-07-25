@@ -10,12 +10,12 @@ from FireController import FireController
 from TASolver import TASolver
 from Estimator import Estimator
 
-USING_SERIAL = False
+USING_SERIAL = True
 if USING_SERIAL:
     from SerialInterface import SerialInterface
 
 # Set to True when RoboRealm is in use
-USING_RR = False
+USING_RR = True
 if USING_RR:
     from RoboRealmInterface import RoboRealmInterface
 
@@ -30,7 +30,7 @@ class ExperimentController:
         self.cell_h = cell_h
         self.timer_counter = 0
         self.active_threads = []
-        self.assignments_active = False
+        self.assignments_active = True
         
     def setup_experiment(self):        
         """
@@ -60,7 +60,7 @@ class ExperimentController:
         # Set up Serial Interface
         if USING_SERIAL:
             self.serial_port = SerialInterface()        
-            if not self.serial_port.open():
+            if not self.serial_port.open('COM16'):
                 return False
             
         return True
@@ -112,7 +112,7 @@ class ExperimentController:
         if (self.timer_counter % (self.fps * 5)) == 0:
             if self.assignments_active and USING_SERIAL:
                 self.est.set_current_assignments([[1,0,0]])
-                self._write_to_serial(self.est.compute_robot_action_list())                
+                self.serial_port.write(self.est.compute_robot_action_list(self._fire_positions, self._robot_postions))                
 
         # 10 second interval
         if (self.timer_counter % (self.fps * 10)) == 0:
@@ -184,9 +184,3 @@ class ExperimentController:
         new_thread = Thread(target=self._tasolver.solve, kwargs=dict(n=num_robots, t=num_targets, k=target_team_size_req, w=target_payoffs, cst=robot_constraints))
         self.active_threads.append(new_thread)
         new_thread.start()
-        
-    def _write_to_serial(self):
-        """
-        Writes the         
-        """
-        pass

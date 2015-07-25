@@ -14,9 +14,16 @@ class RoboRealmInterface:
         """
         Returns a 4-tuple list containing the robot's (x, y, orientation, id).
         """
-        robots_id = [id.strip()[1:5] for id in self.rr.GetVariable('FIDUCIAL_NAME_ARRAY').split(',')]
-        robots_x = map(int, map(float, [x.strip() for x in self.rr.GetVariable('FIDUCIAL_X_COORD_ARRAY').split(',')]))
-        robots_y = map(int, map(float, [y.strip() for y in self.rr.GetVariable('FIDUCIAL_Y_COORD_ARRAY').split(',')]))
-        robots_orient = map(float, [orient.strip() for orient in self.rr.GetVariable('FIDUCIAL_ORIENTATION_ARRAY').split(',')])
+        try:
+            robots_id = [id.strip()[1:5] for id in self.rr.GetVariable('FIDUCIAL_NAME_ARRAY').split(',')]
+            robots_x = map(int, map(float, [x.strip() for x in self.rr.GetVariable('FIDUCIAL_X_COORD_ARRAY').split(',')]))
+            robots_y = map(int, map(float, [y.strip() for y in self.rr.GetVariable('FIDUCIAL_Y_COORD_ARRAY').split(',')]))
+            robots_orient = map(float, [orient.strip() for orient in self.rr.GetVariable('FIDUCIAL_ORIENTATION_ARRAY').split(',')])
+        except ValueError:
+            return []
             
-        return zip(robots_x, robots_y, robots_orient, robots_id)
+        res = zip(robots_x, robots_y, robots_orient, robots_id)
+        print ("RoboRealm Data")
+        print res
+        print ('')
+        return res

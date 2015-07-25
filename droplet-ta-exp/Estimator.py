@@ -12,11 +12,11 @@ class Estimator:
     
         self.fire_screen_width  = fire_screen_width
         self.fire_screen_height = fire_screen_height
-        self.rr_scrren_width    = rr_screen_width
-        self.rr_scrren_height   = rr_screen_height        
+        self.rr_screen_width    = rr_screen_width
+        self.rr_screen_height   = rr_screen_height        
         
-        self.scale_x = fire_screen_width  / rr_screen_width
-        self.scale_y = fire_screen_height / rr_screen_height
+        self.scale_x = float(fire_screen_width)  / rr_screen_width
+        self.scale_y = float(fire_screen_height) / rr_screen_height
         
         
         # define closeness tolerances
@@ -66,55 +66,70 @@ class Estimator:
         Creates the action list to send to the serial controller to communicate
         actions to robots        
         """
-        action_list = [self.action_set.index('NOTHING') for _ in len(self.robot_ids)]
-            
-        for (robot_index, target_index) in self.robot_assignments:
-            (robot_x_raw, robot_y_raw, robot_orient, robot_id) = robot_data[robot_index]
-            ((target_x, target_y), target_size) = target_data[target_index]
-            
-            # Transform the RoboRealm coordinates to screen coordinates
-            robot_x = robot_x_raw * self.scale_x
-            robot_y = (self.rr_scrren_height - robot_y_raw) * self.scale_y
-            desired_angle = 0
-            
-            if abs(target_x - robot_x) <= 50 and abs(target_y - robot_y) <= 50:
-                action_list[self.robot_ids.index(robot_id)] = self.action_set.index('NOTHING')
-                continue
-                
-            elif abs(target_x - robot_x) <= 5:
-                if target_y < robot_y:
-                    action_list[self.robot_ids.index(robot_id)] = self.action_set.index('WALK_FORWARD')
-                else:
-                    action_list[self.robot_ids.index(robot_id)] = self.action_set.index('WALK_BACKWARD')
-                continue
-            
-            elif abs(target_y - robot_y) <= 5:
-                if target_y < robot_y:
-                    desired_angle = 90
-                else:
-                    desired_angle = -90
-                    
-            else:
-                robot_y = -robot_y
-                target_y = -target_y
-                desired_angle = math.atan(float(target_y - robot_y)/(target_x - robot_x))
-            
-            angle_needed = desired_angle - robot_orient
-            if angle_needed > 180:
-                angle_needed = 360 - angle_needed
-            if angle_needed < -180:
-                angle_needed = 360 + angle_needed
-            
-            if angle_needed > -5 and angle_needed < 5:
-                action_list[self.robot_ids.index(robot_id)] = self.action_set.index('WALK_FORWARD')
-            elif angle_needed >= 0 and angle_needed <= 20:
-                action_list[self.robot_ids.index(robot_id)] = self.action_set.index('TURN_LEFT_SHORT')
-            elif angle_needed >= 0 and angle_needed <= 180:
-                action_list[self.robot_ids.index(robot_id)] = self.action_set.index('TURN_LEFT_LONG')
-            elif angle_needed <= 0 and angle_needed >= -20:
-                action_list[self.robot_ids.index(robot_id)] = self.action_set.index('TURN_RIGHT_SHORT')
-            elif angle_needed <= 0 and angle_needed >= -180:
-                action_list[self.robot_ids.index(robot_id)] = self.action_set.index('TURN_RIGHT_LONG')
-                
-        return ''.join(action_list)
+        action_list = [self.action_set.index('NOTHING') for _ in range(20)]
         
+        if len(robot_data) > 0 and len(target_data) > 0:
+            for (robot_index, target_index) in self.robot_assignments:
+                (robot_x_raw, robot_y_raw, robot_orient, robot_id) = robot_data[robot_index]
+                ((target_x, target_y), target_size) = target_data[target_index]
+                
+                
+                # Transform the RoboRealm coordinates to screen coordinates
+                robot_x = int(robot_x_raw * self.scale_x)
+                robot_y = int((self.rr_screen_height - robot_y_raw) * self.scale_y)
+                desired_angle = 0
+                print ('Robot (%d,%d) --> Target (%d,%d)'%(robot_x, robot_y, target_x, target_y))  
+                
+                fire_area = (target_size*self.fire_screen_height*self.fire_screen_width)
+                fire_radius = math.sqrt(fire_area/math.pi)           
+                robot_pixel_radius = 26
+                
+                if abs(target_x - robot_x) <= fire_radius-robot_pixel_radius and abs(target_y - robot_y) <= fire_radius-robot_pixel_radius:
+                    action_list[self.robot_ids.index(robot_id)] = self.action_set.index('NOTHING')
+                    continue
+                    
+#                elif abs(target_x - robot_x) <= 5:
+#                    if target_y < robot_y:
+#                        action_list[self.robot_ids.index(robot_id)] = self.action_set.index('WALK_FORWARD')
+#                    else:
+#                        action_list[self.robot_ids.index(robot_id)] = self.action_set.index('WALK_BACKWARD')
+#                    continue
+#                
+#                elif abs(target_y - robot_y) <= 5:
+#                    if target_y < robot_y:
+#                        desired_angle = 90
+#                    else:
+#                        desired_angle = -90
+#                        
+                delta_y = -(target_y-robot_y)
+                delta_x = target_x-robot_x
+                desired_angle = math.degrees(math.atan2(delta_y,delta_x))
+                desired_angle-=90
+                dist = math.sqrt(delta_y*delta_y+delta_x*delta_x)
+                    
+                angle_threshold = max(math.degrees(abs(math.asin((fire_radius-robot_pixel_radius)/dist))),10)
+                
+                angle_needed = desired_angle - robot_orient
+                
+                angle_needed = self.pretty_angle(angle_needed)
+                robot_orient = self.pretty_angle(robot_orient)
+                desired_angle = self.pretty_angle(desired_angle)
+                
+                if angle_needed > -angle_threshold and angle_needed < angle_threshold:
+                    action_list[self.robot_ids.index(robot_id)] = self.action_set.index('WALK_FORWARD')
+                elif angle_needed >= 0 and angle_needed <= 20:
+                    action_list[self.robot_ids.index(robot_id)] = self.action_set.index('TURN_LEFT_SHORT')
+                elif angle_needed >= 0 and angle_needed <= 180:
+                    action_list[self.robot_ids.index(robot_id)] = self.action_set.index('TURN_LEFT_LONG')
+                elif angle_needed <= 0 and angle_needed >= -20:
+                    action_list[self.robot_ids.index(robot_id)] = self.action_set.index('TURN_RIGHT_SHORT')
+                elif angle_needed <= 0 and angle_needed >= -180:
+                    action_list[self.robot_ids.index(robot_id)] = self.action_set.index('TURN_RIGHT_LONG')
+                print('Current Angle = %f, Desired Angle = %f, Angle to Turn = %f, Angle Threshold = %f'%(robot_orient, desired_angle, angle_needed, angle_threshold))    
+                    
+        return ''.join([str(a) for a in action_list])
+    
+    
+    def pretty_angle(self, theta):
+        return ((theta+180)%360)-180
+    
