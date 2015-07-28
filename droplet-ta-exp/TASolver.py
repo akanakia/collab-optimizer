@@ -112,7 +112,7 @@ class TASolver:
         print('TW range = [%d,%d]'%(TW_low,TW_high))  
         
         # BASE CASE TW_high - TW_low == 1
-        if TW_high-TW_low == 1:
+        if TW_high-TW_low == 1 or (TW_high==1 and TW_low==1):
             self._s.add(sum(self._W)==TW_high, self._TW==sum(self._W))
             sat_res = self._s.check()
             self._s.pop()

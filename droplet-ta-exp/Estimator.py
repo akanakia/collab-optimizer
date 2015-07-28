@@ -27,8 +27,8 @@ class Estimator:
         # define droplet id to index mapping and action set mapping
         self.robot_ids = ['2B4E', '7D78', '8B46', 'C806', '4177', '0A0B', '3B49', '028C', '1F08', 'EEB0', 'A649', 'A5B5', 'F60A', 'B944', '3405', '43BA', '6648', '1B4B', 'C24B', '4DB0']
         self.action_set = ['NOTHING', 'WALK_FORWARD', 'WALK_BACKWARD', 'TURN_LEFT_SHORT', 'TURN_RIGHT_SHORT', 'TURN_LEFT_LONG', 'TURN_RIGHT_LONG', 'LED_ON']
-        
-    def estimate_required_team_sizes(self, target_data):
+              
+    def get_required_team_sizes(self, target_data, with_positions=True):
         """
         Given the relative size of the target this function returns a 2-tuple of 
         the form ((x, y), team-size) where (x,y) is the center of the target and
@@ -38,27 +38,19 @@ class Estimator:
         Notebook data/TeamSizeEstimation.nb in this repository
         """
         team_sizes = []
-        for ((x, y), size) in target_data:
+        for ((x,y),size) in target_data:
             # We don't assign any robots to target until they are large enough
             # to cover at least 1% of the total screen area
             if size <= .005:
-                team_sizes.append(((x, y), 0))
-            elif size >= .25:
-                team_sizes.append((x,y), 20)
+                if not with_positions:
+                    team_sizes.append(0)
+                else:
+                    team_sizes.append(((x, y), 0))
             else:
-                team_sizes.append(((x,y), int(4.6012 * math.log(308.89 * size))))
-                
-        return team_sizes
-        
-    def get_required_team_sizes(self, target_data):
-        team_sizes = []
-        for ((x,y),size) in target_data:
-            if size <= .005:
-                team_sizes.append(0)
-            elif size >= .25:
-                team_sizes.append(20)
-            else:
-                team_sizes.append(int(4.6012 * math.log(308.89 * size)))
+                if not with_positions:
+                    team_sizes.append(int(2.04498 * math.log(531.83 * size)))
+                else:
+                    team_sizes.append(((x,y), int(2.04498 * math.log(531.83 * size))))
           
         return team_sizes
         
@@ -89,7 +81,7 @@ class Estimator:
         matrix.
         """           
         action_list = [self.action_set.index('NOTHING') for _ in range(20)]
-        required_sizes = self.get_required_team_sizes(target_data)
+        required_sizes = self.get_required_team_sizes(target_data, with_positions=False)
         if self.robot_assignments is None:
             return ''.join([str(_) for _ in action_list])
     
@@ -103,7 +95,7 @@ class Estimator:
                 robot_x = int(robot_x_raw * self.scale_x)
                 robot_y = int((self.rr_screen_height - robot_y_raw) * self.scale_y)
                 desired_angle = 0
-                print ('Robot (%d,%d) --> Target (%d,%d)'%(robot_x, robot_y, target_x, target_y))  
+#                print ('Robot (%d,%d) --> Target (%d,%d)'%(robot_x, robot_y, target_x, target_y))  
                 
                 fire_area = (target_size*self.fire_screen_height*self.fire_screen_width)
                 fire_radius = math.sqrt(fire_area/math.pi)           
@@ -138,11 +130,11 @@ class Estimator:
                     action_list[self.robot_ids.index(robot_id)] = self.action_set.index('TURN_RIGHT_SHORT')
                 elif angle_needed <= 0 and angle_needed >= -180:
                     action_list[self.robot_ids.index(robot_id)] = self.action_set.index('TURN_RIGHT_LONG')
-                print('Current Angle = %f, Desired Angle = %f, Angle to Turn = %f, Angle Threshold = %f'%(robot_orient, desired_angle, angle_needed, angle_threshold))    
+#                print('Current Angle = %f, Desired Angle = %f, Angle to Turn = %f, Angle Threshold = %f'%(robot_orient, desired_angle, angle_needed, angle_threshold))    
           
         completed_targets = set([])          
         for (robot_index, target_index) in self.robot_assignments:          
-            if len(self.robots_at_target[target_index])>=required_sizes[target_index]:
+            if required_sizes[target_index] and (len(self.robots_at_target[target_index])>=required_sizes[target_index]):
                 action_list[self.robot_ids.index(robot_id)] = self.action_set.index('LED_ON')
                 completed_targets.add(target_data[target_index][0])
         

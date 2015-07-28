@@ -22,7 +22,7 @@ if USING_RR:
 
 class ExperimentController:
 
-    def __init__(self, title, fps, screen_x, screen_y, cell_w, cell_h):
+    def __init__(self, title, experiment_number, fps, screen_x, screen_y, cell_w, cell_h):
         self.title = title
         self.fps = fps
         self.screen_x = screen_x
@@ -34,8 +34,9 @@ class ExperimentController:
         self.robot_assignment_matrix = None
         self.utility_vector = None
         self.num_start_fires = 4
+        self.data_logger = open('..\data\droplet-ta-exp-%d.txt'%experiment_number, 'w')
         
-    def setup_experiment(self):        
+    def setup_experiment(self, serial_com_port):        
         """
         Sets up the required classes for the experiment
         """
@@ -48,7 +49,9 @@ class ExperimentController:
         
         # Set up FireController
         self.fm = FireController(self.screen_y / self.cell_h, self.screen_x / self.cell_w)
-        for _ in range(self.num_start_fires):
+        # the -1 in the loop range exists because a new fire is created in the
+        # timed events. 
+        for _ in range(self.num_start_fires-1):
             (retval, state) = self.fm.ignite_cell_random()        
             if not retval:
                 return False
@@ -64,11 +67,21 @@ class ExperimentController:
         # Set up Serial Interface
         if USING_SERIAL:
             self.serial_port = SerialInterface()        
-            if not self.serial_port.open('COM16'):
+            if not self.serial_port.open(serial_com_port):
+                print 'Error opening serial port %s'%serial_com_port
                 return False
-            
+                
+        # Write first piece of data to file
+        self.data_logger.write('0')
+        
         return True
-            
+    
+    def terminate_exp(self):
+        pygame.quit()
+        if USING_SERIAL:
+            self.serial_port.close()
+        self.data_logger.close()        
+        
     def handle_user_events(self):
         """
         Uses the PyGame event handler to handle user inputs. Returns a string 
@@ -78,9 +91,6 @@ class ExperimentController:
         for event in pygame.event.get():
             # keydown events go here
             if event.type == QUIT:
-                pygame.quit()
-                if USING_SERIAL:
-                    self.serial_port.close()
                 ret_str_list.append('exit')
                 break
                 
@@ -109,11 +119,11 @@ class ExperimentController:
         # 1 second interval
         if (self.timer_counter % (self.fps * 1)) == 0:
             self._fire_positions = self.fm.get_fire_locations_and_sizes()
-            print 'Fire positions'
-            print self._fire_positions
-            
             if USING_RR:
                 self._robot_postions = self.rri.get_robot_positions()
+            # Write data to log file
+            fire_size = int(sum([size*screen_x*screen_y for ((x,y),size) in self._fire_positions]))
+            self.data_logger.write(',%d'%fire_size)
 
         # 5 second interval
         if (self.timer_counter % (self.fps * 5)) == 0:
@@ -124,11 +134,15 @@ class ExperimentController:
                 for completed_target in completed_targets:
                     (col, row) = completed_target
                     self.fm.extinguish_fire(row, col)
+                    #If a fire is extinguished then the robot_assignment_matrix
+                    # is not out of date and must be updated
+                    self.robot_assignment_matrix = None
+                    self._launch_opt_thread()
                                
 
         # 10 second interval
         if (self.timer_counter % (self.fps * 10)) == 0:
-            pass
+            self.data_logger.flush()
 
         # 20 second interval
         if (self.timer_counter % (self.fps * 20)) == 0:
@@ -158,12 +172,11 @@ class ExperimentController:
         # Check if any running threads have finished
         if (len(self.active_threads) > 0):
             new_active_threads = []
-            for thread in self.active_threads:
+            for (tasolver, thread) in self.active_threads:
                 if not thread.is_alive():
-                    (self.robot_assignment_matrix, self.utility_vector) = self._tasolver.get_solution()
-                    print self.robot_assignment_matrix
+                    (self.robot_assignment_matrix, self.utility_vector) = tasolver.get_solution()
                 else:
-                    new_active_threads.append(thread)
+                    new_active_threads.append((tasolver, thread))
             self.active_threads = new_active_threads
 
         # Propogate the fire
@@ -184,9 +197,9 @@ class ExperimentController:
         
         for (y_pos, x_pos), (intensity, status) in diff_fire_grid_dict.iteritems():
             cell_color = (0,0,0) # (r,g,b)
-            if status==FireController.Cell.FRONT:
-                cell_color = (0,0,255)
-            elif status==FireController.Cell.CORE:
+#            if status==FireController.Cell.FRONT:
+#                cell_color = (0,0,255)
+            if status==FireController.Cell.CORE:
                 cell_color = (255, 255 - intensity, 0)               
             elif status==FireController.Cell.BURNT:
                 cell_color = (180, 180, 180)                
@@ -200,15 +213,15 @@ class ExperimentController:
         """
         Uses the TASolver class to run an optimial target assignment routine.
         """
-        self._tasolver = TASolver()
+        tasolver = TASolver()
 
         # Assign opt variables here
         num_robots = len(self._robot_postions)
         num_targets = len(self._fire_positions)
-        target_team_size_req = self.est.estimate_required_team_sizes(self._fire_positions)
+        target_team_size_req = self.est.get_required_team_sizes(self._fire_positions)
         target_payoffs = [((x,y), 1) for ((x,y), _) in self._fire_positions]
         robot_constraints = self.est.estimate_robot_constraints(self._fire_positions, self._robot_postions)
         
-        new_thread = threading.Thread(target=self._tasolver.solve, kwargs=dict(n=num_robots, t=num_targets, k=target_team_size_req, w=target_payoffs, cst=robot_constraints))
-        self.active_threads.append(new_thread)
+        new_thread = threading.Thread(target=tasolver.solve, kwargs=dict(n=num_robots, t=num_targets, k=target_team_size_req, w=target_payoffs, cst=robot_constraints))
+        self.active_threads.append((tasolver, new_thread))
         new_thread.start()
