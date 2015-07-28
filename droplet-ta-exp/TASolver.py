@@ -3,13 +3,19 @@ import math
 from z3 import *
 
 class TASolver:   
-    def solve(self, n = 1, t = 1, k = [1], w = [1], cst = []):
+    def solve(self, n = 0, t = 0, k = [], w = [], cst = []):
         """
         Solves the Target Assignemt problem for the given input argunemts:
-        n   = Number of agents
-        t   = Number of targets
-        k   = List of minimum team size requirements per target
-        w   = List of payoffs/welfare per target for a successful assignment
+        n   = Number of agents.
+        t   = Number of targets.
+        k   = List of minimum team size requirements per target. Each entry in
+              the list should be a 2-tuple = ((x,y), team-size) where (x,y) is
+              the unique target location identifier.
+        w   = List of payoffs/welfare per target for a successful assignment. 
+              Each entry in the list should be a 2-tuple = ((x,y), base-welfare) 
+              where (x,y) is the unique target location identifier.
+        ws  = Welfare scaling. This value is multiplied with base-welfare in w
+              to provide a scaled utility for each target
         cst = List of agent specific target constraints containing the following
               2-tuple format: (a, t) indicating that agent-a CANNOT be assigned
               to target-t.
@@ -22,7 +28,12 @@ class TASolver:
         # Setup initial constraints & add a backtracking point
         self._set_ta_vars(n, t, k, w, cst)
         self._init_model()
-        
+
+        # If there are no targets return immediately        
+        if t == 0 or n == 0:
+            print 'Not enough targets or agents for SMT solver'
+            return 
+            
         # Save the model state (creates a model checkpoint)        
         self._s.push()
 
@@ -39,10 +50,11 @@ class TASolver:
         # Then check if the maximal assigment is possible        
         self._s.push()
         TW_high = sum(self.w)
-        self._s.add(sum(self._W)==TW_high, self._TW==sum(self._W))
+        self._s.add(self._TW==sum(self._W), sum(self._W)==TW_high)
         if self._s.check() == sat:
             # A maximal assignment was found
             self._generate_result_matrices()
+            print 'Found a maximal assignment!'
             return
         
         TW_high -= 1
@@ -53,8 +65,12 @@ class TASolver:
         if sat_res == sat:
             # Optimal assignment was found
             self._generate_result_matrices()
+            
+        print 'Found an optimal assignment.'
     
-    
+    def get_solution(self):
+        return (self._resM, self._resW)
+        
     def _init_model(self):
         """
         Sets up all the decision variables and constraints except the objective
@@ -127,9 +143,16 @@ class TASolver:
         """
         self.n   = n
         self.t   = t
-        self.k   = k   
-        self.w   = w
+        self.k   = [team_size for ((x,y), team_size) in k]
+        self.w   = [utility for ((x,y), utility) in w]
         self.cst = cst
+        
+        print ('SMT Solver: Number of agents = %d'%self.n)
+        print ('SMT Solver: Number of targets = %d'%self.t)
+        print ('SMT Solver: Team size requirements')
+        print self.k
+        print ('SMT Solver: Target Utility')
+        print self.w
         
     def _generate_result_matrices(self):
         """

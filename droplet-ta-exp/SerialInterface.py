@@ -41,7 +41,7 @@ class SerialInterface:
         self.port.flush()
 #        time.sleep(0.05)
     
-    def close(self, type, value, traceback):
+    def close(self):
         """
         Close the serial port
         """

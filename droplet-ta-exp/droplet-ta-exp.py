@@ -21,7 +21,9 @@ def main():
         if 'exit' in user_event_list:
             break
             
-        ec.handle_timed_events()
+        if not ec.handle_timed_events():
+            break
+        
         ec.draw_and_wait()
 
 if __name__ == "__main__":

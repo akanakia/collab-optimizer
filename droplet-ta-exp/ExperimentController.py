@@ -5,6 +5,7 @@ Created on Wed Jul 15 19:48:54 2015
 @author: Anshul
 """
 import pygame
+import threading
 from pygame.locals import *
 from FireController import FireController
 from TASolver import TASolver
@@ -30,7 +31,9 @@ class ExperimentController:
         self.cell_h = cell_h
         self.timer_counter = 0
         self.active_threads = []
-        self.assignments_active = True
+        self.robot_assignment_matrix = None
+        self.utility_vector = None
+        self.num_start_fires = 4
         
     def setup_experiment(self):        
         """
@@ -45,9 +48,10 @@ class ExperimentController:
         
         # Set up FireController
         self.fm = FireController(self.screen_y / self.cell_h, self.screen_x / self.cell_w)
-        (retval, state) = self.fm.ignite_cell_random()              
-        if not retval:
-            return False
+        for _ in range(self.num_start_fires):
+            (retval, state) = self.fm.ignite_cell_random()        
+            if not retval:
+                return False
             
         # Set up the RoboRealm interface
         if USING_RR:
@@ -110,9 +114,14 @@ class ExperimentController:
 
         # 5 second interval
         if (self.timer_counter % (self.fps * 5)) == 0:
-            if self.assignments_active and USING_SERIAL:
-                self.est.set_current_assignments([[1,0,0]])
-                self.serial_port.write(self.est.compute_robot_action_list(self._fire_positions, self._robot_postions))                
+            if self.robot_assignment_matrix is not None and USING_SERIAL:
+                self.est.set_current_assignments(self.robot_assignment_matrix)
+                (robot_action_list, completed_targets) = self.est.compute_robot_action_list(self._fire_positions, self._robot_postions)
+                self.serial_port.write(robot_action_list)
+                for completed_target in completed_targets:
+                    (col, row) = completed_target
+                    self.fm.extinguish_fire(row, col)
+                               
 
         # 10 second interval
         if (self.timer_counter % (self.fps * 10)) == 0:
@@ -120,21 +129,36 @@ class ExperimentController:
 
         # 20 second interval
         if (self.timer_counter % (self.fps * 20)) == 0:
-            self.fm.increment_intensity(5)
-#            print self._fire_positions
+            pass
 
-        # Minute interval
+        # 30 second interval
+        if (self.timer_counter % (self.fps * 30)) == 0:
+            self.fm.increment_intensity(16)
+            self._launch_opt_thread()
+    
+        # 1 minute interval
         if (self.timer_counter % (self.fps * 60)) == 0:
+            pass
+             
+        # 2 minute interval
+        if (self.timer_counter % (self.fps * 120)) == 0:
+            pass
+
+        # 10 minute interval
+        if (self.timer_counter % (self.fps * 600)) == 0:
+            if not self.fm.ignite_cell_random():
+                print('Error while creating a new fire. Terminating.')
+                return False
             self.timer_counter = 0
-                
+             
         # Every time-step of the experiment
         # Check if any running threads have finished
         if (len(self.active_threads) > 0):
             new_active_threads = []
             for thread in self.active_threads:
-                if not thread.is_active():
-                    # Get thread related computation results out here
-                    pass
+                if not thread.is_alive():
+                    (self.robot_assignment_matrix, self.utility_vector) = self._tasolver.get_solution()
+                    print self.robot_assignment_matrix
                 else:
                     new_active_threads.append(thread)
             self.active_threads = new_active_threads
@@ -144,6 +168,8 @@ class ExperimentController:
 
         # update the timer
         self.timer_counter += 1
+        
+        return True
         
     def draw_and_wait(self):
         """
@@ -174,13 +200,12 @@ class ExperimentController:
         self._tasolver = TASolver()
 
         # Assign opt variables here
-        fire_loc_and_size = self.fm.get_fire_locations_and_sizes()
-        num_robots = 20
-        num_targets = len(fire_loc_and_size)
-        target_team_size_req = [5 for _ in len(num_targets)]
-        target_payoffs = [1 for _ in len(num_targets)]
-        robot_constraints = []
+        num_robots = len(self._robot_postions)
+        num_targets = len(self._fire_positions)
+        target_team_size_req = self.est.estimate_required_team_sizes(self._fire_positions)
+        target_payoffs = [((x,y), 1) for ((x,y), _) in self._fire_positions]
+        robot_constraints = self.est.estimate_robot_constraints(self._fire_positions, self._robot_postions)
         
-        new_thread = Thread(target=self._tasolver.solve, kwargs=dict(n=num_robots, t=num_targets, k=target_team_size_req, w=target_payoffs, cst=robot_constraints))
+        new_thread = threading.Thread(target=self._tasolver.solve, kwargs=dict(n=num_robots, t=num_targets, k=target_team_size_req, w=target_payoffs, cst=robot_constraints))
         self.active_threads.append(new_thread)
         new_thread.start()
