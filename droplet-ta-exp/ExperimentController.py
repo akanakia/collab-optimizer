@@ -63,7 +63,8 @@ class ExperimentController:
 
             # Set up the Estimator class
             self.est = Estimator(self.screen_x, self.screen_y, self.rri.rr_x, self.rri.rr_y)
-        
+            self._robot_positions = {robot_id: (0,0,0) for robot_id in self.est.robot_ids}
+            
         # Set up Serial Interface
         if USING_SERIAL:
             self.serial_port = SerialInterface()        
@@ -120,7 +121,7 @@ class ExperimentController:
         if (self.timer_counter % (self.fps * 1)) == 0:
             self._fire_positions = self.fm.get_fire_locations_and_sizes()
             if USING_RR:
-                self._robot_postions = self.rri.get_robot_positions()
+                self.rri.get_robot_positions(self._robot_positions)
             # Write data to log file
             fire_size = int(sum([size*screen_x*screen_y for ((x,y),size) in self._fire_positions]))
             self.data_logger.write(',%d'%fire_size)
@@ -129,7 +130,7 @@ class ExperimentController:
         if (self.timer_counter % (self.fps * 5)) == 0:
             if self.robot_assignment_matrix is not None and USING_SERIAL:
                 self.est.set_current_assignments(self.robot_assignment_matrix)
-                (robot_action_list, completed_targets) = self.est.compute_robot_action_list(self._fire_positions, self._robot_postions)
+                (robot_action_list, completed_targets) = self.est.compute_robot_action_list(self._fire_positions, self._robot_positions)
                 self.serial_port.write(robot_action_list)
                 for completed_target in completed_targets:
                     (col, row) = completed_target

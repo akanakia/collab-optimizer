@@ -10,7 +10,7 @@ class RoboRealmInterface:
     def connect(self):
         self.rr.Connect('localhost')
         
-    def get_robot_positions(self):
+    def get_robot_positions(self, curr_robot_positions):
         """
         Returns a 4-tuple list containing the robot's (x, y, orientation, id).
         """
@@ -20,10 +20,7 @@ class RoboRealmInterface:
             robots_y = map(int, map(float, [y.strip() for y in self.rr.GetVariable('FIDUCIAL_Y_COORD_ARRAY').split(',')]))
             robots_orient = map(float, [orient.strip() for orient in self.rr.GetVariable('FIDUCIAL_ORIENTATION_ARRAY').split(',')])
         except ValueError:
-            return []
+            return
             
-        res = zip(robots_x, robots_y, robots_orient, robots_id)
-#        print ("RoboRealm Data")
-#        print res
-#        print ('')
-        return res
+        for (robot_id, robot_x, robot_y, robot_orient) in zip(robots_id, robots_x, robots_y, robots_orient):
+            curr_robot_positions[robot_id] = (robot_x, robot_y, robot_orient)
