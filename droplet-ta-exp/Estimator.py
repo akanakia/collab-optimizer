@@ -41,21 +41,26 @@ class Estimator:
         for ((x, y), size) in target_data:
             # We don't assign any robots to target until they are large enough
             # to cover at least 1% of the total screen area
-            if size <= .1:
+            if size <= .005:
                 team_sizes.append(((x, y), 0))
+            elif size >= .25:
+                team_sizes.append((x,y), 20)
             else:
-                team_sizes.append(((x,y), int(8.65617 * math.log(12.5992 * size))))
+                team_sizes.append(((x,y), int(4.6012 * math.log(308.89 * size))))
                 
         return team_sizes
         
     def get_required_team_sizes(self, target_data):
         team_sizes = []
         for ((x,y),size) in target_data:
-            if size <= .1:
+            if size <= .005:
                 team_sizes.append(0)
+            elif size >= .25:
+                team_sizes.append(20)
             else:
-                team_sizes.append(int(8.65617 * math.log(12.5992 * size)))
-            
+                team_sizes.append(int(4.6012 * math.log(308.89 * size)))
+          
+        return team_sizes
         
     def estimate_robot_constraints(self, target_data, robot_data):
         """

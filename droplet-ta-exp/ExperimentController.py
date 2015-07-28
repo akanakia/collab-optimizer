@@ -109,6 +109,9 @@ class ExperimentController:
         # 1 second interval
         if (self.timer_counter % (self.fps * 1)) == 0:
             self._fire_positions = self.fm.get_fire_locations_and_sizes()
+            print 'Fire positions'
+            print self._fire_positions
+            
             if USING_RR:
                 self._robot_postions = self.rri.get_robot_positions()
 

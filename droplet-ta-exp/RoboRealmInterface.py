@@ -23,7 +23,7 @@ class RoboRealmInterface:
             return []
             
         res = zip(robots_x, robots_y, robots_orient, robots_id)
-        print ("RoboRealm Data")
-        print res
-        print ('')
+#        print ("RoboRealm Data")
+#        print res
+#        print ('')
         return res
