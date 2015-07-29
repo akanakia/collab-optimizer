@@ -2,11 +2,8 @@
 import math
 
 class notTASolver:   
-
-    
-    
     def get_solution(self):
-        return (self._resM, None)
+        return (self.assignments, None)
         
     def solve(self, robot_data = {}, target_data = [], k = [], w = [], cst = []):
         """
@@ -22,32 +19,20 @@ class notTASolver:
         cst = List of agent specific target constraints containing the following
               2-tuple format: (a, t) indicating that agent-a CANNOT be assigned
               to target-t.
-              
-        This function fills a 0/1 n x t matrix-M indicating agent-target
-        assignments as well a vector-W of size t indicating the welfare received
-        for each successfully assigned target. if no valid assignments are found
-        then (M, W) = (None, None)
         """
         
-        sorted_indices = sorted(range(len(target_data)),key=lambda x: target_data[x][1], reverse=True)
-        sorted_targets = [target_data[i] for i in sorted_indices]
-        sorted_k = [k[i] for i in sorted_indices]     
-        dist_dict = {target[0]: {robot_id: math.hypot(robot[0:2],target[0]) for (robot_id, robot) in robot_data.items()} for target in target_data}
+        sorted_k = sorted(k, key=lambda c: c[1])
+        dist_dict = {target_pos: {robot_id: math.hypot(robot[0:2],target_pos) for (robot_id, robot) in robot_data.items()} for (target_pos, target_size) in target_data}
         
         
-        assignments={}
-        for target in sorted_k:
-            assignments[target[0]]=[]
-            num_needed = target[1]
-            sorted_dists = sorted(dist_dict[target[0]].items(), key=lambda x: x[1])
-            if num_needed > len(sorted_dists):
+        self.assignments={}
+        for (target_pos, target_team_size) in sorted_k:
+            self.assignments[target_pos]=[]
+            sorted_dists = sorted(dist_dict[target_pos].items(), key=lambda x: x[1])
+            if target_team_size > len(sorted_dists):
                 continue
-            for i in range(num_needed):
-                assignments[target[0]].append(sorted_dists[i][0])
-                for other_target in sorted_k:
-                    if target[0] is not other_target[0]:
-                        del dist_dict[other_target[0]][sorted_dists[i][0]]
-    
-            
-                        
-        
+            for i in range(target_team_size):
+                self.assignments[target_pos].append(sorted_dists[i][0])
+                for (other_target_pos, other_target_team_size) in sorted_k:
+                    if target_pos is not other_target_pos:
+                        del dist_dict[other_target_pos][sorted_dists[i][0]]
