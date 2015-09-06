@@ -11,12 +11,12 @@ from FireController import FireController
 from TASolver import TASolver
 from Estimator import Estimator
 
-USING_SERIAL = True
+USING_SERIAL = False
 if USING_SERIAL:
     from SerialInterface import SerialInterface
 
 # Set to True when RoboRealm is in use
-USING_RR = True
+USING_RR = False
 if USING_RR:
     from RoboRealmInterface import RoboRealmInterface
 
