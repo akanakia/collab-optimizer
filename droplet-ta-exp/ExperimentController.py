@@ -36,7 +36,7 @@ class ExperimentController:
         self.num_start_fires = 4
         self.data_logger = open('..\data\droplet-ta-exp-%d.txt'%experiment_number, 'w')
         
-    def setup_experiment(self, serial_com_port):        
+    def setup_experiment(self, serial_com_port):
         """
         Sets up the required classes for the experiment
         """
@@ -87,7 +87,7 @@ class ExperimentController:
         """
         Uses the PyGame event handler to handle user inputs. Returns a string 
         """
-        # Get user input and data from roborealm
+        # Get user input and data from pygame
         ret_str_list = []
         for event in pygame.event.get():
             # keydown events go here
@@ -123,7 +123,7 @@ class ExperimentController:
             if USING_RR:
                 self.rri.get_robot_positions(self._robot_positions)
             # Write data to log file
-            fire_size = int(sum([size*screen_x*screen_y for ((x,y),size) in self._fire_positions]))
+            fire_size = int(sum([size*self.screen_x*self.screen_y for ((x,y),size) in self._fire_positions]))
             self.data_logger.write(',%d'%fire_size)
 
         # 5 second interval
@@ -152,7 +152,7 @@ class ExperimentController:
         # 30 second interval
         if (self.timer_counter % (self.fps * 30)) == 0:
             self.fm.increment_intensity(16)
-            self._launch_opt_thread()
+#            self._launch_opt_thread()
     
         # 1 minute interval
         if (self.timer_counter % (self.fps * 60)) == 0:
@@ -217,11 +217,11 @@ class ExperimentController:
         tasolver = TASolver()
 
         # Assign opt variables here
-        num_robots = len(self._robot_postions)
+        num_robots = len(self._robot_positions)
         num_targets = len(self._fire_positions)
         target_team_size_req = self.est.get_required_team_sizes(self._fire_positions)
         target_payoffs = [((x,y), 1) for ((x,y), _) in self._fire_positions]
-        robot_constraints = self.est.estimate_robot_constraints(self._fire_positions, self._robot_postions)
+        robot_constraints = self.est.estimate_robot_constraints(self._fire_positions, self._robot_positions)
         
         new_thread = threading.Thread(target=tasolver.solve, kwargs=dict(n=num_robots, t=num_targets, k=target_team_size_req, w=target_payoffs, cst=robot_constraints))
         self.active_threads.append((tasolver, new_thread))
