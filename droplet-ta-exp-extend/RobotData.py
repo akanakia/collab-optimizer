@@ -29,7 +29,7 @@ class RobotData:
         # Data for simulator only
         self.simonly_lvel = random.uniform(ROBOT_BASE_LVEL_LOW, ROBOT_BASE_LVEL_HIGH)
         self.simonly_rvel = random.uniform(ROBOT_BASE_RVEL_LOW, ROBOT_BASE_RVEL_HIGH)
-        self.simonly_rad = ROBOT_RADIUS
+        self.simonly_radius = ROBOT_RADIUS
         self.simonly_color = (200, 200, 0) # Yellow
         
     def orient_rad(self):
