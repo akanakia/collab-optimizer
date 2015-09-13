@@ -68,10 +68,10 @@ class PyGameControl:
                 ellipse_rect = pygame.Rect(0,0,r_w,r_h)
                 ellipse_rect.center = (px_x, px_y)
                 
-                pygame.draw.ellipse(self.screen, fdat.intensity, ellipse_rect)
+                pygame.draw.ellipse(self.screen, fdat.color(), ellipse_rect)
 			
             else:
-                pygame.draw.circle(self.screen, fdat.intensity, (fdat.x, fdat.y), fdat.radius)
+                pygame.draw.circle(self.screen, fdat.color(), (fdat.x, fdat.y), int(fdat.radius))
     
     def draw_robots(self, robot_data_list, scale_to_screen=None):
         """
@@ -82,20 +82,22 @@ class PyGameControl:
             if scale_to_screen is not None:
                 (scale_x, scale_y) = scale_to_screen
                 (px_x, px_y) = self._scale(rdat.x, rdat.y, scale_x, scale_y)
-                (r_w, r_h) = self._scale(rdat.simonly_radius, rdat.simonly_radius, scale_x, scale_y)
+                (r_w, r_h) = self._scale(rdat.simonly_radiusius, rdat.simonly_radiusius, scale_x, scale_y)
 
                 ellipse_rect = pygame.Rect(0,0,r_w,r_h)
                 ellipse_rect.center = (px_x, px_y)
 
                 pygame.draw.ellipse(self.screen, rdat.simonly_color, ellipse_rect, 1)
-                ellipse_rect.size -= 1
+                ellipse_rect.height -= 1
+                ellipse_rect.width -= 1
                 pygame.draw.ellipse(self.screen, RGB_GRAY, ellipse_rect)
                 pygame.draw.line(self.screen, rdat.simonly_color, (px_x, px_y), (px_x + int(r_w * math.cos(rdat.orient_rad())), px_y + int(r_h * math.sin(rdat.orient_rad()))))
 
             else:
-                pygame.draw.circle(self.screen, rdat.simonly_color, (rdat.x, rdat.y), rdat.simonly_rad, 1)
-                pygame.draw.circle(self.screen, RGB_GRAY, (rdat.x, rdat.y), rdat.simonly_rad - 1) 
-                pygame.draw.line(self.screen, rdat.simonly_color, (rdat.x, rdat.y), (rdat.x + int(rdat.simonly_rad * math.cos(rdat.orient_rad())), rdat.y + int(rdat.simonly_rad * math.sin(rdat.orient_rad()))))              
+                (px_x, px_y) = (int(rdat.x), int(rdat.y))
+                pygame.draw.circle(self.screen, rdat.simonly_color, (px_x, px_y), rdat.simonly_radius, 1)
+                pygame.draw.circle(self.screen, RGB_GRAY, (px_x, px_y), rdat.simonly_radius - 1) 
+                pygame.draw.line(self.screen, rdat.simonly_color, (px_x, px_y), (px_x + int(rdat.simonly_radius * math.cos(rdat.orient_rad())), px_y + int(rdat.simonly_radius * math.sin(rdat.orient_rad()))))
             
     
     def render(self, fps_lock=True):

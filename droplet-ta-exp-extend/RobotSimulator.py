@@ -48,8 +48,8 @@ class RobotSimulator:
                 # check if movement is within bounds
                 if bounds is not None:
                     ((x_min, x_max),(y_min, y_max)) = bounds
-                    max(x_min + taconst.ROBOT_RADIUS, min(x_max - taconst.ROBOT_RADIUS, rdat.x))
-                    max(y_min + taconst.ROBOT_RADIUS, min(y_max - taconst.ROBOT_RADIUS, rdat.y))
+                    rdat.x = max(x_min + taconst.ROBOT_RADIUS, min(x_max - taconst.ROBOT_RADIUS, rdat.x))
+                    rdat.y = max(y_min + taconst.ROBOT_RADIUS, min(y_max - taconst.ROBOT_RADIUS, rdat.y))
                     
             # robot turns left or right with a narrow or wide angle
             elif 'TURN' in rdat.curr_action:
@@ -68,6 +68,6 @@ class RobotSimulator:
                 rdat.simonly_color = (0, 0, 200) # Blue
                 
             else: # 'NOTHING'
-                rdat.simonly_color = (200, 200, 0) # Blue
+                rdat.simonly_color = (200, 200, 0) # Yellow
                 
         self.sim_time += dt

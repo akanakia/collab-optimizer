@@ -12,13 +12,19 @@ class FireSimulator:
     def __init__(self):
         self._sim_time = 0.
         
-    def init(self):
-        pass
+    def init(self, num_fires=1, bounds=None):
+        fire_data_list = []
+        for _ in range(num_fires):
+            self.start_fire(fire_data_list, bounds)
+            
+        return fire_data_list
 
     def start_fire(self, fire_data_list, bounds=None, loc=None):
         """
         """
         new_fire_intensity = random.randint(MIN_NEW_FIRE_INTENSITY, MAX_NEW_FIRE_INTENSITY)
+        
+        # Polygon circumcircle equation from: https://en.wikipedia.org/wiki/Regular_polygon
         new_fire_radius = taconst.ROBOT_RADIUS / math.sin(math.pi / new_fire_intensity)
         
         if loc is None:
@@ -60,6 +66,9 @@ class FireSimulator:
         """
         """
         for fdat in fire_data_list:
-            fdat.radius = taconst.ROBOT_RADIUS / math.sin(math.pi / fdat.intensity)
+            fdat.time_alive += dt
+            if fdat.update_fire_inc_interval():
+                fdat.intensity += 1
+                fdat.radius = taconst.ROBOT_RADIUS / math.sin(math.pi / fdat.intensity)                
             
         self._sim_time += dt
