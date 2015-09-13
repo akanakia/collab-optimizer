@@ -1,12 +1,12 @@
+# -*- coding: utf-8 -*-
 import math
 import pygame
 from pygame.locals import *
-
-import RobotData
-import FireData
+from DataHandlers import *
 
 DEFAULT_FPS = 60
-COLOR_GRAY = (100, 100, 100)
+RGB_GRAY  = (100, 100, 100)
+RGB_BLACK = (0,   0,   0)
 
 class PyGameControl:
     def __init__(self, title, experiment_number, screen_x, screen_y, fps=DEFAULT_FPS):
@@ -19,7 +19,7 @@ class PyGameControl:
         self.screen_y = screen_y        
         self.exp_num = experiment_number
         
-    def setup(self):
+    def init(self):
         """
         Sets up pygame stuff
         """
@@ -27,7 +27,7 @@ class PyGameControl:
         self.screen = pygame.display.set_mode((self.screen_x, self.screen_y), HWSURFACE | DOUBLEBUF)
         pygame.display.set_caption(self.title + '. Exp. #' + str(self.exp_num))
         self.clock = pygame.time.Clock()
-        self.screen.fill((0,0,0))
+        self.screen.fill(RGB_BLACK)
         
     def handle_user_events(self):
         """
@@ -66,15 +66,18 @@ class PyGameControl:
                 (r_w, r_h) = self._scale(fdat.radius, fdat.radius, scale_x, scale_y)
                 
                 ellipse_rect = pygame.Rect(0,0,r_w,r_h)
-                ellipse_rect.center(px_x, px_y)
+                ellipse_rect.center = (px_x, px_y)
                 
-                pygame.draw.ellipse(screen, fdat.intensity, ellipse_rect)
+                pygame.draw.ellipse(self.screen, fdat.intensity, ellipse_rect)
 			
             else:
-                pygame.draw.circle(screen, fdat.intensity, (fdat.x, fdat.y), fdat.radius)
+                pygame.draw.circle(self.screen, fdat.intensity, (fdat.x, fdat.y), fdat.radius)
     
     def draw_robots(self, robot_data_list, scale_to_screen=None):
-        # Draw robots to screen
+        """
+        Draws robots to screen. scale_to_screen is a scaling tuple 
+        (arena_x, arena_y) between arena and screen coordinates, if required. 
+        """
         for rdat in robot_data_list:
             if scale_to_screen is not None:
                 (scale_x, scale_y) = scale_to_screen
@@ -82,21 +85,22 @@ class PyGameControl:
                 (r_w, r_h) = self._scale(rdat.simonly_radius, rdat.simonly_radius, scale_x, scale_y)
 
                 ellipse_rect = pygame.Rect(0,0,r_w,r_h)
-                ellipse_rect.center(px_x, px_y)
+                ellipse_rect.center = (px_x, px_y)
 
-                pygame.draw.ellipse(screen, rdat.simonly_color, ellipse_rect, rdat.simonly_radius - 1) 
-                pygame.draw.ellipse(screen, COLOR_GRAY, ellipse_rect, rdat.simonly_radius - 1) 
-                pygame.draw.line(screen, rdat.simonly_color, (px_x, px_y), (px_x + int(r_w * math.cos(rdat.orient_rad())), px_y + int(r_h * math.sin(rdat.orient_rad()))))
+                pygame.draw.ellipse(self.screen, rdat.simonly_color, ellipse_rect, 1)
+                ellipse_rect.size -= 1
+                pygame.draw.ellipse(self.screen, RGB_GRAY, ellipse_rect)
+                pygame.draw.line(self.screen, rdat.simonly_color, (px_x, px_y), (px_x + int(r_w * math.cos(rdat.orient_rad())), px_y + int(r_h * math.sin(rdat.orient_rad()))))
 
             else:
-                pygame.draw.circle(screen, rdat.simonly_color, (rdat.x, rdat.y), rdat.simonly_rad, 1)
-                pygame.draw.circle(screen, COLOR_GRAY, (rdat.x, rdat.y), rdat.simonly_rad - 1) 
-                pygame.draw.line(screen, rdat.simonly_color, (rdat.x, rdat.y), (rdat.x + int(rdat.simonly_rad * math.cos(rdat.orient_rad())), rdat.y + int(rdat.simonly_rad * math.sin(rdat.orient_rad()))))              
+                pygame.draw.circle(self.screen, rdat.simonly_color, (rdat.x, rdat.y), rdat.simonly_rad, 1)
+                pygame.draw.circle(self.screen, RGB_GRAY, (rdat.x, rdat.y), rdat.simonly_rad - 1) 
+                pygame.draw.line(self.screen, rdat.simonly_color, (rdat.x, rdat.y), (rdat.x + int(rdat.simonly_rad * math.cos(rdat.orient_rad())), rdat.y + int(rdat.simonly_rad * math.sin(rdat.orient_rad()))))              
             
     
     def render(self, fps_lock=True):
         """
-        Call this function after all the draw_@@@ calls to render draw elements
+        Call this function after all the draw_### calls to render draw elements
         to screen
         """
         # Render to self.screen
@@ -104,10 +108,9 @@ class PyGameControl:
         if fps_lock:
             self.clock.tick(self.fps)        
         else:
-            self.clock.tick()    
+            self.clock.tick()
+            
+        self.screen.fill(RGB_BLACK)
             
     def _scale(self, x, y, scale_x, scale_y):
         return (x * self.screen_x / float(scale_x), y * self.screen_y / float(scale_y))
-        
-        
-        
