@@ -24,6 +24,7 @@ def main():
         pg_control.init()
         
         while True:
+            # handle user events
             user_event_list = pg_control.handle_user_events()
             if 'exit' in user_event_list:
                 break

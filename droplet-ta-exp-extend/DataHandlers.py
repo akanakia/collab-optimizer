@@ -26,8 +26,10 @@ class RobotData:
         return self.orient * math.pi / 180.
         
 class FireData:
-    def __init__(self, x, y, radius, intensity):
+    def __init__(self, (x,y), radius, intensity, start_time):
         self.x = x
         self.y = y
         self.radius = radius
-        self.intensity
+        self.intensity = intensity
+        self.start_time = start_time
+        self.time_alive = 0.

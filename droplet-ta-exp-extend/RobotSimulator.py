@@ -18,7 +18,7 @@ class RobotSimulator:
     """
     
     def __init__(self):
-        self.sim_time = 0.0
+        self.sim_time = 0.
     
     def init(self, num_robots, bounds):
         """
