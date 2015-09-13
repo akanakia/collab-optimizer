@@ -1,9 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Sat Sep 12 13:17:50 2015
-
-@author: Colab
-"""
 import math
 import pygame
 from pygame.locals import *
@@ -74,9 +68,10 @@ class PyGameControl:
                 ellipse_rect = pygame.Rect(0,0,r_w,r_h)
                 ellipse_rect.center(px_x, px_y)
                 
-                # draw stuff
+                pygame.draw.ellipse(screen, fdat.intensity, ellipse_rect)
+			
             else:
-                pygame.draw.circle(screen, fdat.color, (fdat.x, fdat.y), fdat.radius)
+                pygame.draw.circle(screen, fdat.intensity, (fdat.x, fdat.y), fdat.radius)
     
     def draw_robots(self, robot_data_list, scale_to_screen=None):
         # Draw robots to screen
