@@ -9,8 +9,8 @@ import taconstants as taconst
 
 ARENA_X = 1000 # mm
 ARENA_Y = 1000 # mm
-SCREEN_X = 1000 # px
-SCREEN_Y = 1000 # px
+SCREEN_X = 720 # px
+SCREEN_Y = 760 # px
 TITLE    = 'robot simulator'
 
 NUM_ROBOTS = 20
@@ -28,7 +28,6 @@ def main():
         fsim = FireSimulator()
         fire_data_list = fsim.init(NUM_START_FIRES, ((0, ARENA_X), (0, ARENA_Y)))
         
-        
         pg_control = PyGameControl(TITLE, exp_num + 1, SCREEN_X, SCREEN_Y)
         pg_control.init()
         
@@ -43,10 +42,11 @@ def main():
             rsim.update(robot_data_list, taconst.SIM_TIMESTEP, ((0, ARENA_X), (0, ARENA_Y)))
             
             # Draw objects to screen
-#            pg_control.draw_fire(fire_data_list, (ARENA_X, ARENA_Y))
-#            pg_control.draw_robots(robot_data_list, (ARENA_X, ARENA_Y))
-            pg_control.draw_fire(fire_data_list)
-            pg_control.draw_robots(robot_data_list)            
+            pg_control.draw_fire(fire_data_list, (ARENA_X, ARENA_Y))
+            pg_control.draw_robots(robot_data_list, (ARENA_X, ARENA_Y))
+#            pg_control.draw_fire(fire_data_list)
+#            pg_control.draw_robots(robot_data_list)
+            
             # Render to screen
             pg_control.render(fps_lock=False)
             sim_time += taconst.SIM_TIMESTEP

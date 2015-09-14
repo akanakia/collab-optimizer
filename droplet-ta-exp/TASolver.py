@@ -14,8 +14,6 @@ class TASolver:
         w   = List of payoffs/welfare per target for a successful assignment. 
               Each entry in the list should be a 2-tuple = ((x,y), base-welfare) 
               where (x,y) is the unique target location identifier.
-        ws  = Welfare scaling. This value is multiplied with base-welfare in w
-              to provide a scaled utility for each target
         cst = List of agent specific target constraints containing the following
               2-tuple format: (a, t) indicating that agent-a CANNOT be assigned
               to target-t.
