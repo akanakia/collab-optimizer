@@ -55,4 +55,17 @@ class FireData:
         return (200, 8 * self.intensity, 0)
         
         return False
+
+class ExpData:
+    def set_distance_matrix(self, robot_data_list, fire_data_list):
+        """
+        Saves a num_robots x num_fires matrix D of distances between robots and
+        fire centers.
+        """
+        self.D = [[math.hypot(fdat.x - rdat.x,fdat.y - rdat.y) for fdat in fire_data_list] for rdat in robot_data_list]
+        
+        
+        
+        
+        
         
