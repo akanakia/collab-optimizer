@@ -5,6 +5,9 @@ from DataHandlers import *
 from RobotSimulator import *
 from FireSimulator import *
 from PyGameControl import *
+from TASolver import *
+from ActionCommandControl import *
+
 import taconstants as taconst
 
 ARENA_X = 1000 # mm
@@ -16,9 +19,25 @@ TITLE    = 'robot simulator'
 NUM_ROBOTS = 20
 NUM_START_FIRES = 4
 NUM_EXPS = 1
+EXP_LENGTH = 1000 * 60 * 60 # 1 hour in ms
+
+def generate_allocations(robot_data_list, fire_data_list, exp_data):
+    n = len(robot_data_list)
+    t = len(fire_data_list)
+    k = [((fdat.x, fdat.y), fdat.intensity) for fdat in fire_data_list]
+    w = [((fdat.x, fdat.y), fdat.intensity) for fdat in fire_data_list]
+    cst = []
+    for i in range(n):
+        if robot_data_list[i].action == 'LED_ON':
+            cst += [(i, j) for j in range(t)]
+    d = [[exp_data.D[i][j]/math.hypot(ARENA_X, ARENA_Y) for j in range(t)] for i in range(n)]
+    
+    solver = TASolver()
+    if solver.solve(n,t,k,w,cst,d) > 0:
+        (M, W) = solver.get_solution()
+        
 
 def main():
-
     for exp_num in range(NUM_EXPS):
         sim_time = 0.
         
@@ -28,14 +47,30 @@ def main():
         fsim = FireSimulator()
         fire_data_list = fsim.init(NUM_START_FIRES, ((0, ARENA_X), (0, ARENA_Y)))
         
+        exp_data = ExpData()    
+        
         pg_control = PyGameControl(TITLE, exp_num + 1, SCREEN_X, SCREEN_Y)
         pg_control.init()
-        
-        while True:
+
+        while sim_time <= EXP_LENGTH:
             # handle user events
             user_event_list = pg_control.handle_user_events()
             if 'exit' in user_event_list:
                 break
+
+            # Handle timed events
+            # 3 second events
+            if sim_time % (1000 * 3) < taconst.SIM_TIMESTEP: 
+                exp_data.set_distance_matrix(robot_data_list, fire_data_list)
+                
+            # 30 second events
+            if sim_time % (1000 * 30) < taconst.SIM_TIMESTEP:
+                # Call the TASolver
+                generate_allocations(robot_data_list, fire_data_list, exp_data)
+                
+            #3 minute events
+            if sim_time % (1000 * 60 * 3) < taconst.SIM_TIMESTEP:
+                fsim.start_fire(fire_data_list,((0, ARENA_X),(0, ARENA_Y)))
 
             # update the simulators
             fsim.update(fire_data_list, taconst.SIM_TIMESTEP)
@@ -44,8 +79,6 @@ def main():
             # Draw objects to screen
             pg_control.draw_fire(fire_data_list, (ARENA_X, ARENA_Y))
             pg_control.draw_robots(robot_data_list, (ARENA_X, ARENA_Y))
-#            pg_control.draw_fire(fire_data_list)
-#            pg_control.draw_robots(robot_data_list)
             
             # Render to screen
             pg_control.render(fps_lock=False)

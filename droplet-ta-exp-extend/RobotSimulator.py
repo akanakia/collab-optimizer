@@ -14,7 +14,7 @@ class RobotSimulator:
     """
     The robot simulator is a very simple class. It's update method takes in a 
     list of RobotData objects and updates their internal attributes based on the
-    preset RobotData.curr_action attribute. 
+    preset RobotData.action attribute. 
     """
     
     def __init__(self):
@@ -36,9 +36,9 @@ class RobotSimulator:
         """
         for rdat in robot_data_list:
             # robot walks forward or backward
-            if 'WALK' in rdat.curr_action:
-                walk_dir = rdat.orient_rad() # 'FORWARD' is default direction
-                if 'BACKWARD' in rdat.curr_action:
+            if 'WALK' in rdat.action:
+                walk_dir = math.radians(rdat.orient) # 'FORWARD' is default direction
+                if 'BACKWARD' in rdat.action:
                     walk_dir = ((rdat.orient + 180) % 360) * math.pi / 180.
                    
                 # move the robot
@@ -52,8 +52,8 @@ class RobotSimulator:
                     rdat.y = max(y_min + taconst.ROBOT_RADIUS, min(y_max - taconst.ROBOT_RADIUS, rdat.y))
                     
             # robot turns left or right with a narrow or wide angle
-            elif 'TURN' in rdat.curr_action:
-                if 'LEFT' in rdat.curr_action:
+            elif 'TURN' in rdat.action:
+                if 'LEFT' in rdat.action:
                     rdat.orient += rdat.simonly_rvel * dt / 1000.
                 else: # turn 'RIGHT'
                     rdat.orient -= rdat.simonly_rvel * dt / 1000.
@@ -64,7 +64,7 @@ class RobotSimulator:
                     rdat.orient += 360
             
             # robot turns on led
-            elif rdat.curr_action == 'LED_ON':
+            elif rdat.action == 'LED_ON':
                 rdat.simonly_color = (0, 0, 200) # Blue
                 
             else: # 'NOTHING'

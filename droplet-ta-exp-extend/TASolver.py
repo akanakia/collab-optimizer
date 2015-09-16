@@ -39,15 +39,14 @@ class TASolver:
             return 
         
         # Binary search through possible solutions        
-        TW_res = self._binary_search(0, sum(self.w), 0)
-        print TW_res
-
+        return self._binary_search(0, sum(self.w), 0)
+        
     def _binary_search(self, TW_low, TW_high, rec_depth, rec_limit=200):
         """
         Search over the possible valid range of objective function values and
         return the max valid assignment.
         """        
-        print('TW range = [%d,%d]'%(TW_low,TW_high))  
+#        print('TW range = [%f,%f]'%(TW_low,TW_high))  
 
         # Check is recursion limit is reached.        
         if rec_depth >= rec_limit:
@@ -118,9 +117,6 @@ class TASolver:
         # Target welfare constraints
         for j in range(self.t):
             self._s.add(Or(self._W[j]==0., And(sum([r[j] for r in self._x])>=self.k[j], self._W[j]==self.w[j]-sum([self._x[i][j] * float(self.d[i][j]) for i in range(self.n)]))))
-        
-        self._s.add(self._x[0][0] > 0.001 )
-            
             
         print self._s.assertions()
 
@@ -135,12 +131,12 @@ class TASolver:
         self.cst = cst
         self.d   = d
         
-        print ('SMT Solver: Number of agents = %d'%self.n)
-        print ('SMT Solver: Number of targets = %d'%self.t)
-        print ('SMT Solver: Team size requirements')
-        print self.k
-        print ('SMT Solver: Target utilities')
-        print self.w
+#        print ('SMT Solver: Number of agents = %d'%self.n)
+#        print ('SMT Solver: Number of targets = %d'%self.t)
+#        print ('SMT Solver: Team size requirements')
+#        print self.k
+#        print ('SMT Solver: Target utilities')
+#        print self.w
         
     def _generate_result_matrices(self):
         """

@@ -79,7 +79,7 @@ class Estimator:
         to do nothing and wait for further assignments.
         Use the set_current_assignments() function to set the robot assignment
         matrix.
-        """           
+        """
         action_list = [self.action_set.index('NOTHING') for _ in range(20)]
         required_sizes = self.get_required_team_sizes(target_data, with_positions=False)
         if self.robot_assignments is None:

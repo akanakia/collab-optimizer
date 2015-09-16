@@ -14,12 +14,13 @@ ROBOT_BASE_RVEL_LOW  = 2.75 # deg/s
 ROBOT_BASE_RVEL_HIGH = 3.75 # deg/s
 
 class RobotData:
-    def __init__(self, (x,y), orient, robot_id, curr_action='NOTHING'):
+    def __init__(self, (x,y), orient, robot_id, action='NOTHING'):
         self.x = x
         self.y = y
         self.orient = orient
         self.robot_id = robot_id
-        self.curr_action = curr_action
+        self.action = action
+        self.target_coords = None
         
         # Data for simulator only
         self.simonly_lvel = random.uniform(ROBOT_BASE_LVEL_LOW, ROBOT_BASE_LVEL_HIGH)
@@ -27,8 +28,8 @@ class RobotData:
         self.simonly_radius = taconst.ROBOT_RADIUS
         self.simonly_color = (200, 200, 0) # Yellow
         
-    def orient_rad(self):
-        return self.orient * math.pi / 180.
+#    def orient_rad(self):
+#        return self.orient * math.pi / 180.
 
 FIRE_INCREASE_INTERVAL_MIN = 3 * 60 # sec
 FIRE_INCREASE_INTERVAL_MAX = 4 * 60 # sec
@@ -39,6 +40,7 @@ class FireData:
         self.y = y
         self.radius = radius
         self.intensity = intensity
+        self.curr_team = []
         
         # This data is stored in ms instead of sec
         self.start_time = start_time
@@ -63,9 +65,4 @@ class ExpData:
         fire centers.
         """
         self.D = [[math.hypot(fdat.x - rdat.x,fdat.y - rdat.y) for fdat in fire_data_list] for rdat in robot_data_list]
-        
-        
-        
-        
-        
         

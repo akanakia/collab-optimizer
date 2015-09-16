@@ -91,13 +91,13 @@ class PyGameControl:
                 ellipse_rect.height -= 1
                 ellipse_rect.width -= 1
                 pygame.draw.ellipse(self.screen, RGB_GRAY, ellipse_rect)
-                pygame.draw.line(self.screen, rdat.simonly_color, (px_x, px_y), (px_x + int((r_w/2)* math.cos(rdat.orient_rad())), px_y + int((r_h/2) * math.sin(rdat.orient_rad()))))
+                pygame.draw.line(self.screen, rdat.simonly_color, (px_x, px_y), (px_x + int((r_w/2)* math.cos(math.radians(rdat.orient))), px_y + int((r_h/2) * math.sin(math.radians(rdat.orient)))))
 
             else:
                 (px_x, px_y) = (int(rdat.x), int(rdat.y))
                 pygame.draw.circle(self.screen, rdat.simonly_color, (px_x, px_y), rdat.simonly_radius, 2)
                 pygame.draw.circle(self.screen, RGB_GRAY, (px_x, px_y), rdat.simonly_radius - 2) 
-                pygame.draw.line(self.screen, rdat.simonly_color, (px_x, px_y), (px_x + int(rdat.simonly_radius * math.cos(rdat.orient_rad())), px_y + int(rdat.simonly_radius * math.sin(rdat.orient_rad()))))
+                pygame.draw.line(self.screen, rdat.simonly_color, (px_x, px_y), (px_x + int(rdat.simonly_radius * math.cos(math.radians(rdat.orient))), px_y + int(rdat.simonly_radius * math.sin(math.radians(rdat.orient)))))
             
     
     def render(self, fps_lock=True):
@@ -115,4 +115,4 @@ class PyGameControl:
         self.screen.fill(RGB_BLACK)
             
     def _scale(self, x, y, scale_x, scale_y):
-        return (x * self.screen_x / float(scale_x), y * self.screen_y / float(scale_y))
+        return (int(x * self.screen_x / float(scale_x)), int(y * self.screen_y / float(scale_y)))
