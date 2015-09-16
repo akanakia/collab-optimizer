@@ -27,9 +27,6 @@ class RobotData:
         self.simonly_rvel = random.uniform(ROBOT_BASE_RVEL_LOW, ROBOT_BASE_RVEL_HIGH)
         self.simonly_radius = taconst.ROBOT_RADIUS
         self.simonly_color = (200, 200, 0) # Yellow
-        
-#    def orient_rad(self):
-#        return self.orient * math.pi / 180.
 
 FIRE_INCREASE_INTERVAL_MIN = 3 * 60 # sec
 FIRE_INCREASE_INTERVAL_MAX = 4 * 60 # sec
@@ -46,17 +43,24 @@ class FireData:
         self.start_time = start_time
         self.time_alive = 0.
         self._next_fire_inc = 0.
+        self._extinguish_timer = 0.
         self.update_fire_inc_interval()
+
+    def update_fire_extinguish_interval(self):
+        if len(self.curr_team) == self.intensity:
+            self._extinguish_timer += taconst.SIM_TIMESTEP
+            if self._extinguish_timer >= taconst.FIRE_EXTINGUISH_TIME:
+                return True
+        return False
         
     def update_fire_inc_interval(self):
         if self.time_alive >= self._next_fire_inc:        
             self._next_fire_inc = self.time_alive + (random.uniform(FIRE_INCREASE_INTERVAL_MIN, FIRE_INCREASE_INTERVAL_MAX) * 1000)
             return True
+        return False
     
     def color(self):
         return (200, 8 * self.intensity, 0)
-        
-        return False
 
 class ExpData:
     def set_distance_matrix(self, robot_data_list, fire_data_list):

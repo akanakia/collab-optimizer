@@ -62,13 +62,19 @@ class FireSimulator:
         if found_fire is not None:
             fire_data_list.remove(found_fire)
     
-    def update(self, fire_data_list, dt):
+    def update(self, fire_data_list):
         """
         """
+        fires_to_remove = []
         for fdat in fire_data_list:
-            fdat.time_alive += dt
+            fdat.time_alive += taconst.SIM_TIMESTEP
             if fdat.update_fire_inc_interval():
                 fdat.intensity += 1
-                fdat.radius = taconst.ROBOT_RADIUS / math.sin(math.pi / fdat.intensity)                
-            
-        self._sim_time += dt
+                fdat.radius = taconst.ROBOT_RADIUS / math.sin(math.pi / fdat.intensity)
+            if fdat.update_fire_extinguish_interval():
+                fires_to_remove.append(fdat)
+                
+        for fire in fires_to_remove:
+            fire_data_list.remove(fire)
+        
+        self._sim_time += taconst.SIM_TIMESTEP

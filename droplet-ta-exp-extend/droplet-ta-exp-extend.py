@@ -17,7 +17,7 @@ SCREEN_Y = 760 # px
 TITLE    = 'robot simulator'
 
 NUM_ROBOTS = 20
-NUM_START_FIRES = 4
+NUM_START_FIRES = 3
 NUM_EXPS = 1
 EXP_LENGTH = 1000 * 60 * 60 # 1 hour in ms
 
@@ -28,9 +28,9 @@ def generate_allocations(robot_data_list, fire_data_list, exp_data):
     w = [((fdat.x, fdat.y), fdat.intensity) for fdat in fire_data_list]
     cst = []
     for i in range(n):
-        if robot_data_list[i].action == 'LED_ON':
+        if robot_data_list[i].action == 'LED_ON' or robot_data_list[i].action == 'WAITING':
             cst += [(i, j) for j in range(t)]
-    d = [[exp_data.D[i][j]/math.hypot(ARENA_X, ARENA_Y) for j in range(t)] for i in range(n)]
+    d = [[round(exp_data.D[i][j]/math.hypot(ARENA_X, ARENA_Y),2) for j in range(t)] for i in range(n)]
     
     solver = TASolver()
     if solver.solve(n,t,k,w,cst,d) > 0:
@@ -39,7 +39,7 @@ def generate_allocations(robot_data_list, fire_data_list, exp_data):
             if 1 in row:
                 robot_data_list[i].target_coords = (fire_data_list[row.index(1)].x, fire_data_list[row.index(1)].y)
                 fire_data_list[row.index(1)].curr_team = []
-                fire_data_list[row.index(1)].curr_team.append(robot_data_list[i].id)
+#                fire_data_list[row.index(1)].curr_team.append(robot_data_list[i].robot_id)
 
 def main():
     for exp_num in range(NUM_EXPS):
@@ -62,7 +62,12 @@ def main():
             if 'exit' in user_event_list:
                 break
 
-            # Handle timed events
+            # Handle timed events            
+            #3 minute events
+            if sim_time % (1000 * 60 * 3) < taconst.SIM_TIMESTEP:
+                fsim.start_fire(fire_data_list,((0, ARENA_X),(0, ARENA_Y)))
+                exp_data.set_distance_matrix(robot_data_list, fire_data_list)
+                
             # 3 second events
             if sim_time % (1000 * 3) < taconst.SIM_TIMESTEP: 
                 exp_data.set_distance_matrix(robot_data_list, fire_data_list)
@@ -73,14 +78,10 @@ def main():
             if sim_time % (1000 * 30) < taconst.SIM_TIMESTEP:
                 # Call the TASolver
                 generate_allocations(robot_data_list, fire_data_list, exp_data)
-                
-            #3 minute events
-            if sim_time % (1000 * 60 * 3) < taconst.SIM_TIMESTEP:
-                fsim.start_fire(fire_data_list,((0, ARENA_X),(0, ARENA_Y)))
 
             # update the simulators
-            fsim.update(fire_data_list, taconst.SIM_TIMESTEP)
-            rsim.update(robot_data_list, taconst.SIM_TIMESTEP, ((0, ARENA_X), (0, ARENA_Y)))
+            fsim.update(fire_data_list)
+            rsim.update(robot_data_list, ((0, ARENA_X), (0, ARENA_Y)))
             
             # Draw objects to screen
             pg_control.draw_fire(fire_data_list, (ARENA_X, ARENA_Y))

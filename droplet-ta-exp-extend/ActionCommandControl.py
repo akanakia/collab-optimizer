@@ -1,35 +1,52 @@
 # -*- coding: utf-8 -*-
 import math
+import taconstants as taconst
 
 class ActionCommandControl:        
-    def generate_robot_actions(self, robot_data_list, fire_data_list):        
+    def generate_robot_actions(self, robot_data_list, fire_data_list):
+        # check if any robots are at an extinguished fire
+        for rdat in robot_data_list:
+            if rdat.action == 'LED_ON' and rdat.target_coords is not None:
+                (fx, fy) = rdat.target_coords
+                target_found = False
+                for fdat in fire_data_list:
+                    if fdat.x == fx and fdat.y == fy:
+                        target_found = True
+                        break
+                if not target_found:
+                    rdat.action = 'NOTHING'
+                    rdat.target_coords = None
+        
         # Check if any robots are already at a fire
         for rdat in robot_data_list:
-            if rdat.target_coords is not None:
+            if rdat.action != 'WAITING' and rdat.target_coords is not None:
                 (fx, fy) = rdat.target_coords
                 for fdat in fire_data_list:
                     if fdat.x == fx and fdat.y == fy and math.hypot(rdat.x-fdat.x,rdat.y-fdat.y) <= fdat.radius:
-                        rdat.target_coords = None                        
-                        rdat.action = 'NOTHING'
-                        fdat.curr_team.append(rdat.id)                        
+                        rdat.action = 'WAITING'
+                        fdat.curr_team.append(rdat.robot_id)                        
                         
         # Check if any fires are ready to act on
         for fdat in fire_data_list:
             if len(fdat.curr_team) == fdat.intensity:
                 for rdat in robot_data_list:
-                    if rdat.id in fdat.curr_team:
+                    if rdat.robot_id in fdat.curr_team:
                         rdat.action = 'LED_ON'
                         
         # Move the robots that need moving
         for rdat in robot_data_list:
             if rdat.target_coords is not None:
                 (fx, fy) = rdat.target_coords
-                angle_needed = self._pretty_angle(math.degrees(math.atan2(rdat.y-fy,rdat.x-fx)) - rdat.orient)
-                
-                angle_threshold = 15 # degrees
-#                angle_threshold = max(math.degrees(abs(math.asin((fire_radius-robot_pixel_radius)/dist))),10)
+                angle_needed = self._pretty_angle(math.degrees(math.atan2(fy-rdat.y,fx-rdat.x))  - rdat.orient)
+                angle_threshold = 10 # degrees
+                for fdat in fire_data_list:
+                    if fdat.x == fx and fdat.y == fy:
+                        asin_domain_constrained = min(1, max((fdat.radius-taconst.ROBOT_RADIUS)/math.hypot(fdat.y-rdat.y,fdat.x-rdat.x), -1))
+                        angle_threshold = self._pretty_angle(max(math.degrees(abs(math.asin(asin_domain_constrained))), angle_threshold))
+                        break
+
                 if angle_needed >= -angle_threshold and angle_needed <= angle_threshold:
-                    rdat.action = 'MOVE_FORWARD'
+                    rdat.action = 'WALK_FORWARD'
                 elif angle_needed < -angle_threshold:
                     rdat.action = 'TURN_RIGHT'
                 else: # angle_needed > angle_threhold

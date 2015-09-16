@@ -46,25 +46,27 @@ class TASolver:
         Search over the possible valid range of objective function values and
         return the max valid assignment.
         """        
-#        print('TW range = [%f,%f]'%(TW_low,TW_high))  
+        print('range = [%f,%f]'%(TW_low,TW_high))  
 
         # Check is recursion limit is reached.        
+        print ('Current max. welfare = %f'%TW_low)
         if rec_depth >= rec_limit:
             print('Recursion limit reached before solution was found')
             return TW_low
         
-        if abs(TW_high - TW_low) <= 1E-10:
+        if abs(TW_high - TW_low) <= 10:
             self._generate_result_matrices()
             return TW_low
         
-        TW_mid = (TW_low + TW_high) / 2.
+        TW_mid = (TW_low + TW_high) / 2
         
         # Since we're maximizing, first check the higher half of the range
         self._s.push()
         self._s.add(sum(self._W)>=TW_mid, self._TW==sum(self._W))
         if self._s.check() == sat:
             self._generate_result_matrices()
-            new_sol = eval(self._s.model()[self._TW].as_decimal(12).replace('?',''))
+#            new_sol = eval(self._s.model()[self._TW].as_decimal(12).replace('?',''))
+            new_sol = self._s.model()[self._TW].as_long()
             self._s.pop()
             return self._binary_search(new_sol, TW_high, rec_depth+1)
 
@@ -73,11 +75,11 @@ class TASolver:
         self._s.add(sum(self._W)>TW_low, self._TW==sum(self._W))
         if self._s.check() == sat:
             self._generate_result_matrices()
-            new_sol = eval(self._s.model()[self._TW].as_decimal(12).replace('?',''))
-            
+#            new_sol = eval(self._s.model()[self._TW].as_decimal(12).replace('?',''))
+            new_sol = self._s.model()[self._TW].as_long()
             # This is a rounding error check condition
             self._s.pop()
-            if abs(new_sol - TW_low) <= 1E-10:                
+            if abs(new_sol - TW_low) <= 10:                
                 return TW_low
             else:
                 return self._binary_search(new_sol, TW_mid, rec_depth+1)
@@ -94,9 +96,9 @@ class TASolver:
         self._s = Solver() 
 
         # Decision variables
-        self._x = [[Real('x(%d,%d)'%(i,j)) for j in range(self.t)] for i in range(self.n)]
-        self._W = [Real('w(%d)'%(j)) for j in range(self.t)]
-        self._TW = Real('TW')
+        self._x = [[Int('x(%d,%d)'%(i,j)) for j in range(self.t)] for i in range(self.n)]
+        self._W = [Int('w(%d)'%(j)) for j in range(self.t)]
+        self._TW = Int('TW')
         
         # Result variables
         self._resM = [[0 for j in range(self.t)] for i in range(self.n)]
@@ -108,7 +110,8 @@ class TASolver:
         # Agent assignment constraints
         for i in range(self.n):
             for j in range(self.t):
-                self._s.add(Or(self._x[i][j]==0, self._x[i][j]==1))
+#                self._s.add(Or(self._x[i][j]==1, self._x[i][j]==0))
+                self._s.add(self._x[i][j]*self._x[i][j]==self._x[i][j]) # ensures x is 0 or 1
             self._s.add(sum(self._x[i]) <= 1)
             
         if len(self.cst) > 0:
@@ -116,9 +119,9 @@ class TASolver:
                 
         # Target welfare constraints
         for j in range(self.t):
-            self._s.add(Or(self._W[j]==0., And(sum([r[j] for r in self._x])>=self.k[j], self._W[j]==self.w[j]-sum([self._x[i][j] * float(self.d[i][j]) for i in range(self.n)]))))
+            self._s.add(Or(self._W[j]==0., And(sum([r[j] for r in self._x])>=self.k[j], self._W[j]==self.w[j]-sum([self._x[i][j] * self.d[i][j] for i in range(self.n)]))))
             
-        print self._s.assertions()
+#        print self._s.assertions()
 
     def _set_ta_vars(self, n, t, k, w, cst, d):
         """
@@ -127,9 +130,9 @@ class TASolver:
         self.n   = n
         self.t   = t
         self.k   = [team_size for ((x,y), team_size) in k]
-        self.w   = [utility for ((x,y), utility) in w]
+        self.w   = [int(utility * 100) for ((x,y), utility) in w]
         self.cst = cst
-        self.d   = d
+        self.d   = [[int(d[i][j] * 100) for j in range(t)] for i in range(n)]
         
 #        print ('SMT Solver: Number of agents = %d'%self.n)
 #        print ('SMT Solver: Number of targets = %d'%self.t)
@@ -144,10 +147,10 @@ class TASolver:
         documentation of TASolver.solve() function for more details on these
         values.
         """
-        self._resM = [[eval(self._s.model()[self._x[i][j]].as_decimal(1)) for j in range(self.t)] for i in range(self.n)]
-        self._resW = [eval(self._s.model()[self._W[j]].as_decimal(12).replace('?','')) for j in range(self.t)]
-    
-    
+#        self._resM = [[eval(self._s.model()[self._x[i][j]].as_decimal(1)) for j in range(self.t)] for i in range(self.n)]
+#        self._resW = [eval(self._s.model()[self._W[j]].as_decimal(12).replace('?','')) for j in range(self.t)]
+        self._resM = [[self._s.model()[self._x[i][j]].as_long() for j in range(self.t)] for i in range(self.n)]
+        self._resW = [self._s.model()[self._W[j]].as_long() / 100. for j in range(self.t)]
     
     
     

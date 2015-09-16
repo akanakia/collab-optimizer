@@ -28,10 +28,10 @@ class RobotSimulator:
         ((x_min, x_max),(y_min, y_max)) = bounds
         return [RobotData((random.randint(x_min + taconst.ROBOT_RADIUS, x_max - taconst.ROBOT_RADIUS), random.randint(y_min + taconst.ROBOT_RADIUS, y_max - taconst.ROBOT_RADIUS)), (30 * i)%360, i, 'WALK_FORWARD') for i in range(num_robots)]
     
-    def update(self, robot_data_list, dt, bounds=None):
+    def update(self, robot_data_list, bounds=None):
         """
-        The update function simulates dt milliseconds of time per call, i.e. if
-        called at a rate of 1000/dt it updates in real time. Provide arena bounds
+        The update function simulates taconst.SIM_TIMESTEP milliseconds of time per call, i.e. if
+        called at a rate of 1000/taconst.SIM_TIMESTEP it updates in real time. Provide arena bounds
         ((x_min, x_max),(y_min, y_max)) in mm if movement is restricted.
         """
         for rdat in robot_data_list:
@@ -42,8 +42,8 @@ class RobotSimulator:
                     walk_dir = ((rdat.orient + 180) % 360) * math.pi / 180.
                    
                 # move the robot
-                rdat.x += (rdat.simonly_lvel * dt / 1000.) * math.cos(walk_dir)
-                rdat.y += (rdat.simonly_lvel * dt / 1000.) * math.sin(walk_dir)
+                rdat.x += (rdat.simonly_lvel * taconst.SIM_TIMESTEP / 1000.) * math.cos(walk_dir)
+                rdat.y += (rdat.simonly_lvel * taconst.SIM_TIMESTEP / 1000.) * math.sin(walk_dir)
                 
                 # check if movement is within bounds
                 if bounds is not None:
@@ -54,9 +54,9 @@ class RobotSimulator:
             # robot turns left or right with a narrow or wide angle
             elif 'TURN' in rdat.action:
                 if 'LEFT' in rdat.action:
-                    rdat.orient += rdat.simonly_rvel * dt / 1000.
+                    rdat.orient += rdat.simonly_rvel * taconst.SIM_TIMESTEP / 1000.
                 else: # turn 'RIGHT'
-                    rdat.orient -= rdat.simonly_rvel * dt / 1000.
+                    rdat.orient -= rdat.simonly_rvel * taconst.SIM_TIMESTEP / 1000.
                     
                 if rdat.orient >= 360:
                     rdat.orient -= 360
@@ -70,4 +70,4 @@ class RobotSimulator:
             else: # 'NOTHING'
                 rdat.simonly_color = (200, 200, 0) # Yellow
                 
-        self.sim_time += dt
+        self.sim_time += taconst.SIM_TIMESTEP
