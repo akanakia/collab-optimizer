@@ -35,7 +35,11 @@ def generate_allocations(robot_data_list, fire_data_list, exp_data):
     solver = TASolver()
     if solver.solve(n,t,k,w,cst,d) > 0:
         (M, W) = solver.get_solution()
-        
+        for i, row in enumerate(M):
+            if 1 in row:
+                robot_data_list[i].target_coords = (fire_data_list[row.index(1)].x, fire_data_list[row.index(1)].y)
+                fire_data_list[row.index(1)].curr_team = []
+                fire_data_list[row.index(1)].curr_team.append(robot_data_list[i].id)
 
 def main():
     for exp_num in range(NUM_EXPS):
@@ -62,6 +66,8 @@ def main():
             # 3 second events
             if sim_time % (1000 * 3) < taconst.SIM_TIMESTEP: 
                 exp_data.set_distance_matrix(robot_data_list, fire_data_list)
+                action_control = ActionCommandControl()                
+                action_control.generate_robot_actions(robot_data_list, fire_data_list)
                 
             # 30 second events
             if sim_time % (1000 * 30) < taconst.SIM_TIMESTEP:

@@ -1,10 +1,7 @@
 # -*- coding: utf-8 -*-
 import math
 
-class ActionCommandControl:
-    def __init__(self):
-        pass
-        
+class ActionCommandControl:        
     def generate_robot_actions(self, robot_data_list, fire_data_list):        
         # Check if any robots are already at a fire
         for rdat in robot_data_list:
