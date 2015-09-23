@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import math
+
 import taconstants as taconst
 
 class ActionCommandControl:        
@@ -35,7 +36,7 @@ class ActionCommandControl:
                         
         # Move the robots that need moving
         for rdat in robot_data_list:
-            if rdat.target_coords is not None:
+            if rdat.target_coords is not None and rdat.action != 'WAITING':
                 (fx, fy) = rdat.target_coords
                 angle_needed = self._pretty_angle(math.degrees(math.atan2(fy-rdat.y,fx-rdat.x))  - rdat.orient)
                 angle_threshold = 10 # degrees

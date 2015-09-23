@@ -1,13 +1,12 @@
 # -*- coding: utf-8 -*-
-import pygame
-from pygame.locals import *
-from DataHandlers import *
-from RobotSimulator import *
-from FireSimulator import *
-from PyGameControl import *
-from TASolver import *
-from ActionCommandControl import *
+import math
 
+from DataHandlers import ExpData
+from RobotSimulator import RobotSimulator
+from FireSimulator import FireSimulator
+from PyGameControl import PyGameControl
+from TASolver import TASolver
+from ActionCommandControl import ActionCommandControl
 import taconstants as taconst
 
 ARENA_X = 1000 # mm
@@ -56,11 +55,17 @@ def main():
         pg_control = PyGameControl(TITLE, exp_num + 1, SCREEN_X, SCREEN_Y)
         pg_control.init()
 
+        fpslock = False
         while sim_time <= EXP_LENGTH:
             # handle user events
             user_event_list = pg_control.handle_user_events()
             if 'exit' in user_event_list:
                 break
+            for event in user_event_list:
+                if 'key-down' in event:
+                    (event_type, event_data) = event
+                    if event_data == 'l':
+                        fpslock = not fpslock
 
             # Handle timed events            
             #3 minute events
@@ -88,10 +93,10 @@ def main():
             pg_control.draw_robots(robot_data_list, (ARENA_X, ARENA_Y))
             
             # Render to screen
-            pg_control.render(fps_lock=False)
+            pg_control.render(fps_lock=fpslock)
             sim_time += taconst.SIM_TIMESTEP
             
-        pygame.quit()
+        pg_control.quit()
     
     
 if __name__ == "__main__":

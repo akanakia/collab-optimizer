@@ -34,7 +34,7 @@ class TASolver:
             
         # Save the model state (creates a model checkpoint)        
         self._s.push()
-
+        
         # First check if any valid assignment exists
         TW_low  = 1
         self._s.add(sum(self._W)>=TW_low, self._TW==sum(self._W))

@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
-import taconstants as taconst
-from DataHandlers import FireData
 import math
 import random
+
+import taconstants as taconst
+from DataHandlers import FireData
 
 MIN_NEW_FIRE_INTENSITY = 2
 MAX_NEW_FIRE_INTENSITY = 5

@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Sun Sep 06 20:12:46 2015
-
-@author: admin
-"""
 import math
 import random
 

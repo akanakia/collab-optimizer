@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
-import math
-from z3 import *
+import z3
+
+import taconstants as taconst
 
 class TASolver:
     def get_solution(self):
@@ -46,10 +47,10 @@ class TASolver:
         Search over the possible valid range of objective function values and
         return the max valid assignment.
         """        
-        print('range = [%f,%f]'%(TW_low,TW_high))  
+#        print('range = [%d,%d]'%(TW_low,TW_high))  
 
         # Check is recursion limit is reached.        
-        print ('Current max. welfare = %f'%TW_low)
+#        print ('Current max. welfare = %d'%TW_low)
         if rec_depth >= rec_limit:
             print('Recursion limit reached before solution was found')
             return TW_low
@@ -63,7 +64,7 @@ class TASolver:
         # Since we're maximizing, first check the higher half of the range
         self._s.push()
         self._s.add(sum(self._W)>=TW_mid, self._TW==sum(self._W))
-        if self._s.check() == sat:
+        if self._s.check() == z3.sat:
             self._generate_result_matrices()
 #            new_sol = eval(self._s.model()[self._TW].as_decimal(12).replace('?',''))
             new_sol = self._s.model()[self._TW].as_long()
@@ -73,7 +74,7 @@ class TASolver:
         self._s.pop()
         self._s.push()
         self._s.add(sum(self._W)>TW_low, self._TW==sum(self._W))
-        if self._s.check() == sat:
+        if self._s.check() == z3.sat:
             self._generate_result_matrices()
 #            new_sol = eval(self._s.model()[self._TW].as_decimal(12).replace('?',''))
             new_sol = self._s.model()[self._TW].as_long()
@@ -93,12 +94,13 @@ class TASolver:
         max. constraints
         """
         # Z3 model solver
-        self._s = Solver() 
-
+        self._s = z3.Solver() 
+        self._s.set('timeout', taconst.Z3_TIMEOUT)
+        
         # Decision variables
-        self._x = [[Int('x(%d,%d)'%(i,j)) for j in range(self.t)] for i in range(self.n)]
-        self._W = [Int('w(%d)'%(j)) for j in range(self.t)]
-        self._TW = Int('TW')
+        self._x = [[z3.Int('x(%d,%d)'%(i,j)) for j in range(self.t)] for i in range(self.n)]
+        self._W = [z3.Int('w(%d)'%(j)) for j in range(self.t)]
+        self._TW = z3.Int('TW')
         
         # Result variables
         self._resM = [[0 for j in range(self.t)] for i in range(self.n)]
@@ -119,7 +121,7 @@ class TASolver:
                 
         # Target welfare constraints
         for j in range(self.t):
-            self._s.add(Or(self._W[j]==0., And(sum([r[j] for r in self._x])>=self.k[j], self._W[j]==self.w[j]-sum([self._x[i][j] * self.d[i][j] for i in range(self.n)]))))
+            self._s.add(z3.Or(self._W[j]==0., z3.And(sum([r[j] for r in self._x])>=self.k[j], self._W[j]==self.w[j]-sum([self._x[i][j] * self.d[i][j] for i in range(self.n)]))))
             
 #        print self._s.assertions()
 
