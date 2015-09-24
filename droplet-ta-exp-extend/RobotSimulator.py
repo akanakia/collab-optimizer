@@ -21,7 +21,7 @@ class RobotSimulator:
         Arena bounds are specified as ((x_min, x_max), (y_min, y_max)) in mm.
         """
         ((x_min, x_max),(y_min, y_max)) = bounds
-        return [RobotData((random.randint(x_min + taconst.ROBOT_RADIUS, x_max - taconst.ROBOT_RADIUS), random.randint(y_min + taconst.ROBOT_RADIUS, y_max - taconst.ROBOT_RADIUS)), (30 * i)%360, i, 'WALK_FORWARD') for i in range(num_robots)]
+        return [RobotData((random.randint(x_min + taconst.ROBOT_RADIUS, x_max - taconst.ROBOT_RADIUS), random.randint(y_min + taconst.ROBOT_RADIUS, y_max - taconst.ROBOT_RADIUS)), (30 * i)%360, i) for i in range(num_robots)]
     
     def update(self, robot_data_list, bounds=None):
         """
@@ -61,6 +61,9 @@ class RobotSimulator:
             # robot turns on led
             elif rdat.action == 'LED_ON':
                 rdat.simonly_color = (0, 0, 200) # Blue
+            
+            elif rdat.action == 'WAITING':
+                rdat.simonly_color = (0, 200, 0) # Green
                 
             else: # 'NOTHING'
                 rdat.simonly_color = (200, 200, 0) # Yellow

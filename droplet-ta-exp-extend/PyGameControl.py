@@ -73,7 +73,7 @@ class PyGameControl:
                 pygame.draw.ellipse(self.screen, fdat.color(), ellipse_rect)
                 
                 # Draw text
-                textbox = self.pg_font.render(str(fdat.intensity), True, RGB_WHITE, fdat.color())
+                textbox = self.pg_font.render('%d(%d)'%(fdat.intensity, len(fdat.curr_team)), True, RGB_WHITE, fdat.color())
                 textbox_pos = textbox.get_rect()
                 textbox_pos.center = ellipse_rect.center
                 self.screen.blit(textbox, textbox_pos)
@@ -83,7 +83,7 @@ class PyGameControl:
                 pygame.draw.circle(self.screen, fdat.color(), (fdat.x, fdat.y), int(fdat.radius))
                 
                 # Draw text
-                textbox = self.pg_font.render(str(fdat.intensity), True, RGB_WHITE, fdat.color())
+                textbox = self.pg_font.render('%d(%d)'%(fdat.intensity, len(fdat.curr_team)), True, RGB_WHITE, fdat.color())
                 textbox_pos = textbox.get_rect()
                 textbox_pos.center = (fdat.x, fdat.y)
                 self.screen.blit(textbox, textbox_pos)                

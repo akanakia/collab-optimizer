@@ -76,6 +76,7 @@ class FireSimulator:
                 fires_to_remove.append(fdat)
                 
         for fire in fires_to_remove:
+            print 'Removed Fire (%d,%d):'%(fire.x, fire.y)
             fire_data_list.remove(fire)
         
         self._sim_time += taconst.SIM_TIMESTEP

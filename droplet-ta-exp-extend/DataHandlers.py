@@ -29,8 +29,8 @@ class RobotData:
         self.simonly_radius = taconst.ROBOT_RADIUS
         self.simonly_color = (200, 200, 0) # Yellow
 
-FIRE_INCREASE_INTERVAL_MIN = 3 * 60 # sec
-FIRE_INCREASE_INTERVAL_MAX = 4 * 60 # sec
+FIRE_INCREASE_INTERVAL_MIN = 4 * 60 # sec
+FIRE_INCREASE_INTERVAL_MAX = 5 * 60 # sec
         
 class FireData:
     def __init__(self, (x,y), radius, intensity, start_time):
@@ -48,7 +48,7 @@ class FireData:
         self.update_fire_inc_interval()
 
     def update_fire_extinguish_interval(self):
-        if len(self.curr_team) == self.intensity:
+        if len(self.curr_team) >= self.intensity:
             self._extinguish_timer += taconst.SIM_TIMESTEP
             if self._extinguish_timer >= taconst.FIRE_EXTINGUISH_TIME:
                 return True

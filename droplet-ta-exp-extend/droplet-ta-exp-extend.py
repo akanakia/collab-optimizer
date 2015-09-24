@@ -27,7 +27,7 @@ def generate_allocations(robot_data_list, fire_data_list, exp_data):
     w = [((fdat.x, fdat.y), fdat.intensity) for fdat in fire_data_list]
     cst = []
     for i in range(n):
-        if robot_data_list[i].action == 'LED_ON' or robot_data_list[i].action == 'WAITING':
+        if robot_data_list[i].action != 'NOTHING':
             cst += [(i, j) for j in range(t)]
     d = [[round(exp_data.D[i][j]/math.hypot(ARENA_X, ARENA_Y),2) for j in range(t)] for i in range(n)]
     
@@ -37,7 +37,7 @@ def generate_allocations(robot_data_list, fire_data_list, exp_data):
         for i, row in enumerate(M):
             if 1 in row:
                 robot_data_list[i].target_coords = (fire_data_list[row.index(1)].x, fire_data_list[row.index(1)].y)
-                fire_data_list[row.index(1)].curr_team = []
+                
 #                fire_data_list[row.index(1)].curr_team.append(robot_data_list[i].robot_id)
 
 def main():
