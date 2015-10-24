@@ -21,18 +21,20 @@ NUM_EXPS = 1
 EXP_LENGTH = 1000 * 60 * 60 # 1 hour in ms
 
 def generate_allocations(robot_data_list, fire_data_list, exp_data):
+           
     n = len(robot_data_list)
     t = len(fire_data_list)
-    k = [((fdat.x, fdat.y), fdat.intensity) for fdat in fire_data_list]
+    k = [((fdat.x, fdat.y), fdat.intensity - len(fdat.curr_team)) for fdat in fire_data_list]
     w = [((fdat.x, fdat.y), fdat.intensity) for fdat in fire_data_list]
-    cst = []
+    cst_zero = []
+    cst_one  = []
     for i in range(n):
-        if robot_data_list[i].action != 'NOTHING':
-            cst += [(i, j) for j in range(t)]
+        if robot_data_list[i].action == 'WAITING' or robot_data_list[i] == 'LED_ON':
+            cst_zero += [(i, j) for j in range(t)]
     d = [[round(exp_data.D[i][j]/math.hypot(ARENA_X, ARENA_Y),2) for j in range(t)] for i in range(n)]
     
     solver = TASolver()
-    if solver.solve(n,t,k,w,cst,d) > 0:
+    if solver.solve(n,t,k,w,cst_zero,cst_one,d) > 0:
         (M, W) = solver.get_solution()
         for i, row in enumerate(M):
             if 1 in row:

@@ -7,7 +7,7 @@ class TASolver:
     def get_solution(self):
         return (self._resM, self._resW)
         
-    def solve(self, n = 0, t = 0, k = [], w = [], cst = [], d = []):
+    def solve(self, n = 0, t = 0, k = [], w = [], cst_zero = [], cst_one = [], d = []):
         """
         Solves the Target Assignemt problem for the given input argunemts:
         n   = Number of agents.
@@ -18,9 +18,12 @@ class TASolver:
         w   = List of payoffs/welfare per target for a successful assignment. 
               Each entry in the list should be a 2-tuple = ((x,y), base-welfare) 
               where (x,y) is the unique target location identifier.
-        cst = List of agent specific target constraints containing the following
-              2-tuple format: (a, t) indicating that agent-a CANNOT be assigned
-              to target-t.
+        cst_zero = List of agent specific target constraints containing the 
+              following 2-tuple format: (a, t) indicating that agent-a CANNOT be 
+              assigned to target-t.
+        cst_one = List of agent specific target constraints containing the 
+              following 2-tuple format: (a, t) indicating that agent-a MUST be 
+              assigned to target-t.
         d   = The |N| x |T| distance-payoff matrix. The values d_{ij} in this 
               matrix should contain the normalized penalty for assigning agent
               i to target j. All values in this matrix should be non-negative.
@@ -31,7 +34,7 @@ class TASolver:
         then (M, W) = (None, None)
         """        
         # Setup initial constraints & add a backtracking point
-        self._set_ta_vars(n, t, k, w, cst, d)
+        self._set_ta_vars(n, t, k, w, cst_zero, cst_one, d)
         self._init_model()
 
         # If there are no targets return immediately        
@@ -112,20 +115,21 @@ class TASolver:
         # Agent assignment constraints
         for i in range(self.n):
             for j in range(self.t):
-#                self._s.add(Or(self._x[i][j]==1, self._x[i][j]==0))
                 self._s.add(self._x[i][j]*self._x[i][j]==self._x[i][j]) # ensures x is 0 or 1
             self._s.add(sum(self._x[i]) <= 1)
+        
+        if len(self.cst_zero) > 0:
+            self._s.add(*[self._x[agent_id][trgt_id]==0 for (agent_id,trgt_id) in self.cst_zero])
+        if len(self.cst_one) > 0:
+            self._s.add(*[self._x[agent_id][trgt_id]==1 for (agent_id,trgt_id) in self.cst_one])
             
-        if len(self.cst) > 0:
-            self._s.add(*[self._x[agent_id][trgt_id]==0 for (agent_id,trgt_id) in self.cst])
-                
         # Target welfare constraints
         for j in range(self.t):
             self._s.add(z3.Or(self._W[j]==0., z3.And(sum([r[j] for r in self._x])>=self.k[j], self._W[j]==self.w[j]-sum([self._x[i][j] * self.d[i][j] for i in range(self.n)]))))
             
 #        print self._s.assertions()
 
-    def _set_ta_vars(self, n, t, k, w, cst, d):
+    def _set_ta_vars(self, n, t, k, w, cst_zero, cst_one, d):
         """
         Sets the optimization variables in object's memory
         """
@@ -133,8 +137,9 @@ class TASolver:
         self.t   = t
         self.k   = [team_size for ((x,y), team_size) in k]
         self.w   = [int(utility * 100) for ((x,y), utility) in w]
-        self.cst = cst
         self.d   = [[int(d[i][j] * 100) for j in range(t)] for i in range(n)]
+        self.cst_zero = cst_zero
+        self.cst_one  = cst_one
         
 #        print ('SMT Solver: Number of agents = %d'%self.n)
 #        print ('SMT Solver: Number of targets = %d'%self.t)
