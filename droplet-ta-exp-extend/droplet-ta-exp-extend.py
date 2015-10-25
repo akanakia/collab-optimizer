@@ -16,7 +16,7 @@ SCREEN_Y = 760 # px
 TITLE    = 'robot simulator'
 
 NUM_ROBOTS = 20
-NUM_START_FIRES = 3
+NUM_FIRES = 5
 NUM_EXPS = 1
 EXP_LENGTH = 1000 * 60 * 60 # 1 hour in ms
 
@@ -50,7 +50,7 @@ def main():
         robot_data_list = rsim.init(NUM_ROBOTS, ((0, ARENA_X), (0, ARENA_Y)))
         
         fsim = FireSimulator()
-        fire_data_list = fsim.init(NUM_START_FIRES, ((0, ARENA_X), (0, ARENA_Y)))
+        fire_data_list = fsim.init(NUM_FIRES, ((0, ARENA_X), (0, ARENA_Y)))
         
         exp_data = ExpData()    
         
@@ -69,12 +69,15 @@ def main():
                     if event_data == 'l':
                         fpslock = not fpslock
 
-            # Handle timed events            
+            # Ensure the number of fires stays at NUM_FIRES
+            while len(fire_data_list) < 5:
+                fsim.start_fire(fire_data_list, ((0, ARENA_X), (0, ARENA_Y)))                
+                
+            # Handle timed events         
             #3 minute events
             if sim_time % (1000 * 60 * 3) < taconst.SIM_TIMESTEP:
-                fsim.start_fire(fire_data_list,((0, ARENA_X),(0, ARENA_Y)))
-                exp_data.set_distance_matrix(robot_data_list, fire_data_list)
-                
+                pass
+            
             # 3 second events
             if sim_time % (1000 * 3) < taconst.SIM_TIMESTEP: 
                 exp_data.set_distance_matrix(robot_data_list, fire_data_list)
@@ -86,7 +89,7 @@ def main():
                 # Call the TASolver
                 generate_allocations(robot_data_list, fire_data_list, exp_data)
 
-            # update the simulators
+            # update the simulators                
             fsim.update(fire_data_list)
             rsim.update(robot_data_list, ((0, ARENA_X), (0, ARENA_Y)))
             
