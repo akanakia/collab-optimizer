@@ -7,4 +7,4 @@ global Z3_TIMEOUT
 ROBOT_RADIUS = 22
 SIM_TIMESTEP = 1000./60
 FIRE_EXTINGUISH_TIME = 5 * 1000 # 5 seconds
-Z3_TIMEOUT = 1000 * 30 # 30 seconds, I hope
+Z3_TIMEOUT = 1000 * 10 # 10 seconds, I hope
