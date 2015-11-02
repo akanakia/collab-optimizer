@@ -7,7 +7,7 @@ class StaticTASolver:
     def get_solution(self):
         return (self._resM, self._resW)
         
-    def solve(self, n = 0, t = 0, k = [], w = [], d = []):
+    def solve(self, n = 0, t = 0, k = [], w = [], d = [], x=1):
         """
         Solves the Target Assignemt problem for the given input argunemts:
         n   = Number of agents.
@@ -19,6 +19,10 @@ class StaticTASolver:
               i to target j. All values in this matrix should be non-negative.
               The column order of this matrix (i.e. order of targets) needs to
               be consistent with the ordering of lists k and w.
+        x   = An integer value used to halt the solver when a solution is
+              considered close enough to optimal. The value is used in
+              the conditional: stop if abs(new_sol - old_sol) <= stop_cond.
+              
               
         This function fills a 0/1 n x t matrix-M indicating agent-target
         assignments as well a vector-W of size t indicating the welfare received
@@ -26,7 +30,7 @@ class StaticTASolver:
         then (M, W) = (None, None)
         """        
         # Setup initial constraints & add a backtracking point
-        self._set_ta_vars(n, t, k, w, d)
+        self._set_ta_vars(n, t, k, w, d, x)
         self._init_model()
 
         # If there are no targets return immediately        
@@ -34,7 +38,7 @@ class StaticTASolver:
             print 'Not enough targets or agents for SMT solver'
             return 
         
-        # Binary search through possible solutions        
+        # Binary search through possible solutions      
         return self._binary_search(0, sum(self.w), 0)
         
     def _binary_search(self, TW_low, TW_high, rec_depth, rec_limit=200):
@@ -47,8 +51,9 @@ class StaticTASolver:
             print('Recursion limit reached before solution was found')
             return TW_low
         
-        if abs(TW_high - TW_low) <= 10:
+        if abs(TW_high - TW_low) <= self.x:
             self._generate_result_matrices()
+            self.solution_found = True
             return TW_low
         
         TW_mid = (TW_low + TW_high) / 2
@@ -56,25 +61,34 @@ class StaticTASolver:
         # Since we're maximizing, first check the higher half of the range
         self._s.push()
         self._s.add(sum(self._W)>=TW_mid, self._TW==sum(self._W))
-        if self._s.check() == z3.sat:
+        res = self._s.check()
+        if res == z3.sat:
             self._generate_result_matrices()
             new_sol = self._s.model()[self._TW].as_long()
             self._s.pop()
             return self._binary_search(new_sol, TW_high, rec_depth+1)
-
+        if res == z3.unknown:
+            print('Solver timeout occured')
+            return TW_low
+            
         self._s.pop()
         self._s.push()
         self._s.add(sum(self._W)>TW_low, self._TW==sum(self._W))
-        if self._s.check() == z3.sat:
+        res = self._s.check()
+        if res == z3.sat:
             self._generate_result_matrices()
             new_sol = self._s.model()[self._TW].as_long()
             
             # This is a rounding error check condition
             self._s.pop()
-            if abs(new_sol - TW_low) <= 10:                
+            if abs(new_sol - TW_low) <= self.x:
+                self.solution_found = True
                 return TW_low
             else:
                 return self._binary_search(new_sol, TW_mid, rec_depth+1)
+        if res == z3.unknown:
+            print('Solver timeout occured')
+            return TW_low
         
         self._s.pop()
         return TW_low
@@ -87,6 +101,7 @@ class StaticTASolver:
         # Z3 model solver
         self._s = z3.Solver() 
         self._s.set('timeout', Z3_TIMEOUT)
+        self.solution_found = False
         
         # Decision variables
         self._x = [[z3.Int('x(%d,%d)'%(i,j)) for j in range(self.t)] for i in range(self.n)]
@@ -110,15 +125,16 @@ class StaticTASolver:
         for j in range(self.t):
             self._s.add(z3.Or(self._W[j]==0., z3.And(sum([r[j] for r in self._x])>=self.k[j], self._W[j]==self.w[j]-sum([self._x[i][j] * self.d[i][j] for i in range(self.n)]))))
 
-    def _set_ta_vars(self, n, t, k, w, d):
+    def _set_ta_vars(self, n, t, k, w, d, x):
         """
         Sets the optimization variables in object's memory
         """
-        self.n   = n
-        self.t   = t
-        self.k   = k
-        self.w   = w
-        self.d   = d
+        self.n = n
+        self.t = t
+        self.k = k
+        self.w = w
+        self.d = d
+        self.x = x
         
     def _generate_result_matrices(self):
         """

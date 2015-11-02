@@ -46,9 +46,14 @@ def n_equals_sum_k():
     for expID in range(numExp):
         k = generate_k(n,m)
         (agent_pos_list, target_pos_list, d) = generate_d(n,m)
-        w = [ARENA_SIZE * k[i] for i in range(len(k))]
+        
+        # The reason for the +1 here is to account for truncation of the 
+        # int. It doesn't matter that much in the optimizer so long as 
+        # the total welfare is gauranteed to never be negative.
+        w = [int(math.hypot(ARENA_SIZE,ARENA_SIZE) * k[i])+1 for i in range(len(k))]
         s = StaticTASolver()
-        if s.solve(n,m,k,w,d) > 0:
+        s.solve(n,m,k,w,d,ARENA_SIZE/10)
+        if s.solution_found:
             print 'Solution: FOUND'
             (M, W) = s.get_solution()
             plt.plot(*zip(*target_pos_list), color='red', marker='o', linestyle='')
