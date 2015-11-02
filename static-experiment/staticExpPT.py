@@ -24,8 +24,15 @@ def generate_k(n,m):
     This function ONLY works if n > 2*m.
     """
     k = [2 for _ in range(m)]
-    for _ in range(n - (2*m)):
-        k[random.randint(0, m-1)] += 1
+    assign_left = n - (2*m)
+    while assign_left > 0:
+        if assign_left <= 3:
+            k[random.randint(0, m-1)] += assign_left
+            assign_left = 0
+        else:
+            assign = random.randint(1,3)
+            k[random.randint(0,m-1)] += assign
+            assign_left -= assign
 
     return k
 
@@ -37,6 +44,13 @@ def generate_d(n, m):
     agent_pos_list = [(random.randint(0,ARENA_SIZE),random.randint(0,ARENA_SIZE)) for _ in range(n)]
     
     return (agent_pos_list, target_pos_list, [[int(math.hypot(t_pos[0]-a_pos[0],t_pos[1]-a_pos[1])) for t_pos in target_pos_list] for a_pos in agent_pos_list])
+
+def create_log_files(n,m,expNum,expType):
+    """
+    expType can be 'equal' 'less' 'greater' referring to the total team 
+    requirements for all tasks (sum(k)) vs. number of available robots (n).
+    """
+    pass
 
 def n_equals_sum_k():
     n = 20
