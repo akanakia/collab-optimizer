@@ -89,13 +89,15 @@ def relistify(multiset, m):
 def main():
     n = 100
     m = 25
+    num_exp = 100
     p_all = []
     for p in partitions(n - 2*m, m):
         p_all.append(p.copy())
         
-    exp_ks = random.sample(p_all, 100)
-    test_k = relistify(exp_ks[0], m)
-    print exp_ks[0], test_k, sum(test_k)
+    exp_ks_multiset = random.sample(p_all, num_exp)
+    exp_ks = map(lambda exp_k: relistify(exp_k, m), exp_ks_multiset)
+    
+    print exp_ks_multiset[14], exp_ks[14], sum(exp_ks[14])
     
     
 if __name__=="__main__":
