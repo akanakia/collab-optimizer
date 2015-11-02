@@ -58,6 +58,10 @@ def n_equals_sum_k():
             (M, W) = s.get_solution()
             plt.plot(*zip(*target_pos_list), color='red', marker='o', linestyle='')
             plt.plot(*zip(*agent_pos_list), color='blue', marker='x', linestyle='')
+            for i in range(n):
+                for j in range(m):
+                    if M[i][j] == 1:
+                        plt.plot(*zip(*[agent_pos_list[i], target_pos_list[j]]), color='black', marker='', linestyle='-')
             plt.show()
         else:
             print 'Solution: NOT FOUND'
