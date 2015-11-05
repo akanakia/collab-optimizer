@@ -57,3 +57,7 @@ target/
 data/*.txt
 data/archived/
 .spyderproject
+CentralIdealExpLog_NEqualSumK.txt
+CentralNoisyExpLog_NEqualSumK.txt
+DistrNoisyExpLog_NEqualSumK.txt
+PositionLog_NEqualSumK.txt
