@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 import z3
+from z3types import Z3Exception
 
 Z3_TIMEOUT = 1000 * 10 # 10 seconds, I hope
+RECURSION_LIMIT = 200
 
 class StaticTASolver:
     def get_solution(self):
@@ -14,17 +16,17 @@ class StaticTASolver:
         t   = Number of targets.
         k   = List of minimum team size requirements per target. 
         w   = List of payoffs/welfare per target for a successful assignment.
-        d   = The |N| x |T| distance-payoff matrix. The values d_{ij} in this 
+        d   = The |n| x |t| distance-payoff matrix. The values d_{ij} in this 
               matrix should contain the normalized penalty for assigning agent
               i to target j. All values in this matrix should be non-negative.
               The column order of this matrix (i.e. order of targets) needs to
               be consistent with the ordering of lists k and w.
         x   = An integer value used to halt the solver when a solution is
               considered close enough to optimal. The value is used in
-              the conditional: stop if abs(new_sol - old_sol) <= stop_cond.
+              the conditional: stop if abs(new_sol - old_sol) <= x.
               
               
-        This function fills a 0/1 n x t matrix-M indicating agent-target
+        This function fills a 0/1 |n| x |t| matrix-M indicating agent-target
         assignments as well a vector-W of size t indicating the welfare received
         for each successfully assigned target. if no valid assignments are found
         then (M, W) = (None, None)
@@ -41,7 +43,7 @@ class StaticTASolver:
         # Binary search through possible solutions      
         return self._binary_search(0, sum(self.w), 0)
         
-    def _binary_search(self, TW_low, TW_high, rec_depth, rec_limit=200):
+    def _binary_search(self, TW_low, TW_high, rec_depth, rec_limit=RECURSION_LIMIT):
         """
         Search over the possible valid range of objective function values and
         return the max valid assignment.
@@ -59,22 +61,32 @@ class StaticTASolver:
         TW_mid = (TW_low + TW_high) / 2
         
         # Since we're maximizing, first check the higher half of the range
-        self._s.push()
-        self._s.add(sum(self._W)>=TW_mid, self._TW==sum(self._W))
-        res = self._s.check()
+        try:
+            self._s.push()
+            self._s.add(sum(self._W)>=TW_mid, self._TW==sum(self._W))
+            res = self._s.check()
+        except Z3Exception:
+            print('Solver issue. Dropping this solution.')
+            return TW_low
+            
         if res == z3.sat:
             self._generate_result_matrices()
             new_sol = self._s.model()[self._TW].as_long()
             self._s.pop()
             return self._binary_search(new_sol, TW_high, rec_depth+1)
         if res == z3.unknown:
-            print('Solver timeout occured')
+            print('Solver issue. Dropping this solution.')
             return TW_low
             
         self._s.pop()
-        self._s.push()
-        self._s.add(sum(self._W)>TW_low, self._TW==sum(self._W))
-        res = self._s.check()
+        try:
+            self._s.push()
+            self._s.add(sum(self._W)>TW_low, self._TW==sum(self._W))
+            res = self._s.check()
+        except Z3Exception:
+            print('Solver issue. Dropping this solution.')
+            return TW_low
+            
         if res == z3.sat:
             self._generate_result_matrices()
             new_sol = self._s.model()[self._TW].as_long()
@@ -87,7 +99,7 @@ class StaticTASolver:
             else:
                 return self._binary_search(new_sol, TW_mid, rec_depth+1)
         if res == z3.unknown:
-            print('Solver timeout occured')
+            print('Solver issue. Dropping this solution.')
             return TW_low
         
         self._s.pop()
