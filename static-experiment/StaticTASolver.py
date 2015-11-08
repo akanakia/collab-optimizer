@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import z3
-from z3types import Z3Exception
 
 Z3_TIMEOUT = 1000 * 10 # 10 seconds, I hope
 RECURSION_LIMIT = 200
@@ -41,7 +40,10 @@ class StaticTASolver:
             return 
         
         # Binary search through possible solutions      
-        return self._binary_search(0, sum(self.w), 0)
+        res = self._binary_search(0, sum(self.w), 0)
+        self._s.reset()
+        z3.reset_params()
+        return res
         
     def _binary_search(self, TW_low, TW_high, rec_depth, rec_limit=RECURSION_LIMIT):
         """
@@ -50,7 +52,7 @@ class StaticTASolver:
         """        
         # Check is recursion limit is reached.        
         if rec_depth >= rec_limit:
-            print('Recursion limit reached before solution was found')
+            print('Solver recursion limit reached. Dropping this solution')
             return TW_low
         
         if abs(TW_high - TW_low) <= self.x:
@@ -65,8 +67,10 @@ class StaticTASolver:
             self._s.push()
             self._s.add(sum(self._W)>=TW_mid, self._TW==sum(self._W))
             res = self._s.check()
-        except Z3Exception:
-            print('Solver issue. Dropping this solution.')
+        # There are at least 2 unique exceptions I've seen thrown by the solver.
+        # I'm just going to catch any exception for now.
+        except: 
+            print('Hit a Z3 exception. Dropping this solution.')
             return TW_low
             
         if res == z3.sat:
@@ -75,7 +79,7 @@ class StaticTASolver:
             self._s.pop()
             return self._binary_search(new_sol, TW_high, rec_depth+1)
         if res == z3.unknown:
-            print('Solver issue. Dropping this solution.')
+            print('Solver timed out. Dropping this solution.')
             return TW_low
             
         self._s.pop()
@@ -83,8 +87,10 @@ class StaticTASolver:
             self._s.push()
             self._s.add(sum(self._W)>TW_low, self._TW==sum(self._W))
             res = self._s.check()
-        except Z3Exception:
-            print('Solver issue. Dropping this solution.')
+        # There are at least 2 unique exceptions I've seen thrown by the solver.
+        # I'm just going to catch any exception for now.        
+        except:
+            print('Hit a Z3 exception. Dropping this solution.')
             return TW_low
             
         if res == z3.sat:
@@ -99,7 +105,7 @@ class StaticTASolver:
             else:
                 return self._binary_search(new_sol, TW_mid, rec_depth+1)
         if res == z3.unknown:
-            print('Solver issue. Dropping this solution.')
+            print('Solver timed out. Dropping this solution.')
             return TW_low
         
         self._s.pop()
@@ -111,7 +117,9 @@ class StaticTASolver:
         max. constraints
         """
         # Z3 model solver
+        z3.reset_params()
         self._s = z3.Solver() 
+        self._s.reset()
         self._s.set('timeout', Z3_TIMEOUT)
         self.solution_found = False
         
