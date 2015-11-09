@@ -114,6 +114,9 @@ def write_exp_log(computed_metrics, log):
     log.flush()
 
 def compute_metrics(k, M):
+    if M is None:
+        return
+        
     target_totals       = [sum(col) for col in zip(*M)]
     attempted_targets   = sum(target_total > 0 for target_total in target_totals)
     failed_targets      = sum((target_totals[i] > 0 and target_totals[i] < k[i]) for i in range(len(k)))
@@ -143,6 +146,9 @@ def run_distr_exp(k, k_noisy, M_noisy):
     k_noisy is the noisy team size estimate of tasks used the central noisy experiment.
     M_noisy is the result returned from running the central noisy experiment.
     """
+    if M_noisy is None:
+        return
+        
     target_totals       = [sum(col) for col in zip(*M_noisy)]
 
     attempted_targets   = 0
