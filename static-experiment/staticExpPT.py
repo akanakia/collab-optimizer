@@ -3,11 +3,9 @@
 Created on Fri Oct 30 19:06:35 2015
 
 This is prototyping the experiment. Task sizes are NOT generated randomly.
-The only gaurantee assuming n > 2*m is that sum(k) = n. This is for one of the
-three experiment cases I want to run, which are:
-    i.   n > sum(k) = Always enough agents for all tasks.
-    ii.  n = sum(k) = Exactly enough agents for all tasks.
-    iii. n < sum(k) = Never enough agents for all tasks.
+The only gaurantee assuming n > 2*m is that sum(k) = n. This is for the
+experiment case I want to run, which is:
+    n = sum(k) = Exactly enough agents for all tasks.
 
 @author: Anshul Kanakia
 """
@@ -21,26 +19,28 @@ from StaticTASolver import StaticTASolver
 ################################################################################
 NUM_AGENTS  = 20
 NUM_TARGETS = 5
-NUM_EXP     = 100
 ARENA_SIZE  = 1000
-MAX_TOTAL_EXP_ATTEMPTS = 1000
+
+NORMAL_VARIANCE = 1
+
+NUM_EXP = 10
+MAX_TOTAL_EXP_ATTEMPTS = NUM_EXP * 2
 
 ################################################################################
-def generate_k(n, m, expType):
+def generate_k(n, m):
     """
     This function ONLY works if n > 2*m.
     """
-    if expType=='NEqualSumK':
-        k = [2 for _ in range(m)]
-        assign_left = n - (2*m)
-        while assign_left > 0:
-            if assign_left <= 3:
-                k[random.randint(0, m-1)] += assign_left
-                assign_left = 0
-            else:
-                assign = random.randint(1,3)
-                k[random.randint(0,m-1)] += assign
-                assign_left -= assign                
+    k = [2 for _ in range(m)]
+    assign_left = n - (2*m)
+    while assign_left > 0:
+        if assign_left <= 3:
+            k[random.randint(0, m-1)] += assign_left
+            assign_left = 0
+        else:
+            assign = random.randint(1,3)
+            k[random.randint(0,m-1)] += assign
+            assign_left -= assign                
     return k
 
 def generate_d(agent_pos_list, target_pos_list):
@@ -73,20 +73,20 @@ def plot_results(agent_pos_list, target_pos_list, M, plotID):
 
 
 ################################################################################
-def create_log_files(expType):
+def create_log_files():
     """
-    expType can be 'equal' 'less' 'greater' referring to the total team 
-    requirements for all tasks (sum(k)) vs. number of available agents (n).
     """
-    pos_log             = open('PositionLog_'+expType+'_'+str(int(time.time()))+'.txt', 'w')
-    central_ideal_log   = open('CentralIdealExpLog_'+expType+'_'+str(int(time.time()))+'.txt', 'w')
-    central_noisy_log   = open('CentralNoisyExpLog_'+expType+'_'+str(int(time.time()))+'.txt', 'w')
-    distr_noisy_log     = open('DistrNoisyExpLog_'+expType+'_'+str(int(time.time()))+'.txt', 'w')
+    timestamp = str(int(time.time()))
+    
+    pos_log             = open('PositionLog_ExpVariance_'       +str(NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
+    central_ideal_log   = open('CentralIdealExpLog_ExpVariance_'+str(NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
+    central_noisy_log   = open('CentralNoisyExpLog_ExpVariance_'+str(NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
+    distr_noisy_log     = open('DistrNoisyExpLog_ExpVariance_'  +str(NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
 
-    pos_log.write('{{\"agent-position-list\"},{\"target-position-list\"}}\n')
-    central_ideal_log.write('{\"target-teams-sum\", \"num-agents-assigned\", \"num-agents-assigned-successfully\", \"num-targets-assigned\", \"num-targets-assigned-successfully\"}\n')
-    central_noisy_log.write('{\"target-teams-sum\", \"num-agents-assigned\", \"num-agents-assigned-successfully\", \"num-targets-assigned\", \"num-targets-assigned-successfully\"}\n')
-    distr_noisy_log.write  ('{\"target-teams-sum\", \"num-agents-assigned\", \"num-agents-assigned-successfully\", \"num-targets-assigned\", \"num-targets-assigned-successfully\"}\n')
+    pos_log.write('{{\"Agent Positions List\"},{\"Target Positions List\"}}\n')
+    central_ideal_log.write('{\"Total Agents\", \"Total Targets\", \"Targets Attempted\", \"Targets Failed\", \"Agents Attempted\", \"Agents Failed\"}\n')
+    central_noisy_log.write('{\"Total Agents\", \"Total Targets\", \"Targets Attempted\", \"Targets Failed\", \"Agents Attempted\", \"Agents Failed\"}\n')
+    distr_noisy_log.write  ('{\"Total Agents\", \"Total Targets\", \"Targets Attempted\", \"Targets Failed\", \"Agents Attempted\", \"Agents Failed\"}\n')
     return (pos_log, central_ideal_log, central_noisy_log, distr_noisy_log)
 
 def write_pos_log(agent_pos_list, target_pos_list, exp_num, pos_log):
@@ -102,28 +102,25 @@ def write_pos_log(agent_pos_list, target_pos_list, exp_num, pos_log):
     pos_log.write('}}\n')
     pos_log.flush()
 
-def write_exp_log(k, M, exp_num, log):
+def write_exp_log(computed_metrics, log):
     """
+    computed_metrics = (attempted_targets, failed_targets, attempted_agents, failed_agents)
     """
-    if M is None:
+    if computed_metrics is None:
         return
-        
-    target_totals = [sum(col) for col in zip(*M)]
-    assigned_targets = 0
-    assigned_targets_success = 0
-    assigned_agents = 0
-    assigned_agents_success = 0
-    for i in range(len(target_totals)):
-        if target_totals[i] > 0:
-            assigned_targets+=1
-            assigned_agents+=target_totals[i]
-            if target_totals[i] >= k[i]:
-                assigned_targets_success+=1
-                assigned_agents_success+=target_totals[i]
     
-    log.write('{%d,%d,%d,%d,%d}\n'%(sum(k), assigned_agents, assigned_agents_success, assigned_targets, assigned_targets_success))
-    log.flush()    
+    log.write('{%d,%d,'%(NUM_AGENTS, NUM_TARGETS))
+    log.write('%d,%d,%d,%d}\n'%computed_metrics)
+    log.flush()
 
+def compute_metrics(k, M):
+    target_totals       = [sum(col) for col in zip(*M)]
+    attempted_targets   = sum(target_total > 0 for target_total in target_totals)
+    failed_targets      = sum((target_totals[i] > 0 and target_totals[i] < k[i]) for i in range(len(k)))
+    attempted_agents    = sum(target_total for target_total in target_totals if target_total > 0)
+    failed_agents       = sum(target_totals[i] for i in range(len(k)) if (target_totals[i] > 0 and target_totals[i] < k[i]))
+    
+    return (attempted_targets, failed_targets, attempted_agents, failed_agents)
 
 ################################################################################    
 def run_central_exp(agent_pos_list, target_pos_list, k, d):
@@ -141,46 +138,71 @@ def run_central_exp(agent_pos_list, target_pos_list, k, d):
     else:   
         return (False, None)
         
-def run_distr_exp(agent_pos_list, target_pos_list, k):
+def run_distr_exp(k, k_noisy, M_noisy):
     """
+    k_noisy is the noisy team size estimate of tasks used the central noisy experiment.
+    M_noisy is the result returned from running the central noisy experiment.
     """
-    return (True, None)
+    target_totals       = [sum(col) for col in zip(*M_noisy)]
+
+    attempted_targets   = 0
+    failed_targets      = 0
+    attempted_agents    = 0
+    failed_agents       = 0
+    
+    for i in range(len(target_totals)):
+        yes_votes = 0
+        for agent in range(target_totals[i]):
+            agent_mag_sense = max(2, random.normalvariate(0, NORMAL_VARIANCE)+k[i])
+            if random.random() <= 1./(1.+math.exp(agent_mag_sense-k_noisy[i])):
+                yes_votes += 1
+        
+        if yes_votes >= k_noisy[i]/2.:
+            attempted_targets += 1
+            attempted_agents += target_totals[i]
+            if target_totals[i] < k[i]:
+                failed_targets += 1
+                failed_agents += target_totals[i]
+                        
+    return (attempted_targets, failed_targets, attempted_agents, failed_agents)
 
 
 ################################################################################    
-def run_exps(expType):
+def run_exps():
     """
     """
-    (pos_log, central_ideal_log, central_noisy_log, distr_noisy_log) = create_log_files(expType)
+    (pos_log, central_ideal_log, central_noisy_log, distr_noisy_log) = create_log_files()
     
     exp_num = 0
     total_attempts = 0
     while exp_num < NUM_EXP and total_attempts < MAX_TOTAL_EXP_ATTEMPTS:
         # Set up the data used for all experiments here        
         (agent_pos_list, target_pos_list) = generate_pos_lists(NUM_AGENTS, NUM_TARGETS, exp_num, pos_log)
-        k = generate_k(NUM_AGENTS, NUM_TARGETS, expType)        
+        k = generate_k(NUM_AGENTS, NUM_TARGETS)        
         d = generate_d(agent_pos_list, target_pos_list)
         
         # RUN CENTRAL IDEAL EXPERIMENT
         (res_ci, M_ci) = run_central_exp(agent_pos_list, target_pos_list, k, d)
+        result_metrics_ci = compute_metrics(k, M_ci)
 
         # RUN CENTRAL NOISY EXPERIMENT
-        normal_var = 1
+        normal_var = NORMAL_VARIANCE
         k_noisy = [max(2,int(k_i + random.normalvariate(0,normal_var))) for k_i in k]
         (res_cn, M_cn) = run_central_exp(agent_pos_list, target_pos_list, k_noisy, d)
+        result_metrics_cn = compute_metrics(k, M_cn)
 
         # RUN DISTRIBUTED NOISY EXPERIMENT
-        (res_dn, M_dn) = run_distr_exp(agent_pos_list, target_pos_list, k)
+        result_metrics_dn = run_distr_exp(k, k_noisy, M_cn)
         
-        if (res_ci and res_cn and res_dn):
+        if (res_ci and res_cn):
             write_pos_log(agent_pos_list, target_pos_list, exp_num, pos_log)
-            write_exp_log(k, M_ci, exp_num, central_ideal_log)
-            write_exp_log(k, M_cn, exp_num, central_noisy_log)
-            write_exp_log(k, M_dn, exp_num, distr_noisy_log)
+            write_exp_log(result_metrics_ci, central_ideal_log)
+            write_exp_log(result_metrics_cn, central_noisy_log)
+            write_exp_log(result_metrics_dn, distr_noisy_log)
             exp_num+=1
 
         total_attempts+=1
-        print 'Central Ideal: %r | Central Noisy: %r | Distributed Noisy: %r'%(res_ci, res_cn, res_dn)
+        print 'Central Ideal: %r | Central Noisy: %r | Distributed Noisy: True'%(res_ci, res_cn)
         print 'Attempts Complete[%3d] Experiments Complete[%3d]'%(total_attempts, exp_num)
             
     pos_log.close()    
@@ -190,9 +212,7 @@ def run_exps(expType):
 
     
 def main():
-    run_exps('NEqualSumK')
-    #run_exps('NLessSumK')
-    #run_exps('NGreateSumK')
+    run_exps()
     
 if __name__=="__main__":
     main()
