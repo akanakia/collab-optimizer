@@ -21,9 +21,10 @@ NUM_AGENTS  = 20
 NUM_TARGETS = 5
 ARENA_SIZE  = 1000
 
-NORMAL_VARIANCE = 1
+CENTRAL_NORMAL_VARIANCE = 5
+AGENT_NORMAL_VARIANCE = 1
 
-NUM_EXP = 10
+NUM_EXP = 30
 MAX_TOTAL_EXP_ATTEMPTS = NUM_EXP * 2
 
 ################################################################################
@@ -78,10 +79,10 @@ def create_log_files():
     """
     timestamp = str(int(time.time()))
     
-    pos_log             = open('PositionLog_ExpVariance_'       +str(NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
-    central_ideal_log   = open('CentralIdealExpLog_ExpVariance_'+str(NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
-    central_noisy_log   = open('CentralNoisyExpLog_ExpVariance_'+str(NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
-    distr_noisy_log     = open('DistrNoisyExpLog_ExpVariance_'  +str(NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
+    pos_log             = open('PositionLog_ExpVariance_'       +str(CENTRAL_NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
+    central_ideal_log   = open('CentralIdealExpLog_ExpVariance_'+str(CENTRAL_NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
+    central_noisy_log   = open('CentralNoisyExpLog_ExpVariance_'+str(CENTRAL_NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
+    distr_noisy_log     = open('DistrNoisyExpLog_ExpVariance_'  +str(CENTRAL_NORMAL_VARIANCE)+'_'+timestamp+'.txt', 'w')
 
     pos_log.write('{{\"Agent Positions List\"},{\"Target Positions List\"}}\n')
     central_ideal_log.write('{\"Total Agents\", \"Total Targets\", \"Targets Attempted\", \"Targets Failed\", \"Agents Attempted\", \"Agents Failed\"}\n')
@@ -159,7 +160,7 @@ def run_distr_exp(k, k_noisy, M_noisy):
     for i in range(len(target_totals)):
         yes_votes = 0
         for agent in range(target_totals[i]):
-            agent_mag_sense = max(2, random.normalvariate(0, NORMAL_VARIANCE)+k[i])
+            agent_mag_sense = max(2, random.normalvariate(0, AGENT_NORMAL_VARIANCE)+k[i])
             if random.random() <= 1./(1.+math.exp(agent_mag_sense-k_noisy[i])):
                 yes_votes += 1
         
@@ -192,8 +193,7 @@ def run_exps():
         result_metrics_ci = compute_metrics(k, M_ci)
 
         # RUN CENTRAL NOISY EXPERIMENT
-        normal_var = NORMAL_VARIANCE
-        k_noisy = [max(2,int(k_i + random.normalvariate(0,normal_var))) for k_i in k]
+        k_noisy = [max(2,int(k_i + random.normalvariate(0,CENTRAL_NORMAL_VARIANCE))) for k_i in k]
         (res_cn, M_cn) = run_central_exp(agent_pos_list, target_pos_list, k_noisy, d)
         result_metrics_cn = compute_metrics(k, M_cn)
 
