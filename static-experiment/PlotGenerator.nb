@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[    215859,       4526]
-NotebookOptionsPosition[    215456,       4508]
-NotebookOutlinePosition[    215799,       4523]
-CellTagsIndexPosition[    215756,       4520]
+NotebookDataLength[    231320,       4865]
+NotebookOptionsPosition[    230914,       4847]
+NotebookOutlinePosition[    231259,       4862]
+CellTagsIndexPosition[    231216,       4859]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -29,7 +29,7 @@ Cell[BoxData[
       "CIAvgs", ",", "CISDevs", ",", "CNAvgs", ",", "CNSDevs", ",", "DNAvgs", 
       ",", "DNSDevs", ",", "makePlot", ",", "errorBar", ",", "chartData", ",",
        "CIData", ",", "CNData", ",", "DNData"}], "}"}], ",", 
-    "\[IndentingNewLine]", "\[IndentingNewLine]", 
+    "\[IndentingNewLine]", 
     RowBox[{
      RowBox[{
       RowBox[{
@@ -132,10 +132,6 @@ Cell[BoxData[
         RowBox[{"ChartElementFunction", "\[Rule]", 
          RowBox[{"errorBar", "[", "\"\<Rectangle\>\"", "]"}]}], ",", 
         RowBox[{"PlotLabel", "\[Rule]", "title"}], ",", 
-        RowBox[{"(*", 
-         RowBox[{
-          RowBox[{"ChartLayout", "\[Rule]", " ", "\"\<Stacked\>\""}], ","}], 
-         "*)"}], 
         RowBox[{"BarSpacing", "\[Rule]", 
          RowBox[{"{", 
           RowBox[{"0", ",", ".5"}], "}"}]}], ",", 
@@ -146,15 +142,23 @@ Cell[BoxData[
             RowBox[{
              RowBox[{"Framed", "[", 
               RowBox[{"\"\<Cen. Ideal\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", 
                RowBox[{"FrameMargins", "\[Rule]", " ", "20"}]}], "]"}], ",", 
-             "\"\<Cen. Noisy\>\"", ",", "\"\<Distr. Noisy\>\""}], "}"}], ",", 
-           " ", "None"}], "}"}]}], ",", 
+             RowBox[{"Framed", "[", 
+              RowBox[{"\"\<Cen. Noisy\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", 
+               RowBox[{"FrameMargins", "\[Rule]", " ", "20"}]}], "]"}], ",", 
+             RowBox[{"Framed", "[", 
+              RowBox[{"\"\<Distr. Noisy\>\"", ",", 
+               RowBox[{"FrameStyle", "\[Rule]", "None"}], ",", 
+               RowBox[{"FrameMargins", "\[Rule]", " ", "20"}]}], "]"}]}], 
+            "}"}], ",", " ", "None"}], "}"}]}], ",", 
         RowBox[{"ChartLegends", "\[Rule]", " ", 
          RowBox[{"Placed", "[", 
           RowBox[{
            RowBox[{"{", 
             RowBox[{"\"\<Attempted\>\"", ",", "\"\<Failed\>\""}], "}"}], ",", 
-           "Right"}], "]"}]}], ",", 
+           "Below"}], "]"}]}], ",", 
         RowBox[{"BaseStyle", "\[Rule]", 
          RowBox[{"FontSize", "\[Rule]", "18"}]}], ",", 
         RowBox[{"ImageSize", "\[Rule]", " ", 
@@ -263,9 +267,87 @@ School\\\\ActiveResearch\\\\static-exp-data\\\\Variance_\>\"", "<>",
          RowBox[{"i", ",", "1", ",", 
           RowBox[{"Length", "[", "DNAvgs", "]"}]}], "}"}]}], "]"}]}], ";", 
      "\[IndentingNewLine]", "\[IndentingNewLine]", 
-     RowBox[{"Row", "[", 
+     RowBox[{"Column", "[", 
       RowBox[{"{", "\[IndentingNewLine]", 
        RowBox[{
+        RowBox[{"Grid", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+            "\"\<Tasks\>\"", ",", "\"\<Attempted\>\"", ",", "\"\<Failed\>\"", 
+             ",", "\"\<Attempted %\>\"", ",", " ", "\"\<Failed %\>\""}], 
+            "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"\"\<Cen. Ideal\>\"", ",", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "CIAvgs", "\[LeftDoubleBracket]", "3", 
+               "\[RightDoubleBracket]"}]}], ",", " ", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "CIAvgs", "\[LeftDoubleBracket]", "4", 
+               "\[RightDoubleBracket]"}]}], ",", " ", 
+             RowBox[{
+              RowBox[{
+              "CIAvgs", "\[LeftDoubleBracket]", "3", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", "5"}]}], ",", " ", 
+             RowBox[{
+              RowBox[{
+              "CIAvgs", "\[LeftDoubleBracket]", "4", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", 
+               RowBox[{
+               "CIAvgs", "\[LeftDoubleBracket]", "3", 
+                "\[RightDoubleBracket]"}]}]}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"\"\<Cen. Noisy\>\"", ",", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "CNAvgs", "\[LeftDoubleBracket]", "3", 
+               "\[RightDoubleBracket]"}]}], ",", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "CNAvgs", "\[LeftDoubleBracket]", "4", 
+               "\[RightDoubleBracket]"}]}], ",", " ", 
+             RowBox[{
+              RowBox[{
+              "CNAvgs", "\[LeftDoubleBracket]", "3", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", "5"}]}], ",", 
+             RowBox[{
+              RowBox[{
+              "CNAvgs", "\[LeftDoubleBracket]", "4", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", 
+               RowBox[{
+               "CNAvgs", "\[LeftDoubleBracket]", "3", 
+                "\[RightDoubleBracket]"}]}]}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"\"\<Distr. Noisy\>\"", ",", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "DNAvgs", "\[LeftDoubleBracket]", "3", 
+               "\[RightDoubleBracket]"}]}], ",", " ", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "DNAvgs", "\[LeftDoubleBracket]", "4", 
+               "\[RightDoubleBracket]"}]}], ",", " ", 
+             RowBox[{
+              RowBox[{
+              "DNAvgs", "\[LeftDoubleBracket]", "3", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", "5"}]}], ",", 
+             RowBox[{
+              RowBox[{
+              "DNAvgs", "\[LeftDoubleBracket]", "4", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", 
+               RowBox[{
+               "DNAvgs", "\[LeftDoubleBracket]", "3", 
+                "\[RightDoubleBracket]"}]}]}]}], "}"}]}], "}"}], "]"}], ",", 
+        "\[IndentingNewLine]", 
         RowBox[{"makePlot", "[", 
          RowBox[{
           RowBox[{"{", 
@@ -280,6 +362,84 @@ School\\\\ActiveResearch\\\\static-exp-data\\\\Variance_\>\"", "<>",
           RowBox[{"\"\<Target Data (Central Noise \[Sigma]=\>\"", "<>", 
            RowBox[{"ToString", "[", "Variance", "]"}], "<>", "\"\<)\>\""}]}], 
          "]"}], ",", "\[IndentingNewLine]", 
+        RowBox[{"Grid", "[", 
+         RowBox[{"{", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+            "\"\<Agents\>\"", ",", "\"\<Attempted\>\"", ",", "\"\<Failed\>\"",
+              ",", "\"\<Attempted %\>\"", ",", " ", "\"\<Failed %\>\""}], 
+            "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"\"\<Cen. Ideal\>\"", ",", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "CIAvgs", "\[LeftDoubleBracket]", "5", 
+               "\[RightDoubleBracket]"}]}], ",", " ", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "CIAvgs", "\[LeftDoubleBracket]", "6", 
+               "\[RightDoubleBracket]"}]}], ",", 
+             RowBox[{
+              RowBox[{
+              "CIAvgs", "\[LeftDoubleBracket]", "5", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", "20"}]}], ",", " ", 
+             RowBox[{
+              RowBox[{
+              "CIAvgs", "\[LeftDoubleBracket]", "6", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", 
+               RowBox[{
+               "CIAvgs", "\[LeftDoubleBracket]", "5", 
+                "\[RightDoubleBracket]"}]}]}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"\"\<Cen. Noisy\>\"", ",", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "CNAvgs", "\[LeftDoubleBracket]", "5", 
+               "\[RightDoubleBracket]"}]}], ",", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "CNAvgs", "\[LeftDoubleBracket]", "6", 
+               "\[RightDoubleBracket]"}]}], ",", " ", 
+             RowBox[{
+              RowBox[{
+              "CNAvgs", "\[LeftDoubleBracket]", "5", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", "20"}]}], ",", 
+             RowBox[{
+              RowBox[{
+              "CNAvgs", "\[LeftDoubleBracket]", "6", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", 
+               RowBox[{
+               "CNAvgs", "\[LeftDoubleBracket]", "5", 
+                "\[RightDoubleBracket]"}]}]}]}], "}"}], ",", 
+           RowBox[{"{", 
+            RowBox[{"\"\<Distr. Noisy\>\"", ",", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "DNAvgs", "\[LeftDoubleBracket]", "5", 
+               "\[RightDoubleBracket]"}]}], ",", " ", 
+             RowBox[{"N", "@", 
+              RowBox[{
+              "DNAvgs", "\[LeftDoubleBracket]", "6", 
+               "\[RightDoubleBracket]"}]}], ",", 
+             RowBox[{
+              RowBox[{
+              "DNAvgs", "\[LeftDoubleBracket]", "5", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", "20"}]}], ",", " ", 
+             RowBox[{
+              RowBox[{
+              "DNAvgs", "\[LeftDoubleBracket]", "6", 
+               "\[RightDoubleBracket]"}], "*", 
+              RowBox[{"100.", "/", 
+               RowBox[{
+               "DNAvgs", "\[LeftDoubleBracket]", "5", 
+                "\[RightDoubleBracket]"}]}]}]}], "}"}]}], "}"}], "]"}], ",", 
+        "\[IndentingNewLine]", 
         RowBox[{"makePlot", "[", 
          RowBox[{
           RowBox[{"{", 
@@ -296,20 +456,21 @@ School\\\\ActiveResearch\\\\static-exp-data\\\\Variance_\>\"", "<>",
          "]"}]}], "\[IndentingNewLine]", "}"}], "]"}]}]}], 
    "\[IndentingNewLine]", "]"}]}]], "Input",
  CellChangeTimes->CompressedData["
-1:eJxTTMoPSmViYGCQBGIQbX6057qf7WtHnrWfboHoPR9tDxcC6X4tr6MgeubH
-/e67gfSCxxHpINpqS0weiJaKYG0C0XsXPesH0QL7Tk0A0TvOz5gGos9ebF4I
-omctOLMGRPdNTFsHotcEKB8H0Rd2rD8BokuYPl4E0TVG0tdBdOmc+rsgetmF
-eWBaUHDCExDNmjgVTFtNWGa7D0hvmWPoDaJDTnQkg2ilt/wpIPrRZfsMEL2K
-nS0LIl9cAqL59WJKQfS+DayTQPSr5wXTQbTPls9zQLSZmvJKEP2n13sjiPbS
-W7QZRGcY9e4A0YtbYo6D6LWqC86A6G0HXc+C6IDX5bdB9JPQ+ocg+tMByecg
-uvW10ysQPc9n70cQrf6m8TeIZhA+ybAfSPsyXALTP9bekgfRM62PKoNoAAXQ
-1tM=
+1:eJwlyWkog3EAx/Gnaa4U440jx+bKkeIFWo0oqRlJZGUv3OSFI+SFuackxyjX
+mjWUInNkacU2Yjna3JomOZvaUJs3ihf+v8eLb58XX3Z5Q0EVg6IoNgmmGIbM
+eTx7hpfKaYE7Dt5+E3E0lm+AMw599jZR+SKsgVy1qB4GCpm9UDtvHYU+uhMp
+1JxNT0LTRd8clCmNK3BkrHoVruSHH8JzzdoRbGE4LqA4KcgMW+Vd93DxXEHL
+YklfIbNsgpYrXeTpiGp5Yg4sPBqogJwP70r4fJVeC5fdXOv+f3ML9E4QtULd
+OnMc2t4ap6BA/SWHyVHhS/B3OGcD8hPmN2Ft0rAGLkhEh1AVqTTCrb0sE8y3
+t93B16KuJ+jcDXiD/fZMG1QItA4Y/d7zAym/Y0pPzKUuab9VllB48/AYA9kb
+xVFXxNNufiw8iLtMuyamxztpf1JdMllp9ozPJX9aznuJWEz09VB0QuHUowR6
+htgGYSnH/AlvDc5vaI1gMTqIIr0lDLYHSyQwVeY+C/8AKMgUCQ==
   "]],
 
 Cell[CellGroupData[{
 
 Cell[BoxData[
- RowBox[{"Column", "[", 
+ RowBox[{"Row", "[", 
   RowBox[{"{", 
    RowBox[{
     RowBox[{"generateExpBarCharts", "[", "1", "]"}], ",", 
@@ -317,12 +478,25 @@ Cell[BoxData[
     RowBox[{"generateExpBarCharts", "[", "5", "]"}]}], "}"}], "]"}]], "Input",
  CellChangeTimes->{{3.656244515583704*^9, 3.656244516351753*^9}, {
   3.6562497566324883`*^9, 3.6562497744325037`*^9}, {3.6562505592594576`*^9, 
-  3.6562505641687284`*^9}, {3.6562514013376737`*^9, 3.6562514021767197`*^9}}],
+  3.6562505641687284`*^9}, {3.6562514013376737`*^9, 3.6562514021767197`*^9}, {
+  3.6562949066790714`*^9, 3.656294907038092*^9}}],
 
 Cell[BoxData[
- TagBox[GridBox[{
-    {
-     TemplateBox[{TemplateBox[{
+ TemplateBox[{TagBox[
+    GridBox[{{
+       TagBox[
+        GridBox[{{
+          "\"Tasks\"", "\"Attempted\"", "\"Failed\"", "\"Attempted %\"", 
+           "\"Failed %\""}, {
+          "\"Cen. Ideal\"", "4.73`", "0.16`", "94.60000000000001`", 
+           "3.382663847780127`"}, {
+          "\"Cen. Noisy\"", "4.76`", "1.74`", "95.19999999999999`", 
+           "36.554621848739494`"}, {
+          "\"Distr. Noisy\"", "2.52`", "0.34`", "50.4`", 
+           "13.492063492063494`"}}, AutoDelete -> False, 
+         GridBoxItemSize -> {
+          "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}, {
+       TemplateBox[{
          GraphicsBox[{{
             Opacity[0], 
             PointBox[{0.61, 0.}]}, {{}, {{{}, {{}, {{
@@ -405,7 +579,6 @@ Cell[BoxData[
                     GrayLevel[0.5], 
                     AbsoluteThickness[1.5], 
                     Opacity[0.66]}], {}, {}], {
-                    
                     RectangleBox[{3.25, 0.}, {4.25, 4.76}, "RoundingRadius" -> 
                     0], {
                     GrayLevel[0], 
@@ -544,13 +717,22 @@ Cell[BoxData[
                    Thickness[Tiny]], 
                   Directive[], {
                    InsetBox[
-                    FormBox["\"Cen. Ideal\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Ideal\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {1.75, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Cen. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Noisy\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {4.25, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Distr. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Distr. Noisy\"", FrameStyle -> None, FrameMargins -> 
+                    20, StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {6.75, 0.}], {0, 1}, Automatic, {1, 
                     0}]}}, "GraphicsLabel", StripOnInput -> False]}, 
                "GraphicsTicks", StripOnInput -> False]}, "GraphicsAxes", 
@@ -589,8 +771,10 @@ Cell[BoxData[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {1.75, 
-                FormBox["\"\\!\\(\\\"Cen. Ideal\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {3.75, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Ideal\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {3.75, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -612,8 +796,10 @@ Cell[BoxData[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {4.25, 
-                FormBox["\"\\!\\(\\\"Cen. Noisy\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {6.25, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {6.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -629,8 +815,9 @@ Cell[BoxData[
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.004, 0}}, {6.75, 
                 FormBox[
-                "\"\\!\\(\\\"Distr. Noisy\\\"\\)\"", TraditionalForm], {0, 
-                0}}}, {{1.25, 
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Distr. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}}, {{1.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -689,9 +876,9 @@ Cell[BoxData[
                   Spacer[0]], TraditionalForm], {0.004, 0}}}}}, 
            GridLines -> {None, None}, GridLinesStyle -> Directive[
              GrayLevel[0.5, 0.4]], ImageSize -> {500, 300}, PlotLabel -> 
-           FormBox[
-            "\"Target Data (Central Noise \[Sigma]=1)\"", TraditionalForm], 
-           PlotRange -> {{All, All}, {All, All}}, PlotRangePadding -> {{
+           FormBox["\"Target Data (Central Noise \[Sigma]=1)\"", 
+             TraditionalForm], PlotRange -> {{All, All}, {All, All}}, 
+           PlotRangePadding -> {{
               Scaled[0.02], 
               Scaled[0.02]}, {
               Scaled[0.02], 
@@ -721,7 +908,7 @@ Cell[BoxData[
                     RectangleBox[{0, 0}, {10, 10}, "RoundingRadius" -> 0]}, 
                     AspectRatio -> Full, ImageSize -> {10, 10}, 
                     PlotRangePadding -> None, ImagePadding -> Automatic, 
-                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #}, {
+                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #, 
                     GraphicsBox[{
                     Directive[
                     PointSize[0.5], 
@@ -743,13 +930,15 @@ Cell[BoxData[
                     "Columns" -> {{False}}, "Rows" -> {{False}}}, 
                     GridBoxItemSize -> {
                     "Columns" -> {{All}}, "Rows" -> {{All}}}, 
-                    GridBoxSpacings -> {
-                    "Columns" -> {{0.5}}, "Rows" -> {{0.5}}}], "Grid"]}}, 
+                    GridBoxSpacings -> {"Columns" -> {{0.5, 0.5}}}], 
+                    "Grid"]}}, 
                    GridBoxAlignment -> {
                     "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
-                   False, GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                   GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
+                   False, GridBoxDividers -> {
+                    "Columns" -> {{None}}, "Rows" -> {{None}}}, 
+                   GridBoxItemSize -> {
+                    "Columns" -> {{All}}, "Rows" -> {{All}}}, 
+                   GridBoxSpacings -> {"Columns" -> {{0}}, "Rows" -> {{1}}}], 
                   "Grid"], Alignment -> Left, AppearanceElements -> None, 
                  ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
                  "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
@@ -863,10 +1052,9 @@ Cell[BoxData[
                     GrayLevel[0], 
                     RectangleBox[{1, -1}]}, {
                     GrayLevel[1], 
-                    RectangleBox[{0, -1}, {2, 1}]}}, AspectRatio -> 1, 
-                    Frame -> True, FrameStyle -> 
-                    GrayLevel[0.6666666666666666], FrameTicks -> None, 
-                    PlotRangePadding -> None, ImageSize -> 
+                    RectangleBox[{0, -1}, {2, 1}]}}, AspectRatio -> 1, Frame -> 
+                    True, FrameStyle -> GrayLevel[0.6666666666666666], 
+                    FrameTicks -> None, PlotRangePadding -> None, ImageSize -> 
                     Dynamic[{Automatic, 1.35 CurrentValue["FontCapHeight"]/
                     AbsoluteCurrentValue[Magnification]}]], "GrayLevel[1]"], 
                     Appearance -> None, BaseStyle -> {}, BaselinePosition -> 
@@ -999,15 +1187,15 @@ Cell[BoxData[
                     RowBox[{
                     RowBox[{"Directive", "[", "]"}], ",", 
                     RowBox[{"Directive", "[", "]"}]}], "}"}]}], ",", 
-                 RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}]}], 
-               "]"}]& ), Editable -> True], TraditionalForm], 
-          TraditionalForm]}, "Legended", DisplayFunction -> (GridBox[{{
+                 RowBox[{"LegendLayout", "\[Rule]", "\"Row\""}]}], "]"}]& ), 
+            Editable -> True], TraditionalForm], TraditionalForm]}, 
+        "Legended", DisplayFunction -> (GridBox[{{
             TagBox[
              ItemBox[
               PaneBox[
                TagBox[#, "SkipImageSizeLevel"], 
                Alignment -> {Center, Baseline}, BaselinePosition -> Baseline],
-               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"], 
+               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"]}, {
             ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
           GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}},
            AutoDelete -> False, GridBoxItemSize -> Automatic, 
@@ -1015,8 +1203,21 @@ Cell[BoxData[
         InterpretationFunction -> (RowBox[{"Legended", "[", 
            RowBox[{#, ",", 
              RowBox[{"Placed", "[", 
-               RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& ), Editable -> 
-        True],TemplateBox[{
+               RowBox[{#2, ",", "Below"}], "]"}]}], "]"}]& ), Editable -> 
+        True]}, {
+       TagBox[
+        GridBox[{{
+          "\"Agents\"", "\"Attempted\"", "\"Failed\"", "\"Attempted %\"", 
+           "\"Failed %\""}, {
+          "\"Cen. Ideal\"", "19.12`", "0.24`", "95.60000000000001`", 
+           "1.2552301255230123`"}, {
+          "\"Cen. Noisy\"", "18.01`", "6.28`", "90.05000000000001`", 
+           "34.86951693503609`"}, {
+          "\"Distr. Noisy\"", "10.03`", "1.15`", "50.15`", 
+           "11.465603190428714`"}}, AutoDelete -> False, 
+         GridBoxItemSize -> {
+          "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}, {
+       TemplateBox[{
          GraphicsBox[{{
             Opacity[0], 
             PointBox[{0.61, 0.}]}, {{}, {{{}, {{}, {{
@@ -1238,13 +1439,22 @@ Cell[BoxData[
                    Thickness[Tiny]], 
                   Directive[], {
                    InsetBox[
-                    FormBox["\"Cen. Ideal\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Ideal\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {1.75, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Cen. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Noisy\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {4.25, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Distr. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Distr. Noisy\"", FrameStyle -> None, FrameMargins -> 
+                    20, StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {6.75, 0.}], {0, 1}, Automatic, {1, 
                     0}]}}, "GraphicsLabel", StripOnInput -> False]}, 
                "GraphicsTicks", StripOnInput -> False]}, "GraphicsAxes", 
@@ -1283,8 +1493,10 @@ Cell[BoxData[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {1.75, 
-                FormBox["\"\\!\\(\\\"Cen. Ideal\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {3.75, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Ideal\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {3.75, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -1306,8 +1518,10 @@ Cell[BoxData[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {4.25, 
-                FormBox["\"\\!\\(\\\"Cen. Noisy\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {6.25, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {6.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -1323,8 +1537,9 @@ Cell[BoxData[
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.004, 0}}, {6.75, 
                 FormBox[
-                "\"\\!\\(\\\"Distr. Noisy\\\"\\)\"", TraditionalForm], {0, 
-                0}}}, {{1.25, 
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Distr. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}}, {{1.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -1415,7 +1630,7 @@ Cell[BoxData[
                     RectangleBox[{0, 0}, {10, 10}, "RoundingRadius" -> 0]}, 
                     AspectRatio -> Full, ImageSize -> {10, 10}, 
                     PlotRangePadding -> None, ImagePadding -> Automatic, 
-                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #}, {
+                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #, 
                     GraphicsBox[{
                     Directive[
                     PointSize[0.5], 
@@ -1437,13 +1652,15 @@ Cell[BoxData[
                     "Columns" -> {{False}}, "Rows" -> {{False}}}, 
                     GridBoxItemSize -> {
                     "Columns" -> {{All}}, "Rows" -> {{All}}}, 
-                    GridBoxSpacings -> {
-                    "Columns" -> {{0.5}}, "Rows" -> {{0.5}}}], "Grid"]}}, 
+                    GridBoxSpacings -> {"Columns" -> {{0.5, 0.5}}}], 
+                    "Grid"]}}, 
                    GridBoxAlignment -> {
                     "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
-                   False, GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                   GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
+                   False, GridBoxDividers -> {
+                    "Columns" -> {{None}}, "Rows" -> {{None}}}, 
+                   GridBoxItemSize -> {
+                    "Columns" -> {{All}}, "Rows" -> {{All}}}, 
+                   GridBoxSpacings -> {"Columns" -> {{0}}, "Rows" -> {{1}}}], 
                   "Grid"], Alignment -> Left, AppearanceElements -> None, 
                  ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
                  "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
@@ -1571,8 +1788,8 @@ Cell[BoxData[
                     SelectionMove[Typeset`box$, All, Expression]; 
                     FrontEnd`Private`$ColorSelectorInitialAlpha = 1; 
                     FrontEnd`Private`$ColorSelectorInitialColor = 
-                    GrayLevel[1]; FrontEnd`Private`$ColorSelectorUseMakeBoxes = \
-True; MathLink`CallFrontEnd[
+                    GrayLevel[1]; FrontEnd`Private`$ColorSelectorUseMakeBoxes = 
+                    True; MathLink`CallFrontEnd[
                     FrontEnd`AttachCell[Typeset`box$, 
                     FrontEndResource["GrayLevelColorValueSelector"], {
                     0, {Left, Bottom}}, {Left, Top}, 
@@ -1692,15 +1909,15 @@ True; MathLink`CallFrontEnd[
                     RowBox[{
                     RowBox[{"Directive", "[", "]"}], ",", 
                     RowBox[{"Directive", "[", "]"}]}], "}"}]}], ",", 
-                 RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}]}], 
-               "]"}]& ), Editable -> True], TraditionalForm], 
-          TraditionalForm]}, "Legended", DisplayFunction -> (GridBox[{{
+                 RowBox[{"LegendLayout", "\[Rule]", "\"Row\""}]}], "]"}]& ), 
+            Editable -> True], TraditionalForm], TraditionalForm]}, 
+        "Legended", DisplayFunction -> (GridBox[{{
             TagBox[
              ItemBox[
               PaneBox[
                TagBox[#, "SkipImageSizeLevel"], 
                Alignment -> {Center, Baseline}, BaselinePosition -> Baseline],
-               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"], 
+               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"]}, {
             ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
           GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}},
            AutoDelete -> False, GridBoxItemSize -> Automatic, 
@@ -1708,11 +1925,25 @@ True; MathLink`CallFrontEnd[
         InterpretationFunction -> (RowBox[{"Legended", "[", 
            RowBox[{#, ",", 
              RowBox[{"Placed", "[", 
-               RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& ), Editable -> 
-        True]},
-      "RowDefault"]},
-    {
-     TemplateBox[{TemplateBox[{
+               RowBox[{#2, ",", "Below"}], "]"}]}], "]"}]& ), Editable -> 
+        True]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     DefaultBaseStyle -> "Column", 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"],TagBox[
+    GridBox[{{
+       TagBox[
+        GridBox[{{
+          "\"Tasks\"", "\"Attempted\"", "\"Failed\"", "\"Attempted %\"", 
+           "\"Failed %\""}, {
+          "\"Cen. Ideal\"", "4.74`", "0.17`", "94.80000000000001`", 
+           "3.586497890295359`"}, {
+          "\"Cen. Noisy\"", "4.36`", "1.58`", "87.2`", 
+           "36.23853211009175`"}, {
+          "\"Distr. Noisy\"", "2.51`", "0.38`", "50.199999999999996`", 
+           "15.139442231075698`"}}, AutoDelete -> False, 
+         GridBoxItemSize -> {
+          "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}, {
+       TemplateBox[{
          GraphicsBox[{{
             Opacity[0], 
             PointBox[{0.61, 0.}]}, {{}, {{{}, {{}, {{
@@ -1934,13 +2165,22 @@ True; MathLink`CallFrontEnd[
                    Thickness[Tiny]], 
                   Directive[], {
                    InsetBox[
-                    FormBox["\"Cen. Ideal\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Ideal\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {1.75, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Cen. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Noisy\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {4.25, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Distr. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Distr. Noisy\"", FrameStyle -> None, FrameMargins -> 
+                    20, StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {6.75, 0.}], {0, 1}, Automatic, {1, 
                     0}]}}, "GraphicsLabel", StripOnInput -> False]}, 
                "GraphicsTicks", StripOnInput -> False]}, "GraphicsAxes", 
@@ -1979,8 +2219,10 @@ True; MathLink`CallFrontEnd[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {1.75, 
-                FormBox["\"\\!\\(\\\"Cen. Ideal\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {3.75, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Ideal\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {3.75, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -2002,8 +2244,10 @@ True; MathLink`CallFrontEnd[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {4.25, 
-                FormBox["\"\\!\\(\\\"Cen. Noisy\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {6.25, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {6.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -2019,8 +2263,9 @@ True; MathLink`CallFrontEnd[
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.004, 0}}, {6.75, 
                 FormBox[
-                "\"\\!\\(\\\"Distr. Noisy\\\"\\)\"", TraditionalForm], {0, 
-                0}}}, {{1.25, 
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Distr. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}}, {{1.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -2066,6 +2311,7 @@ True; MathLink`CallFrontEnd[
                 FormBox[
                  InterpretationBox[
                   StyleBox[
+                   
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.004, 0}}, {7.25, 
@@ -2110,7 +2356,7 @@ True; MathLink`CallFrontEnd[
                     RectangleBox[{0, 0}, {10, 10}, "RoundingRadius" -> 0]}, 
                     AspectRatio -> Full, ImageSize -> {10, 10}, 
                     PlotRangePadding -> None, ImagePadding -> Automatic, 
-                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #}, {
+                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #, 
                     GraphicsBox[{
                     Directive[
                     PointSize[0.5], 
@@ -2132,13 +2378,15 @@ True; MathLink`CallFrontEnd[
                     "Columns" -> {{False}}, "Rows" -> {{False}}}, 
                     GridBoxItemSize -> {
                     "Columns" -> {{All}}, "Rows" -> {{All}}}, 
-                    GridBoxSpacings -> {
-                    "Columns" -> {{0.5}}, "Rows" -> {{0.5}}}], "Grid"]}}, 
+                    GridBoxSpacings -> {"Columns" -> {{0.5, 0.5}}}], 
+                    "Grid"]}}, 
                    GridBoxAlignment -> {
                     "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
-                   False, GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                   GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
+                   False, GridBoxDividers -> {
+                    "Columns" -> {{None}}, "Rows" -> {{None}}}, 
+                   GridBoxItemSize -> {
+                    "Columns" -> {{All}}, "Rows" -> {{All}}}, 
+                   GridBoxSpacings -> {"Columns" -> {{0}}, "Rows" -> {{1}}}], 
                   "Grid"], Alignment -> Left, AppearanceElements -> None, 
                  ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
                  "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
@@ -2387,15 +2635,15 @@ True; MathLink`CallFrontEnd[
                     RowBox[{
                     RowBox[{"Directive", "[", "]"}], ",", 
                     RowBox[{"Directive", "[", "]"}]}], "}"}]}], ",", 
-                 RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}]}], 
-               "]"}]& ), Editable -> True], TraditionalForm], 
-          TraditionalForm]}, "Legended", DisplayFunction -> (GridBox[{{
+                 RowBox[{"LegendLayout", "\[Rule]", "\"Row\""}]}], "]"}]& ), 
+            Editable -> True], TraditionalForm], TraditionalForm]}, 
+        "Legended", DisplayFunction -> (GridBox[{{
             TagBox[
              ItemBox[
               PaneBox[
                TagBox[#, "SkipImageSizeLevel"], 
                Alignment -> {Center, Baseline}, BaselinePosition -> Baseline],
-               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"], 
+               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"]}, {
             ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
           GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}},
            AutoDelete -> False, GridBoxItemSize -> Automatic, 
@@ -2403,8 +2651,20 @@ True; MathLink`CallFrontEnd[
         InterpretationFunction -> (RowBox[{"Legended", "[", 
            RowBox[{#, ",", 
              RowBox[{"Placed", "[", 
-               RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& ), Editable -> 
-        True],TemplateBox[{
+               RowBox[{#2, ",", "Below"}], "]"}]}], "]"}]& ), Editable -> 
+        True]}, {
+       TagBox[
+        GridBox[{{
+          "\"Agents\"", "\"Attempted\"", "\"Failed\"", "\"Attempted %\"", 
+           "\"Failed %\""}, {
+          "\"Cen. Ideal\"", "19.03`", "0.21`", "95.15`", 
+           "1.1035207566999474`"}, {
+          "\"Cen. Noisy\"", "18.2`", "4.83`", "91.`", "26.53846153846154`"}, {
+          "\"Distr. Noisy\"", "12.24`", "0.99`", "61.2`", 
+           "8.088235294117647`"}}, AutoDelete -> False, 
+         GridBoxItemSize -> {
+          "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}, {
+       TemplateBox[{
          GraphicsBox[{{
             Opacity[0], 
             PointBox[{0.61, 0.}]}, {{}, {{{}, {{}, {{
@@ -2626,13 +2886,22 @@ True; MathLink`CallFrontEnd[
                    Thickness[Tiny]], 
                   Directive[], {
                    InsetBox[
-                    FormBox["\"Cen. Ideal\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Ideal\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {1.75, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Cen. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Noisy\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {4.25, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Distr. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Distr. Noisy\"", FrameStyle -> None, FrameMargins -> 
+                    20, StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {6.75, 0.}], {0, 1}, Automatic, {1, 
                     0}]}}, "GraphicsLabel", StripOnInput -> False]}, 
                "GraphicsTicks", StripOnInput -> False]}, "GraphicsAxes", 
@@ -2671,8 +2940,10 @@ True; MathLink`CallFrontEnd[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {1.75, 
-                FormBox["\"\\!\\(\\\"Cen. Ideal\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {3.75, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Ideal\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {3.75, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -2694,8 +2965,10 @@ True; MathLink`CallFrontEnd[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {4.25, 
-                FormBox["\"\\!\\(\\\"Cen. Noisy\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {6.25, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {6.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -2711,8 +2984,9 @@ True; MathLink`CallFrontEnd[
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.004, 0}}, {6.75, 
                 FormBox[
-                "\"\\!\\(\\\"Distr. Noisy\\\"\\)\"", TraditionalForm], {0, 
-                0}}}, {{1.25, 
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Distr. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}}, {{1.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -2803,7 +3077,7 @@ True; MathLink`CallFrontEnd[
                     RectangleBox[{0, 0}, {10, 10}, "RoundingRadius" -> 0]}, 
                     AspectRatio -> Full, ImageSize -> {10, 10}, 
                     PlotRangePadding -> None, ImagePadding -> Automatic, 
-                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #}, {
+                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #, 
                     GraphicsBox[{
                     Directive[
                     PointSize[0.5], 
@@ -2825,13 +3099,15 @@ True; MathLink`CallFrontEnd[
                     "Columns" -> {{False}}, "Rows" -> {{False}}}, 
                     GridBoxItemSize -> {
                     "Columns" -> {{All}}, "Rows" -> {{All}}}, 
-                    GridBoxSpacings -> {
-                    "Columns" -> {{0.5}}, "Rows" -> {{0.5}}}], "Grid"]}}, 
+                    GridBoxSpacings -> {"Columns" -> {{0.5, 0.5}}}], 
+                    "Grid"]}}, 
                    GridBoxAlignment -> {
                     "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
-                   False, GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                   GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
+                   False, GridBoxDividers -> {
+                    "Columns" -> {{None}}, "Rows" -> {{None}}}, 
+                   GridBoxItemSize -> {
+                    "Columns" -> {{All}}, "Rows" -> {{All}}}, 
+                   GridBoxSpacings -> {"Columns" -> {{0}}, "Rows" -> {{1}}}], 
                   "Grid"], Alignment -> Left, AppearanceElements -> None, 
                  ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
                  "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
@@ -3080,15 +3356,15 @@ True; MathLink`CallFrontEnd[
                     RowBox[{
                     RowBox[{"Directive", "[", "]"}], ",", 
                     RowBox[{"Directive", "[", "]"}]}], "}"}]}], ",", 
-                 RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}]}], 
-               "]"}]& ), Editable -> True], TraditionalForm], 
-          TraditionalForm]}, "Legended", DisplayFunction -> (GridBox[{{
+                 RowBox[{"LegendLayout", "\[Rule]", "\"Row\""}]}], "]"}]& ), 
+            Editable -> True], TraditionalForm], TraditionalForm]}, 
+        "Legended", DisplayFunction -> (GridBox[{{
             TagBox[
              ItemBox[
               PaneBox[
                TagBox[#, "SkipImageSizeLevel"], 
                Alignment -> {Center, Baseline}, BaselinePosition -> Baseline],
-               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"], 
+               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"]}, {
             ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
           GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}},
            AutoDelete -> False, GridBoxItemSize -> Automatic, 
@@ -3096,11 +3372,24 @@ True; MathLink`CallFrontEnd[
         InterpretationFunction -> (RowBox[{"Legended", "[", 
            RowBox[{#, ",", 
              RowBox[{"Placed", "[", 
-               RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& ), Editable -> 
-        True]},
-      "RowDefault"]},
-    {
-     TemplateBox[{TemplateBox[{
+               RowBox[{#2, ",", "Below"}], "]"}]}], "]"}]& ), Editable -> 
+        True]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     DefaultBaseStyle -> "Column", 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"],TagBox[
+    GridBox[{{
+       TagBox[
+        GridBox[{{
+          "\"Tasks\"", "\"Attempted\"", "\"Failed\"", "\"Attempted %\"", 
+           "\"Failed %\""}, {
+          "\"Cen. Ideal\"", "4.84`", "0.1`", "96.8`", "2.066115702479339`"}, {
+          "\"Cen. Noisy\"", "3.96`", "1.36`", "79.2`", 
+           "34.343434343434346`"}, {
+          "\"Distr. Noisy\"", "2.39`", "0.22`", "47.800000000000004`", 
+           "9.205020920502092`"}}, AutoDelete -> False, 
+         GridBoxItemSize -> {
+          "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}, {
+       TemplateBox[{
          GraphicsBox[{{
             Opacity[0], 
             PointBox[{0.61, 0.}]}, {{}, {{{}, {{}, {{
@@ -3322,13 +3611,22 @@ True; MathLink`CallFrontEnd[
                    Thickness[Tiny]], 
                   Directive[], {
                    InsetBox[
-                    FormBox["\"Cen. Ideal\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Ideal\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {1.75, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Cen. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Noisy\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {4.25, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Distr. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Distr. Noisy\"", FrameStyle -> None, FrameMargins -> 
+                    20, StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {6.75, 0.}], {0, 1}, Automatic, {1, 
                     0}]}}, "GraphicsLabel", StripOnInput -> False]}, 
                "GraphicsTicks", StripOnInput -> False]}, "GraphicsAxes", 
@@ -3367,8 +3665,10 @@ True; MathLink`CallFrontEnd[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {1.75, 
-                FormBox["\"\\!\\(\\\"Cen. Ideal\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {3.75, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Ideal\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {3.75, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -3390,8 +3690,10 @@ True; MathLink`CallFrontEnd[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {4.25, 
-                FormBox["\"\\!\\(\\\"Cen. Noisy\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {6.25, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {6.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -3407,8 +3709,9 @@ True; MathLink`CallFrontEnd[
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.004, 0}}, {6.75, 
                 FormBox[
-                "\"\\!\\(\\\"Distr. Noisy\\\"\\)\"", TraditionalForm], {0, 
-                0}}}, {{1.25, 
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Distr. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}}, {{1.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -3499,7 +3802,7 @@ True; MathLink`CallFrontEnd[
                     RectangleBox[{0, 0}, {10, 10}, "RoundingRadius" -> 0]}, 
                     AspectRatio -> Full, ImageSize -> {10, 10}, 
                     PlotRangePadding -> None, ImagePadding -> Automatic, 
-                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #}, {
+                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #, 
                     GraphicsBox[{
                     Directive[
                     PointSize[0.5], 
@@ -3521,13 +3824,15 @@ True; MathLink`CallFrontEnd[
                     "Columns" -> {{False}}, "Rows" -> {{False}}}, 
                     GridBoxItemSize -> {
                     "Columns" -> {{All}}, "Rows" -> {{All}}}, 
-                    GridBoxSpacings -> {
-                    "Columns" -> {{0.5}}, "Rows" -> {{0.5}}}], "Grid"]}}, 
+                    GridBoxSpacings -> {"Columns" -> {{0.5, 0.5}}}], 
+                    "Grid"]}}, 
                    GridBoxAlignment -> {
                     "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
-                   False, GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                   GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
+                   False, GridBoxDividers -> {
+                    "Columns" -> {{None}}, "Rows" -> {{None}}}, 
+                   GridBoxItemSize -> {
+                    "Columns" -> {{All}}, "Rows" -> {{All}}}, 
+                   GridBoxSpacings -> {"Columns" -> {{0}}, "Rows" -> {{1}}}], 
                   "Grid"], Alignment -> Left, AppearanceElements -> None, 
                  ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
                  "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
@@ -3655,8 +3960,8 @@ True; MathLink`CallFrontEnd[
                     SelectionMove[Typeset`box$, All, Expression]; 
                     FrontEnd`Private`$ColorSelectorInitialAlpha = 1; 
                     FrontEnd`Private`$ColorSelectorInitialColor = 
-                    GrayLevel[1]; FrontEnd`Private`$ColorSelectorUseMakeBoxes = \
-True; MathLink`CallFrontEnd[
+                    GrayLevel[1]; FrontEnd`Private`$ColorSelectorUseMakeBoxes = 
+                    True; MathLink`CallFrontEnd[
                     FrontEnd`AttachCell[Typeset`box$, 
                     FrontEndResource["GrayLevelColorValueSelector"], {
                     0, {Left, Bottom}}, {Left, Top}, 
@@ -3776,15 +4081,15 @@ True; MathLink`CallFrontEnd[
                     RowBox[{
                     RowBox[{"Directive", "[", "]"}], ",", 
                     RowBox[{"Directive", "[", "]"}]}], "}"}]}], ",", 
-                 RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}]}], 
-               "]"}]& ), Editable -> True], TraditionalForm], 
-          TraditionalForm]}, "Legended", DisplayFunction -> (GridBox[{{
+                 RowBox[{"LegendLayout", "\[Rule]", "\"Row\""}]}], "]"}]& ), 
+            Editable -> True], TraditionalForm], TraditionalForm]}, 
+        "Legended", DisplayFunction -> (GridBox[{{
             TagBox[
              ItemBox[
               PaneBox[
                TagBox[#, "SkipImageSizeLevel"], 
                Alignment -> {Center, Baseline}, BaselinePosition -> Baseline],
-               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"], 
+               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"]}, {
             ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
           GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}},
            AutoDelete -> False, GridBoxItemSize -> Automatic, 
@@ -3792,8 +4097,21 @@ True; MathLink`CallFrontEnd[
         InterpretationFunction -> (RowBox[{"Legended", "[", 
            RowBox[{#, ",", 
              RowBox[{"Placed", "[", 
-               RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& ), Editable -> 
-        True],TemplateBox[{
+               RowBox[{#2, ",", "Below"}], "]"}]}], "]"}]& ), Editable -> 
+        True]}, {
+       TagBox[
+        GridBox[{{
+          "\"Agents\"", "\"Attempted\"", "\"Failed\"", "\"Attempted %\"", 
+           "\"Failed %\""}, {
+          "\"Cen. Ideal\"", "19.47`", "0.11`", "97.35`", 
+           "0.5649717514124293`"}, {
+          "\"Cen. Noisy\"", "18.24`", "3.55`", "91.19999999999999`", 
+           "19.462719298245613`"}, {
+          "\"Distr. Noisy\"", "14.17`", "0.63`", "70.85`", 
+           "4.446012702893437`"}}, AutoDelete -> False, 
+         GridBoxItemSize -> {
+          "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Grid"]}, {
+       TemplateBox[{
          GraphicsBox[{{
             Opacity[0], 
             PointBox[{0.61, 0.}]}, {{}, {{{}, {{}, {{
@@ -4015,13 +4333,22 @@ True; MathLink`CallFrontEnd[
                    Thickness[Tiny]], 
                   Directive[], {
                    InsetBox[
-                    FormBox["\"Cen. Ideal\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Ideal\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {1.75, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Cen. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Cen. Noisy\"", FrameStyle -> None, FrameMargins -> 20, 
+                    StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {4.25, 0.}], {0, 1}, Automatic, {1, 0}], 
                    InsetBox[
-                    FormBox["\"Distr. Noisy\"", TraditionalForm], 
+                    FormBox[
+                    FrameBox[
+                    "\"Distr. Noisy\"", FrameStyle -> None, FrameMargins -> 
+                    20, StripOnInput -> False], TraditionalForm], 
                     Offset[{0., -2.}, {6.75, 0.}], {0, 1}, Automatic, {1, 
                     0}]}}, "GraphicsLabel", StripOnInput -> False]}, 
                "GraphicsTicks", StripOnInput -> False]}, "GraphicsAxes", 
@@ -4060,8 +4387,10 @@ True; MathLink`CallFrontEnd[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {1.75, 
-                FormBox["\"\\!\\(\\\"Cen. Ideal\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {3.75, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Ideal\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {3.75, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -4083,8 +4412,10 @@ True; MathLink`CallFrontEnd[
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.008, 0}}, {4.25, 
-                FormBox["\"\\!\\(\\\"Cen. Noisy\\\"\\)\"", TraditionalForm], {
-                0, 0}}, {6.25, 
+                FormBox[
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Cen. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}, {6.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -4100,8 +4431,9 @@ True; MathLink`CallFrontEnd[
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.004, 0}}, {6.75, 
                 FormBox[
-                "\"\\!\\(\\\"Distr. Noisy\\\"\\)\"", TraditionalForm], {0, 
-                0}}}, {{1.25, 
+                "\"\\!\\(\\*FrameBox[\\\"\\\\\\\"Distr. Noisy\\\\\\\"\\\", \
+Rule[FrameStyle, None], Rule[FrameMargins, 20], Rule[StripOnInput, False]]\\)\
+\"", TraditionalForm], {0, 0}}}, {{1.25, 
                 FormBox[
                  InterpretationBox[
                   StyleBox[
@@ -4147,6 +4479,7 @@ True; MathLink`CallFrontEnd[
                 FormBox[
                  InterpretationBox[
                   StyleBox[
+                   
                    GraphicsBox[{}, ImageSize -> {0, 0}, BaselinePosition -> 
                     Baseline], "CacheGraphics" -> False], 
                   Spacer[0]], TraditionalForm], {0.004, 0}}, {7.25, 
@@ -4159,9 +4492,9 @@ True; MathLink`CallFrontEnd[
                   Spacer[0]], TraditionalForm], {0.004, 0}}}}}, 
            GridLines -> {None, None}, GridLinesStyle -> Directive[
              GrayLevel[0.5, 0.4]], ImageSize -> {500, 300}, PlotLabel -> 
-           FormBox["\"Agent Data (Central Noise \[Sigma]=5)\"", 
-             TraditionalForm], PlotRange -> {{All, All}, {All, All}}, 
-           PlotRangePadding -> {{
+           FormBox[
+            "\"Agent Data (Central Noise \[Sigma]=5)\"", TraditionalForm], 
+           PlotRange -> {{All, All}, {All, All}}, PlotRangePadding -> {{
               Scaled[0.02], 
               Scaled[0.02]}, {
               Scaled[0.02], 
@@ -4191,7 +4524,7 @@ True; MathLink`CallFrontEnd[
                     RectangleBox[{0, 0}, {10, 10}, "RoundingRadius" -> 0]}, 
                     AspectRatio -> Full, ImageSize -> {10, 10}, 
                     PlotRangePadding -> None, ImagePadding -> Automatic, 
-                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #}, {
+                    BaselinePosition -> (Scaled[0.1] -> Baseline)], #, 
                     GraphicsBox[{
                     Directive[
                     PointSize[0.5], 
@@ -4213,13 +4546,15 @@ True; MathLink`CallFrontEnd[
                     "Columns" -> {{False}}, "Rows" -> {{False}}}, 
                     GridBoxItemSize -> {
                     "Columns" -> {{All}}, "Rows" -> {{All}}}, 
-                    GridBoxSpacings -> {
-                    "Columns" -> {{0.5}}, "Rows" -> {{0.5}}}], "Grid"]}}, 
+                    GridBoxSpacings -> {"Columns" -> {{0.5, 0.5}}}], 
+                    "Grid"]}}, 
                    GridBoxAlignment -> {
                     "Columns" -> {{Left}}, "Rows" -> {{Top}}}, AutoDelete -> 
-                   False, GridBoxItemSize -> {
-                    "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}, 
-                   GridBoxSpacings -> {"Columns" -> {{1}}, "Rows" -> {{0}}}], 
+                   False, GridBoxDividers -> {
+                    "Columns" -> {{None}}, "Rows" -> {{None}}}, 
+                   GridBoxItemSize -> {
+                    "Columns" -> {{All}}, "Rows" -> {{All}}}, 
+                   GridBoxSpacings -> {"Columns" -> {{0}}, "Rows" -> {{1}}}], 
                   "Grid"], Alignment -> Left, AppearanceElements -> None, 
                  ImageMargins -> {{5, 5}, {5, 5}}, ImageSizeAction -> 
                  "ResizeToFit"], LineIndent -> 0, StripOnInput -> False], {
@@ -4291,9 +4626,10 @@ True; MathLink`CallFrontEnd[
                     GrayLevel[0], 
                     RectangleBox[{1, -1}]}, {
                     GrayLevel[1], 
-                    RectangleBox[{0, -1}, {2, 1}]}}, AspectRatio -> 1, Frame -> 
-                    True, FrameStyle -> GrayLevel[0.6666666666666666], 
-                    FrameTicks -> None, PlotRangePadding -> None, ImageSize -> 
+                    RectangleBox[{0, -1}, {2, 1}]}}, AspectRatio -> 1, 
+                    Frame -> True, FrameStyle -> 
+                    GrayLevel[0.6666666666666666], FrameTicks -> None, 
+                    PlotRangePadding -> None, ImageSize -> 
                     Dynamic[{Automatic, 1.35 CurrentValue["FontCapHeight"]/
                     AbsoluteCurrentValue[Magnification]}]], "GrayLevel[1]"], 
                     Appearance -> None, BaseStyle -> {}, BaselinePosition -> 
@@ -4468,15 +4804,15 @@ True; MathLink`CallFrontEnd[
                     RowBox[{
                     RowBox[{"Directive", "[", "]"}], ",", 
                     RowBox[{"Directive", "[", "]"}]}], "}"}]}], ",", 
-                 RowBox[{"LegendLayout", "\[Rule]", "\"Column\""}]}], 
-               "]"}]& ), Editable -> True], TraditionalForm], 
-          TraditionalForm]}, "Legended", DisplayFunction -> (GridBox[{{
+                 RowBox[{"LegendLayout", "\[Rule]", "\"Row\""}]}], "]"}]& ), 
+            Editable -> True], TraditionalForm], TraditionalForm]}, 
+        "Legended", DisplayFunction -> (GridBox[{{
             TagBox[
              ItemBox[
               PaneBox[
                TagBox[#, "SkipImageSizeLevel"], 
                Alignment -> {Center, Baseline}, BaselinePosition -> Baseline],
-               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"], 
+               DefaultBaseStyle -> "Labeled"], "SkipImageSizeLevel"]}, {
             ItemBox[#2, DefaultBaseStyle -> "LabeledLabel"]}}, 
           GridBoxAlignment -> {"Columns" -> {{Center}}, "Rows" -> {{Center}}},
            AutoDelete -> False, GridBoxItemSize -> Automatic, 
@@ -4484,14 +4820,12 @@ True; MathLink`CallFrontEnd[
         InterpretationFunction -> (RowBox[{"Legended", "[", 
            RowBox[{#, ",", 
              RowBox[{"Placed", "[", 
-               RowBox[{#2, ",", "After"}], "]"}]}], "]"}]& ), Editable -> 
-        True]},
-      "RowDefault"]}
-   },
-   DefaultBaseStyle->"Column",
-   GridBoxAlignment->{"Columns" -> {{Left}}},
-   GridBoxItemSize->{"Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}],
-  "Column"]], "Output",
+               RowBox[{#2, ",", "Below"}], "]"}]}], "]"}]& ), Editable -> 
+        True]}}, GridBoxAlignment -> {"Columns" -> {{Left}}}, 
+     DefaultBaseStyle -> "Column", 
+     GridBoxItemSize -> {
+      "Columns" -> {{Automatic}}, "Rows" -> {{Automatic}}}], "Column"]},
+  "RowDefault"]], "Output",
  CellChangeTimes->{
   3.656244518579875*^9, {3.6562445995665216`*^9, 3.656244623177866*^9}, {
    3.656244798198892*^9, 3.6562448091315126`*^9}, {3.65624491430661*^9, 
@@ -4500,14 +4834,19 @@ True; MathLink`CallFrontEnd[
    3.6562499488454957`*^9, 3.656250196046652*^9, 3.656250285536776*^9, 
    3.6562505684820313`*^9, 3.6562509476736917`*^9, 3.656250992951288*^9, 
    3.656251152138401*^9, 3.6562512309159107`*^9, {3.6562512886522408`*^9, 
-   3.6562513182609873`*^9}, 3.656251360318321*^9, 3.656251406959992*^9}]
+   3.6562513182609873`*^9}, 3.656251360318321*^9, 3.656251406959992*^9, 
+   3.6562516827787895`*^9, 3.6562517315505824`*^9, 3.656294911754366*^9, 
+   3.656419865986199*^9, 3.656639422206401*^9, {3.6566395337107863`*^9, 
+   3.6566395784163475`*^9}, 3.6566407554487495`*^9, 3.6566408134120684`*^9, 
+   3.6566417706128845`*^9}]
 }, Open  ]],
 
-Cell[BoxData["BarChart"], "Input",
- CellChangeTimes->{{3.6562500740217347`*^9, 3.656250075031806*^9}}]
+Cell[BoxData[""], "Input",
+ CellChangeTimes->{{3.6562500740217347`*^9, 3.656250075031806*^9}, 
+   3.656640350095626*^9}]
 },
 WindowSize->{1920, 997},
-WindowMargins->{{-8, Automatic}, {Automatic, -8}},
+WindowMargins->{{1912, Automatic}, {Automatic, -8}},
 FrontEndVersion->"10.2 for Microsoft Windows (64-bit) (July 29, 2015)",
 StyleDefinitions->"Default.nb"
 ]
@@ -4522,12 +4861,12 @@ CellTagsIndex->{}
 *)
 (*NotebookFileOutline
 Notebook[{
-Cell[558, 20, 12025, 286, 592, "Input"],
+Cell[558, 20, 18655, 447, 672, "Input"],
 Cell[CellGroupData[{
-Cell[12608, 310, 485, 9, 31, "Input"],
-Cell[13096, 321, 202239, 4181, 927, "Output"]
+Cell[19238, 471, 533, 10, 31, "Input"],
+Cell[19774, 483, 211001, 4357, 837, "Output"]
 }, Open  ]],
-Cell[215350, 4505, 102, 1, 31, "Input"]
+Cell[230790, 4843, 120, 2, 31, "Input"]
 }
 ]
 *)
